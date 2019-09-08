@@ -68,12 +68,59 @@ int main()
 }
 */
 
+#if 0
+
 //缺省参数
 //缺省参数就是在声明或定义函数时为函数的参数指定一个默认值，在调用该函数时，如果没有指定实参则采用该默认值，否则使用实参
+//全缺省参数
 void TestFun(int a = 10, int b = 20, int c = 30)
 {
 	cout << "a=" << "a" << endl;
 	cout << "b=" << "b" << endl;
 	cout << "c=" << "c" << endl;
-
 }
+//半缺省参数（半缺省参数必须从右往左依次给值，不能间隔着给）
+void TestFunc(int a, int b=10, int c=20)
+{
+	cout << "a=" << a << endl;
+	cout << "b=" << b << endl;
+	cout << "c=" << c << endl;
+}
+
+//函数重载
+int Add(int left, int right)
+{
+	return left + right;
+}
+double Add(double left, double right)
+{
+	return left + right;
+}
+
+
+//缺省参数不要与函数重载同时使用
+void TestFunc(int a ,int b=10)
+{
+	cout << "void TestFunc(int)" << endl;
+}
+void TestFunc(int a,int b)
+{
+	cout << "void TestFunc(int)" << endl;
+}
+
+#endif
+
+//如果函数返回时，离开函数作用域后，其栈上空间已经还给系统，因此不能用栈上的空间作为引用类型返回。如果以引用类型返回，返回值的生命周期必须不受函数的限制(即比函数生命周期长)。
+int& Add(int a, int b)
+{
+	int c = a + b;
+	return c;
+}
+int main()
+{
+	int& ret = Add(1, 2);
+	Add(3, 4);
+	cout << "Add(1, 2) is :" << ret << endl;
+	system("pause");
+	return 0;
+}
