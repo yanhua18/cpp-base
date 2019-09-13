@@ -1,8 +1,8 @@
-//#include<iostream>
-//using namespace std;
-#include<stdio.h>
+#include<iostream>
+using namespace std;
+//#include<stdio.h>
 #include<Windows.h>
-#include<time.h>
+//#include<time.h>
 /*一个命名空间就定义了一个新的定义域，命名空间中所有的内容都局限于该定义域中*/
 
 
@@ -543,6 +543,7 @@ int main()
 }
 #endif
 
+#if 0
 class A
 {
 public:
@@ -570,3 +571,5 @@ int main()
 
 	return 0;
 }
+
+#endif
