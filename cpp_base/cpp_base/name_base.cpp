@@ -573,3 +573,61 @@ int main()
 }
 
 #endif
+
+will 2019 / 9 / 14 20:24 : 37
+#include <iostream>
+using namespace std;
+
+int GetDaysOfMonth(int year, int month)
+{
+	int days[] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+	if ((0 == year % 4 && 0 != year % 100) || 0 == year % 400)
+	{
+		days[2] += 1;
+	}
+
+	return days[month];
+}
+
+bool IsValidDay(int year, int month, int day)
+{
+	if (year > 0 &&
+		(month > 0 && month < 13) &&
+		(day > 0 && day <= GetDaysOfMonth(year, month)))
+	{
+		return true;
+	}
+
+	return false;
+}
+
+int main()
+{
+	int year, month, day;
+
+	int days[] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+	while (cin >> year >> month >> day)
+	{
+		size_t totalDays = 0;
+		if (IsValidDay(year, month, day))
+		{
+			for (size_t i = 1; i < month; ++i)
+				totalDays += GetDaysOfMonth[month];
+
+			totalDays += day;
+			cout << totalDays << endl;
+		}
+		else
+		{
+			return -1;
+		}
+	}
+
+
+	return 0;
+}
+
+
+
