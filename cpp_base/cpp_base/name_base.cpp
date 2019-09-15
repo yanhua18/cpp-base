@@ -407,4 +407,61 @@ int main()
 #endif
 
 
+class Time
+{
+public :
+	Time()
+	{
+		cout << "Time()" << endl;
+		_hour = 0;
+		_minute = 0;
+		_second = 0;
+	}
+private:
+	int _hour;
+	int _minute;
+	int _second;
+};
+class Date
+{
+public:
+	//Date()//无参构造函数
+	//{
+
+	//}
+	//Date(int _year, int _month, int _day)//带参构造函数
+	//{
+	//	year = _year;
+	//	month = _month;
+	//	day = _day;
+	//}
+	/*void Display()
+	{
+		cout << year << "-" << month << "-" << day << endl;
+	}
+	void SetDate(int _year, int _month, int _day)
+	{
+		year = _year;
+		month = _month;
+		day = _day;
+	}*/
+private:
+	int year;
+	int month;
+	int day;
+	//自定义类型
+	Time t1;
+};
+void TestDate()
+{
+	Date d1;
+	//Date d2(2015, 1, 1);
+	//Date d3();
+}
+int main()
+{
+	TestDate();
+	system("pause");
+	return 0;
+}
 
