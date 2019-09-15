@@ -3,6 +3,9 @@ using namespace std;
 //#include<stdio.h>
 #include<Windows.h>
 //#include<time.h>
+
+#if 0
+
 /*一个命名空间就定义了一个新的定义域，命名空间中所有的内容都局限于该定义域中*/
 
 
@@ -69,7 +72,6 @@ int main()
 }
 */
 
-#if 0
 
 //缺省参数
 //缺省参数就是在声明或定义函数时为函数的参数指定一个默认值，在调用该函数时，如果没有指定实参则采用该默认值，否则使用实参
@@ -238,10 +240,8 @@ int main()
 		TestRefAndValue();
 	}
 	system("pause");
-	return 0;
+	return 0；
 }
-
-#endif
 
 void TestAuto()
 {
@@ -263,371 +263,148 @@ int main()
 }
 
 
-#if 0
-// 类
-struct Student
+//有范围的for
+void TestFor()
 {
-	// 成员方法 || 行为
-	void SetStudentInfo(char* name, char* gender, int age)
-	{
-		strcpy(_name, name);
-		strcpy(_gender, gender);
-		_age = age;
-	}
+	int array[] = { 1, 2, 3, 4, 5 };
+	for (int i = 0; i < sizeof(array) / sizeof(array[0]); ++i)
+		array[i] *= 2;
+	for (int *p = array; p < array + sizeof(array) / sizeof(array[0]); ++p)
+		cout << *p << endl;
+}
 
-	void PrintStudent()
-	{
-		cout << _name << ":" << _gender << ":" << _age << endl;
-	}
-
-	// 成员变量 || 属性
-	char _name[20];
-	char _gender[3];
-	int _age;
-};
-
-
+void TestFor1()
+{
+	int array[] = { 1, 2, 3, 4, 5 };
+	for (auto &e : array)
+		e *= 2;
+	for (auto e : array)
+		cout << e << endl;
+}
 int main()
 {
-	Student s;
-	s.SetStudentInfo("Peter", "男", 29);
-	s.PrintStudent();
-
+	TestFor1();
+	system("pause");
 	return 0;
 }
-#endif
 
-// 面相对象程序：封装  继承  多态
-// 封装：将一个事物的内部实现细节隐藏起来，提供一个公有接口让对象之间进行交互
 
-// C++实现封装：类(通过类将对象的属性和行为包装在一起)
-//   访问权限：private  protected  public
-// public: 被public修饰的成员，可以直接在类外被访问
-// protected/private: 不能直接在类外进行访问
+#include "person.h"
+//类和对象*******************************************************************************
+//类的两种定义方式
+//1,声明和定义全放在类中
+//2，声明放在头文件，定义放在执行文件中
+struct Person//struct定义的类中成员默认权限是公有的，二class定义的类的成员的默认权限是私有的
+{
 
-//int _age = 10;
+	void showInfomation();
 
-// void SetStudentInfo(char* name)
-// {}
-
-#if 0
-class Student
+	char *name;
+	char *gender;
+	int age;
+};
+void Person::showInfomation()
+{
+	cout << name <<" "<<age<<" "<<gender<<endl;
+}
+//类的大小
+class A1
 {
 public:
-	// 成员方法 || 行为
-	void SetStudentInfo(char* name, char* gender, int age)
-	{
-		strcpy(_name, name);
-		strcpy(_gender, gender);
-		_age = age;
-	}
-
-	void PrintStudent()
-	{
-		cout << _name << ":" << _gender << ":" << _age << endl;
-	}
-
+	void getinfo();
+	void outinfo();
 private:
-	// 成员变量 || 属性
-	char _name[20];
-	char _gender[3];
-	int _age;
+	char * name;
+	char * gender;
+	
 };
 
-
-int g_a = 10;
-int main()
-{
-	Student s;
-	s.SetStudentInfo("Peter", "男", 29);
-	s.PrintStudent();
-
-	// s._age = 30;
-	cout << g_a << endl;
-	return 0;
-}
-#endif
-
-#if 0
-struct Student
+class A2
 {
 public:
-	// 成员方法 || 行为
-	void SetStudentInfo(char* name, char* gender, int age)
-	{
-		strcpy(_name, name);
-		strcpy(_gender, gender);
-		_age = age;
-	}
-
-	void PrintStudent()
-	{
-		cout << _name << ":" << _gender << ":" << _age << endl;
-	}
-
-private:
-	// 成员变量 || 属性
-	char _name[20];
-	char _gender[3];
-	int _age;
+	void get();
 };
+class A3
+{
+	int array[10];
+};
+class A4
+{
 
+};
 int main()
 {
-	Student s1, s2, s3;
-	cout << sizeof(s1) << endl;
 
-	s1.SetStudentInfo("Peter", "男", 29);
-	s2.SetStudentInfo("静静", "女", 30);
-	s3.SetStudentInfo("summer", "公", 4);
-
-
-	s1.PrintStudent();
-	s2.PrintStudent();
-	s3.PrintStudent();
+	A1 a1;
+	A2 a2;
+	A3 a3;
+	A4 a4;
+	cout << sizeof(a1) << endl;
+	cout << sizeof(a2) << endl;
+	cout << sizeof(a3) << endl;
+	cout << sizeof(a4) << endl;
+	/*Person d;
+	d.age = 12;
+	d.gender = "女";
+	d.name = "李猛";
+	d.showInfomation();*/
+	system("pause");
 	return 0;
 }
-#endif
-
-#if 0
-class A
-{
-public:
-	void TestFun()
-	{}
-};
-
-
-// 空类的大小？主流编译器中空类的大小是1
-class B
-{};
-
-
-// 
-int main()
-{
-	cout << sizeof(A) << endl;
-	cout << sizeof(B) << endl;
-
-	B b1, b2, b3;
-
-
-	return 0;
-}
-#endif
-
-#if 0
-struct Student
-{
-	char _name[20];
-	char _gender[3];
-	int _age;
-};
-
-void SetStudentInfo(Student* ps, char* name, char* gender, int age)
-{
-	strcpy(ps->_name, name);
-	strcpy(ps->_gender, gender);
-	ps->_age = age;
-}
-
-void PrintStudent(Student* ps)
-{
-	printf("%s %s %d", ps->_name, ps->_gender, ps->_age);
-}
-#endif
 
 
 
-
-#if 0
-class Student
-{
-public:
-	void SetStudentInfo(char* name, char* gender, int age)
-	{
-		// Student* const
-		//this = nullptr;
-		cout << this << endl;
-		strcpy(this->_name, name);
-		strcpy(this->_gender, gender);
-		this->_age = age;
-	}
-
-	void PrintStudent()
-	{
-		cout << this->_name << ":" << this->_gender << ":" << this->_age << endl;
-	}
-
-	// 不定参数
-	void TestFunc(...)
-	{
-		cout << this << endl;
-	}
-
-private:
-	// 成员变量 || 属性
-	char _name[20];
-	char _gender[3];
-	int _age;
-};
-#endif
-
-/*
-女朋友
-未来女朋友的一些基本信息
-做饭 &
-
-
-1. 先识别类名
-2. 识别类中的成员变量
-3. 识别类中的成员函数并且对类中的成员函数进行改写
-*/
-#if 0
-class Student
-{
-public:
-	/*
-	void SetStudentInfo(Student* const this, char* name, char* gender, int age)
-	{
-	strcpy(this->_name, name);
-	strcpy(this->_gender, gender);
-	this->_age = age;
-	}
-	*/
-	void SetStudentInfo(char* name, char* gender, int age)
-	{
-		strcpy(_name, name);
-		strcpy(_gender, gender);
-		_age = age;
-	}
-
-	/*
-	void PrintStudent(Student* const this)
-	{
-	cout << this->_name << ":" << this->_age << endl;
-	}
-	*/
-	void PrintStudent()
-	{
-		cout << _name << ":" << _age << endl;
-	}
-
-private:
-	// 成员变量 || 属性
-	char _name[20];
-	char _gender[3];
-	int _age;
-};
-
-
-int main()
-{
-	//cout << this << endl;
-	Student s1, s2, s3;
-	s1.TestFunc(10);
-
-	cout << &s1 << endl;
-	s1.SetStudentInfo("Peter", "男", 29);
-
-	cout << &s2 << endl;
-	s2.SetStudentInfo("静静", "女", 30);
-
-	cout << &s3 << endl;
-	s3.SetStudentInfo("summer", "公", 4);
-
-	s1.PrintStudent();
-	s2.PrintStudent();
-	s3.PrintStudent();
-	return 0;
-}
-#endif
-
-#if 0
 class A
 {
 public:
 	void PrintA()
 	{
-		cout << this << endl;
-		cout << this->_a << endl;
+		cout << _a << endl;//空指针不能访问成员变量
 	}
-
 	void Show()
 	{
-		cout << this << endl;
-		cout << "Show()" << endl;
+		cout << "show" << endl;
 	}
 private:
 	int _a;
 };
 
+
+class Date
+{
+public:
+	void Display()
+	{
+		cout << year << "-" << month << "-" << day << endl;
+	}
+	void SetDate(int _year, int _month, int _day)
+	{
+		year = _year;
+		month = _month;
+		day = _day;
+	}
+private:
+	int year;
+	int month;
+	int day;
+};
+
+
+
 int main()
 {
-	A* p = NULL;
-	p->Show();
+	A *p = NULL;
 	p->PrintA();
-
-
+	p->Show();
+	/*Date d1, d2;
+	d1.SetDate(2018, 5, 1);
+	d2.SetDate(2018, 7, 1);
+	d1.Display();
+	d2.Display();*/
+	system("pause");
 	return 0;
 }
-
 #endif
-
-will 2019 / 9 / 14 20:24 : 37
-#include <iostream>
-using namespace std;
-
-int GetDaysOfMonth(int year, int month)
-{
-	int days[] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-
-	if ((0 == year % 4 && 0 != year % 100) || 0 == year % 400)
-	{
-		days[2] += 1;
-	}
-
-	return days[month];
-}
-
-bool IsValidDay(int year, int month, int day)
-{
-	if (year > 0 &&
-		(month > 0 && month < 13) &&
-		(day > 0 && day <= GetDaysOfMonth(year, month)))
-	{
-		return true;
-	}
-
-	return false;
-}
-
-int main()
-{
-	int year, month, day;
-
-	int days[] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-
-	while (cin >> year >> month >> day)
-	{
-		size_t totalDays = 0;
-		if (IsValidDay(year, month, day))
-		{
-			for (size_t i = 1; i < month; ++i)
-				totalDays += GetDaysOfMonth[month];
-
-			totalDays += day;
-			cout << totalDays << endl;
-		}
-		else
-		{
-			return -1;
-		}
-	}
-
-
-	return 0;
-}
 
 
 
