@@ -465,3 +465,41 @@ int main()
 	return 0;
 }
 
+class Solution {
+public:
+	// 统计CSum类总共创建了多少个对象
+	class CSum
+	{
+	public:
+		CSum()
+		{
+			_count++;
+			_sum += _count;
+		}
+
+		static void ReSet()
+		{
+			_count = 0;
+			_sum = 0;
+		}
+
+		static size_t GetSum()
+		{
+			return _sum;
+		}
+	private:
+		static size_t _count;
+		static size_t _sum;
+	};
+
+	int Sum_Solution(int n) {
+		CSum::ReSet();
+		CSum total[n];
+		return CSum::GetSum();
+	}
+};
+
+size_t Solution::CSum::_count = 0;
+size_t Solution::CSum::_sum = 0;
+
+
