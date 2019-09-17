@@ -1,8 +1,10 @@
 #include<iostream>
+#include<String>
 using namespace std;
 //#include<stdio.h>
 #include<Windows.h>
 //#include<time.h>
+#pragma warning(disable:4996) 
 
 #if 0
 
@@ -404,8 +406,6 @@ int main()
 	system("pause");
 	return 0;
 }
-#endif
-
 
 class Time
 {
@@ -425,17 +425,17 @@ private:
 class Date
 {
 public:
-	//Date()//无参构造函数
-	//{
+	Date()//无参构造函数
+	{
 
-	//}
-	//Date(int _year, int _month, int _day)//带参构造函数
-	//{
-	//	year = _year;
-	//	month = _month;
-	//	day = _day;
-	//}
-	/*void Display()
+	}
+	Date(int _year, int _month, int _day)//带参构造函数
+	{
+		year = _year;
+		month = _month;
+		day = _day;
+	}
+	void Display()
 	{
 		cout << year << "-" << month << "-" << day << endl;
 	}
@@ -444,7 +444,7 @@ public:
 		year = _year;
 		month = _month;
 		day = _day;
-	}*/
+	}
 private:
 	int year;
 	int month;
@@ -465,41 +465,236 @@ int main()
 	return 0;
 }
 
-class Solution {
+
+
+//析构函数
+
+#include<malloc.h>
+#include<string.h>
+#include<assert.h>
+typedef int DateType;
+class SeqList
+{
 public:
-	// 统计CSum类总共创建了多少个对象
-	class CSum
+	SeqList(int capacity = 10)
 	{
-	public:
-		CSum()
+		cout << "SeqList(size_t)" << endl;
+		_array = (DateType *)malloc(sizeof(DateType)*capacity);
+		if (nullptr == _array)
 		{
-			_count++;
-			_sum += _count;
+			assert(0);
+			return;
 		}
-
-		static void ReSet()
-		{
-			_count = 0;
-			_sum = 0;
-		}
-
-		static size_t GetSum()
-		{
-			return _sum;
-		}
-	private:
-		static size_t _count;
-		static size_t _sum;
-	};
-
-	int Sum_Solution(int n) {
-		CSum::ReSet();
-		CSum total[n];
-		return CSum::GetSum();
+		_capacity = 0;
+		_size = 0;
 	}
+	~SeqList()
+	{
+		cout << "~SeqList()" << endl;
+		if (_array)
+		{
+			free(_array);
+			_array = nullptr;
+			_capacity = 0;
+			_size = 0;
+		}
+	}
+private:
+	DateType *_array;
+	size_t _size;
+	size_t _capacity;
 };
 
-size_t Solution::CSum::_count = 0;
-size_t Solution::CSum::_sum = 0;
+void TestSeqList()
+{
+	SeqList s;
+}
+
+
+class String
+{
+public:
+	String(const char *str = "")
+	{
+		cout << "String()" << endl;
+		if (nullptr == str)
+			str = "";
+		_str = (char *)malloc(strlen(str) + 1);
+			strcpy(_str, str);
+	}
+	~String()
+	{
+		cout << "~String() "<< endl;
+		if (_str)
+		{
+			free(_str);
+		}
+	}
+private:
+	char *_str;
+};
+class Person
+{
+private:
+	String _name;
+	String _gender;
+	int age;
+};
+void TestPerson()
+{
+	Person p;
+}
+
+
+
+class Date
+{
+public:
+	Date(int year = 1900, int month = 1, int day = 1)
+	{
+		_year = year;
+		_month = month;
+		_day = day;
+	}
+	/*void SetDate(int year, int month, int day)
+	{
+		_year = year;
+		_month = month;
+		_day = day;
+	}*/
+	Date(const Date&d)
+	{
+		_year = d._year;
+		_month = d._month;
+		_day = d._day;
+		cout << "Date(const Date &)" << endl;
+	}
+	void PrintDate()
+	{
+		cout << _year << "-" << _month << "-" << _day << endl;
+	}
+private:
+	int _year;
+	int _month;
+	int _day;
+};
+void showDate()
+{
+	Date d1;
+	Date d2(d1);
+	d1.PrintDate();
+	d2.PrintDate();
+}
+
+class String
+{
+public:
+	String(const char *str = "")
+	{
+		cout << "String()" << endl;
+		if (nullptr == str)
+			str = "";
+		_str = (char *)malloc(strlen(str) + 1);
+		strcpy(_str, str);
+	}
+	~String()
+	{
+		cout << "~String() " << endl;
+			free(_str);
+	}
+private:
+	char *_str;
+};
+
+int main()
+{
+	String s1("hello");
+	String s2(s1);
+	system("pause");
+	return 0;
+}
+
+
+//运算符==重载
+class Date
+{
+public:
+	Date(int year = 1900, int month = 1, int day = 1)
+	{
+		_year = year;
+		_month = month;
+		_day = day;
+	}
+private:
+	int _year;
+	int _month;
+	int _day;
+};
+bool operator==(const Date &d1, const Date &d2)//需要全局变量是共有的
+{
+	return (d1._year == d2._year)
+		&&(d1._month == d2._month)
+		&&(d1._day == d2._day);
+}
+void Test()
+{
+	Date d1(2018, 9, 26);
+	Date d2(2018, 9, 27);
+	cout << (d1 == d2) << endl;
+}
+#endif
+//保证封闭性，将重载函数声明成成员函数
+class Date
+{
+public:
+	Date(int year = 1900, int month = 1, int day = 1)
+	{
+		_year = year;
+		_month = month;
+		_day = day;
+	}
+	bool operator==(const Date &d2)//this指向的调用函数的对象
+	{
+		return (_year == d2._year)
+			&& (_month == d2._month)
+			&& (_day == d2._day);
+	}
+	bool operator!=(const Date& d)
+	{
+		return !(*this == d);
+	}
+	bool operator>(const Date& d)
+	{
+		if (_year > d._year ||
+			_year == d._year && _month > d._month ||
+			_year == d._year && _month == d._month && _day > d._day)
+		{
+			return true;
+		}
+		return false;
+	}
+private:
+	int _year;
+	int _month;
+	int _day;
+};
+void Test()
+{
+	Date d1(2018, 9, 26);
+	Date d2(2018, 9, 26);
+	cout << (d1 == d2) << endl;
+}
+int main()
+{
+	Test();
+	system("pause");
+	return 0;
+}
+
+
+// 赋值运算符重载：如果用户没有显式提供，编译器将会生成一份默认的赋值运算符重载
+// 如果一个类中涉及到资源管理，用户必须提供赋值运算符重载
+
+
 
 
