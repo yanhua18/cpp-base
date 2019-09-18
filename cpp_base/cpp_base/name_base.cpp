@@ -615,7 +615,7 @@ int main()
 }
 
 
-//运算符==重载
+//运算符==重载*************************************************************************************************
 class Date
 {
 public:
@@ -643,6 +643,8 @@ void Test()
 	cout << (d1 == d2) << endl;
 }
 #endif
+
+
 //保证封闭性，将重载函数声明成成员函数
 class Date
 {
@@ -653,6 +655,33 @@ public:
 		_month = month;
 		_day = day;
 	}
+	// 赋值运算符重载：如果用户没有显式提供，编译器将会生成一份默认的赋值运算符重载
+	// 如果一个类中涉及到资源管理，用户必须提供赋值运算符重载
+
+	Date& operator =(const Date& d)//引用是为了提高效率，const保证安全性
+	{
+		if (&d != this)//看两个对象的地址是不是一样，一样就不需要赋值
+		{
+			_year = d._year;
+			_month = d._month;
+			_day = d._day;
+		}
+		return *this;
+	}
+
+	Date& operator++()//前置++
+	{
+		_day += 1;
+		return *this;
+	}
+
+	Date operator++(int)//后置++
+	{
+		Date tmp(*this);//栈上对象，不能以引用返回
+		_day += 1;
+		return tmp;
+	}
+
 	bool operator==(const Date &d2)//this指向的调用函数的对象
 	{
 		return (_year == d2._year)
@@ -680,9 +709,12 @@ private:
 };
 void Test()
 {
+	
 	Date d1(2018, 9, 26);
-	Date d2(2018, 9, 26);
-	cout << (d1 == d2) << endl;
+	Date d2(2018, 9, 27);
+	Date d3(2018, 9, 28);
+	d2=d3++;
+	d1=++d3;
 }
 int main()
 {
@@ -692,8 +724,7 @@ int main()
 }
 
 
-// 赋值运算符重载：如果用户没有显式提供，编译器将会生成一份默认的赋值运算符重载
-// 如果一个类中涉及到资源管理，用户必须提供赋值运算符重载
+
 
 
 
