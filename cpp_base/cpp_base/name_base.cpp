@@ -642,7 +642,7 @@ void Test()
 	Date d2(2018, 9, 27);
 	cout << (d1 == d2) << endl;
 }
-#endif
+
 
 
 //保证封闭性，将重载函数声明成成员函数
@@ -722,6 +722,36 @@ int main()
 	system("pause");
 	return 0;
 }
+
+#endif
+
+class Date
+{
+public:
+	Date(int year, int month, int day)
+		:_year(year), _month(month), _day(day)
+	{
+		_count++;
+	}
+private:
+	int _year;
+	int _month;
+	int _day;
+	static int _count;
+};
+
+int Date::_count = 0;
+
+int main()
+{
+	Date d3(2019, 9, 16);
+	Date d4(d3);
+	Date d5(2019, 9, 16);
+	//d1 = 2019;//d1是一个类类型的对象，而2019是一个整形变量
+	system("pause");//会先为2019构造一个对象，再用这个临时对象来为d1赋值
+	return 0;
+}
+
 
 
 
