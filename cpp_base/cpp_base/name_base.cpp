@@ -1,5 +1,5 @@
 #include<iostream>
-#include<String>
+//#include<String>
 using namespace std;
 //#include<stdio.h>
 #include<Windows.h>
@@ -723,7 +723,7 @@ int main()
 	return 0;
 }
 
-#endif
+
 
 class Date
 {
@@ -753,8 +753,67 @@ int main()
 }
 
 
+class A
+{
+public:
+	A()
+	{
+		++_count;
+	}
+	A(const A& t)
+	{
+		++_count;
+	}
+	static int GetACount()
+	{
+		return _count;
+	}
+private:
+	static int _count;
+};
 
+int A::_count = 0;
 
+void TestA()
+{
+	cout<<A::GetACount()<<endl;
+	A a1, a2;
+	A a3(a1);
+	cout<<A::GetACount()<<endl;
+}
+int main()
+{
+	TestA();
+	system("pause");
+	return 0;
+}
+#endif
+//ÓÑÔªº¯Êý
+class Date
+{
+public:
+	Date(int year, int month, int day)
+		:_year(year), _month(month), _day(day)
+	{}
+	ostream & operator<<(ostream &_cout)
+	{
+		_cout << _year << "-" << _month << "-" << _day;
+		return _cout;
+	}
+private:
+	int _year;
+	int _month;
+	int _day;
+};
+
+int main()
+{
+	Date d(1,2,30);
+	d << cout;
+	//cout << d;
+	system("pause");
+	return 0;
+}
 
 
 
