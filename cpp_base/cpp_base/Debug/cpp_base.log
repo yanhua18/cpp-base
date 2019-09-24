@@ -1,10 +1,11 @@
-﻿生成启动时间为 2019/9/21 0:22:03。
+﻿生成启动时间为 2019/9/24 20:10:16。
      1>项目“E:\程序文件\a_GitHub\C++github\cpp-base\cpp_base\cpp_base\cpp_base.vcxproj”在节点 2 上(Rebuild 个目标)。
      1>ClCompile:
          E:\VS2013\VC\bin\CL.exe /c /I"E:\App\Visual Leak Detector\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt name_base.cpp person.cpp
          person.cpp
          name_base.cpp
          正在生成代码...
+     1>e:\程序文件\a_github\c++github\cpp-base\cpp_base\cpp_base\name_base.cpp(888): warning C4715: “Date::operator-”: 不是所有的控件路径都返回值
        Link:
          E:\VS2013\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\程序文件\a_GitHub\C++github\cpp-base\cpp_base\Debug\cpp_base.exe" /INCREMENTAL /NOLOGO /LIBPATH:"E:\App\Visual Leak Detector\lib\Win32" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\程序文件\a_GitHub\C++github\cpp-base\cpp_base\Debug\cpp_base.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\程序文件\a_GitHub\C++github\cpp-base\cpp_base\Debug\cpp_base.lib" /MACHINE:X86 Debug\name_base.obj
          Debug\person.obj

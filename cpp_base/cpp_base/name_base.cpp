@@ -1,10 +1,8 @@
 #include<iostream>
-//#include<String>
 using namespace std;
-//#include<stdio.h>
 #include<Windows.h>
-//#include<time.h>
-#pragma warning(disable:4996) 
+
+//#pragma warning(disable:4996) 
 
 #if 0
 
@@ -787,7 +785,7 @@ int main()
 	system("pause");
 	return 0;
 }
-#endif
+
 //ÓÑÔªº¯Êý
 class Date
 {
@@ -815,6 +813,5 @@ int main()
 	return 0;
 }
 
-
-
+#endif
 
