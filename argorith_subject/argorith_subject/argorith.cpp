@@ -1,5 +1,164 @@
 #include<iostream>
 using namespace std;
+#include<string>
+
+//判断两个字符串是否互为旋转词***********************
+int IsRevolve(string s1, string s2)
+{
+	char ch1 = s1[0];
+	size_t pos = s2.find(ch1);
+	for (int i = 0; i<s1.size(); i++)
+	{
+		if (s2[pos] == s1[i])
+		{
+			pos++;
+		}
+		else
+		{
+			return 0;
+		}
+		if (pos == s1.size())
+		{
+			pos = 0;
+		}
+	}
+	return 1;
+}
+int main()
+{
+	size_t m, n;
+	cin>>m>>n;
+	string s1,s2;
+	cin >> s1 >> s2;
+	if(m==n)
+	{
+		if(IsRevolve(s1,s2))
+		{
+			cout<<"YES"<<endl;
+		}
+		else
+		{
+			cout << "NO" << endl;
+		}
+	}
+	else
+	{
+		cout << "NO" << endl;
+	}
+	system("pause");
+	return 0;
+}
+
+#if 0
+//验证是否是回文字符串（不分大小写）
+class Solution {
+public:
+	bool isletterornumber(char c)
+	{
+		return c >= 'a'&&c <= 'z' || c >= '0'&&c <= '9';
+	}
+	bool isPalindrome(string s) {
+		for (int i = 0; i<s.size(); i++)
+		{
+			if (s[i] >= 'A'&&s[i] <= 'Z')
+			{
+				s[i] += 32;
+			}
+		}
+		int start = 0;
+		int end = s.size() - 1;
+		while (start <= end)
+		{
+			if (isletterornumber(s[start]))
+			{
+				if (isletterornumber(s[end]))
+				{
+					if (s[start] == s[end])
+					{
+						start++;
+						end--;
+					}
+					else
+					{
+						return false;
+					}
+				}
+				else
+				{
+					end--;
+				}
+			}
+			else
+			{
+				start++;
+			}
+
+		}
+		return true;
+	}
+};
+//字符串中最后一个单词的长度
+int main()
+{
+	string s;
+	while(getline(cin,s))
+	{
+		size_t pos=s.rfind(' ');
+		cout<<s.size()-pos-1<<endl;
+	}
+}
+
+//找字符串中第一个只出现一次的字符的下标
+class Solution {
+public:
+	int firstUniqChar(string s) {
+		int count[128]={0};
+		int i=0;
+		for(i=0;i<s.size();i++)
+		{
+			count[s[i]]++;
+		}
+		for(i=0;i<s.size();i++)
+		{
+			if(count[s[i]]==1)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+};
+
+//反转一个字符串****************************************************************
+class Solution {
+public:
+	string reverseString(string s) {
+		if (s.empty())
+		{
+			return s;
+		}
+		int start = 0;
+		int end = s.size() - 1;
+		while (start < end)
+		{
+			swap(s[start], s[end]);
+			start++;
+			end--;
+		}
+		return s;
+	}
+};
+
+int main()
+{
+	Solution s;
+	string s1("abcdefghigk");
+	s.reverseString(s1);
+	system("pause");
+	return 0;
+}
+
+
 //日期类*******************************************************************************
 class Date
 {
@@ -201,3 +360,6 @@ int main()
 	system("pause");
 	return 0;
 }
+
+#endif
+
