@@ -1,7 +1,211 @@
+
 #include<iostream>
 using namespace std;
 #include<string>
 
+class Solution {
+public:
+	void reverse(int m, int n, string &s)
+	{
+		while(m<n)
+		{
+			swap(s[m],s[n]);
+			m++;
+			n--;
+		}
+	}
+	string reverseStr(string s, int k) {
+		int pos=2*k-1;
+		int tmp=s.size();
+		while(pos<tmp)
+		{
+			reverse(pos-2*k+1,pos-k,s);
+			pos+=2*k;
+		}
+		if(pos-k<tmp)
+		{
+			reverse(pos-2*k+1,pos-k,s);
+		}
+		else if(pos-k>tmp&&pos-2*k-1<tmp)
+		{
+			reverse(pos-2*k+1,tmp-1,s);
+		}
+		else if(pos-2*k==tmp)
+		{
+			return s;
+		}
+		return s;
+	}
+};
+int main()
+{
+	Solution d;
+	cout<<d.reverseStr("abcdefg", 8)<<endl;
+
+	system("pause");
+	return 0;
+
+}
+
+
+#if 0
+//2019_09_26#######################################################################################################################
+//求两个字符串数字相乘得到的结果以字符串输出************************************************
+class Solution {
+public:
+	string multiply(string num1, string num2) {
+		string s;
+		int end1 = num1.size() - 1;
+		int end2 = num2.size() - 1;
+		int count = 1;
+		long long cur = 0;    
+		int temp = 0;
+		int getnum = 1;
+		int mul = 0;
+		for (end1; end1 >= 0; end1--)
+		{
+			cur = 0;
+			temp = 0;
+			count = 1;
+			for (end2 = num2.size() - 1; end2 >= 0; end2--)
+			{
+				cur += ((num1[end1] - '0')*(num2[end2] - '0') + temp)*count;
+				if (end2 > 0)
+				{
+					temp = cur / (10 * count);
+					cur = cur % (10 * count);
+					count *= 10;
+				}
+			}
+			mul += cur*getnum;
+			getnum *= 10;
+		}
+		s = to_string(mul);
+		return s;
+	}
+};
+int main()
+{
+	Solution d;
+	cout << d.multiply("12345","45678") << endl;
+
+	system("pause");
+	return 0;
+}
+
+
+//找字符串中第一个只出现一次的字母*************************************************************
+int main()
+{
+	int count[255]={0};
+	string s;
+	int i = 0;
+	while(getline(cin,s))
+	{
+		for(int i=0;i<s.size();i++)
+		{
+			count[s[i]]++;
+		}
+		for(i=0;i<s.size();i++)
+		{
+			if(count[s[i]]==1)
+			{
+				cout<<s[i]<<endl;
+				break;
+			}
+		}
+		if (i == s.size())
+		{
+			cout << "-1" << endl;
+		}
+	}
+}
+
+//将字符串中的每一个单词进行逆转***************************************************
+class Solution {
+public:
+	void reverse(int m,int n,string &s )
+	{
+		while(m<n)
+		{
+			swap(s[m],s[n]);
+			m++;
+			n--;
+		}
+	}
+	string reverseWords(string s) {
+		int pos=0;
+		int temp=0;
+		while (s.find(' ', pos)!=string::npos)
+		{
+			temp=s.find(' ',pos);
+			reverse(pos,temp-1,s);
+			pos=temp+1;
+		}
+		temp = pos;
+		for (int i = 0; s[pos] != '\0'; i++)
+		{
+			pos++;
+		}
+		reverse(temp, pos-1,s);
+		return s;
+	}
+};
+int main()
+{
+	Solution d;
+	cout << d.reverseWords("Let's take LeetCode contest") << endl;
+
+	system("pause");
+	return 0;
+}
+
+
+//判断两个字符串是否为变形词*******************************************************888
+#include<iostream>
+using namespace std;
+#include<string>
+int Ischangeword(string s1, string s2)
+{
+	int pos = 0;
+	for (size_t i = 0; i<s1.size(); i++)
+	{
+		pos = s2.find(s1[i]);
+		if (pos >= 0 && pos <= s1.size())
+		{
+			s2[pos] = '0';
+		}
+		else
+		{
+			return 0;
+		}
+	}
+	return 1;
+}
+int main()
+{
+	size_t m, n;
+	cin >> m >> n;
+	string s1, s2;
+	cin >> s1 >> s2;
+	if (m == n)
+	{
+		if (Ischangeword(s1, s2))
+		{
+			cout << "true" << endl;
+		}
+		else
+		{
+			cout << "false" << endl;
+		}
+	}
+	else
+	{
+		cout << "false" << endl;
+	}
+}
+
+//2019_09_25#################################################################################################################33
 //判断两个字符串是否互为旋转词***********************
 int IsRevolve(string s1, string s2)
 {
@@ -49,7 +253,6 @@ int main()
 	return 0;
 }
 
-#if 0
 //验证是否是回文字符串（不分大小写）
 class Solution {
 public:
