@@ -1,8 +1,10 @@
-#include<iostream>
-using namespace std;
+//#include<iostream>
+//using namespace std;
 #include<Windows.h>
-
+#include<stdlib.h>
 //#pragma warning(disable:4996) 
+
+#include<stdio.h>
 
 #if 0
 
@@ -813,5 +815,79 @@ int main()
 	return 0;
 }
 
-#endif
 
+//ÓÑÔªÀà
+class Date;
+class Time
+{
+	friend class Date;
+public:
+	Time(int hour, int minute, int second)
+		:_hour(hour)
+		, _minute(minute)
+		, _second(second)
+	{}
+private:
+	int _hour;
+	int _minute;
+	int _second;
+};
+
+class Date
+{
+public:
+	Date(int year = 1990, int month = 1, int day = 1)
+		:_year(year)
+		, _month(month)
+		, _day(day)
+	   {}
+	
+	void SetTimeOfDate(int hour, int minute, int second)
+	{
+		_t._hour = hour;
+		_t._minute = minute;
+		_t._second = second;
+	}
+
+private:
+	int _year;
+	int _month;
+	int _day;
+	Time _t;
+};
+
+
+
+
+void Test()
+{
+	int *p1 = (int *)malloc(sizeof(int));
+	free(p1);
+	int *p2 = (int *)calloc(4, sizeof(int));
+	int *p3 = (int *)realloc(p2, sizeof(int) * 10);
+	free(p3);
+}
+int main()
+{
+	Test();
+	system("pause");
+	return 0;
+}
+
+#endif
+void Test()
+{
+	int *ptr4 = new int;
+	int *ptr5 = new int(10);
+	int *ptr6 = new int[3];
+	delete ptr4;
+	delete ptr5;
+	delete[] ptr6;
+}
+
+int main()
+{
+	Test();
+	system("pause");
+	return 0;
+}
