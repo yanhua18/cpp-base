@@ -16,6 +16,26 @@ using namespace std;
 #if 0
 
 //20191005############################################################################################################
+//删除字符串中所有相邻重复项：给出由小写字母组成的字符串 S，重复项删除操作会选择两个相邻且相同的字母，并删除它们。
+class Solution {
+public:
+	string removeDuplicates(string S) {
+		int i=0;
+		for(i=0;i<S.size();)
+		{
+			if(S[i]==S[i+1])
+			{
+				S.erase(i,2);
+				i=0;
+			}
+			else
+			{
+				i++;
+			}
+		}
+		return S;
+	}
+};
 //两个字符串的最大公因子
 class Solution {
 public:
