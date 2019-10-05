@@ -14,8 +14,47 @@ using namespace std;
 
 
 #if 0
-
 //20191005############################################################################################################
+//比较含退格的字符串
+class Solution {
+public:
+	bool backspaceCompare(string S, string T) {
+		int pos;
+		while(S.find('#')!=string::npos)
+		{
+			pos=S.find('#');
+			if(pos==0)
+			{
+				S.erase(pos,1);
+			}
+			else
+			{
+				S.erase(pos-1,2); 
+			}
+		}
+		while(T.find('#')!=string::npos)
+		{
+			pos=T.find('#');
+			if(pos==0)
+			{
+				T.erase(pos,1);
+			}
+			else
+			{
+				T.erase(pos-1,2); 
+			}
+		}
+		if(S.compare(T)==0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+};
+
 //删除字符串中所有相邻重复项：给出由小写字母组成的字符串 S，重复项删除操作会选择两个相邻且相同的字母，并删除它们。
 class Solution {
 public:
@@ -36,6 +75,7 @@ public:
 		return S;
 	}
 };
+
 //两个字符串的最大公因子
 class Solution {
 public:
