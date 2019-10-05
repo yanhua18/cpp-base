@@ -3,52 +3,60 @@
 using namespace std;
 #include<string>
 
+
+
+
+
+
+
+
+
+
+
+#if 0
+
+//20191005############################################################################################################
+//两个字符串的最大公因子
 class Solution {
 public:
-	void reverse(int m, int n, string &s)
-	{
-		while(m<n)
+	string gcdOfStrings(string str1, string str2) {
+		string str3 = str1;
+		int i = 0;
+		while (str1.compare(str2) != 0)//判断两个字符串是否相等
 		{
-			swap(s[m],s[n]);
-			m++;
-			n--;
+			if (str1.size()<str2.size())//让两个字符串中比较长的那个为str1
+			{
+				swap(str1, str2);
+			}
+			for (i = 0; i<str2.size();)//判断str1的前i个字符是否与str2相等
+			{
+				if (str1[i] == str2[i])
+				{
+					i++;
+				}
+				else
+				{
+					return "";//不相等就返回
+				}
+			}
+			str3 = str1.substr(i);//相等就截掉前i个字符继续比较
+			str1 = str3;
 		}
-	}
-	string reverseStr(string s, int k) {
-		int pos=2*k-1;
-		int tmp=s.size();
-		while(pos<tmp)
-		{
-			reverse(pos-2*k+1,pos-k,s);
-			pos+=2*k;
-		}
-		if(pos-k<tmp)
-		{
-			reverse(pos-2*k+1,pos-k,s);
-		}
-		else if(pos-k>tmp&&pos-2*k-1<tmp)
-		{
-			reverse(pos-2*k+1,tmp-1,s);
-		}
-		else if(pos-2*k==tmp)
-		{
-			return s;
-		}
-		return s;
+		return str1;//直到两个字符串相等就返回
 	}
 };
 int main()
 {
+	string str1 = "ABABAB";
+	string str2 = "ABAB";
 	Solution d;
-	cout<<d.reverseStr("abcdefg", 8)<<endl;
-
+	string str3=d.gcdOfStrings(str1, str2);
+	cout << str3 << endl;
 	system("pause");
 	return 0;
-
 }
 
 
-#if 0
 //2019_09_26#######################################################################################################################
 //求两个字符串数字相乘得到的结果以字符串输出************************************************
 class Solution {
