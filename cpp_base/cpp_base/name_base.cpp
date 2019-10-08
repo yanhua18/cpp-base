@@ -1,10 +1,10 @@
-//#include<iostream>
-//using namespace std;
+#include<iostream>
+using namespace std;
 #include<Windows.h>
-#include<stdlib.h>
+//#include<stdlib.h>
 //#pragma warning(disable:4996) 
 
-#include<stdio.h>
+//#include<stdio.h>
 
 #if 0
 
@@ -874,7 +874,7 @@ int main()
 	return 0;
 }
 
-#endif
+
 void Test()
 {
 	int *ptr4 = new int;
@@ -888,6 +888,144 @@ void Test()
 int main()
 {
 	Test();
+	system("pause");
+	return 0;
+}
+
+
+
+//函数模板的转化
+template <class T>
+T Add(const T& left, const T& right)
+{
+	return left + right;
+}
+int main()
+{
+	int a1 = 10, a2 = 20;
+	double d1 = 10.0, d2 = 20.0;
+	Add(a1, a2);
+	Add(d1, d2);
+	Add(a1, (int)d2);
+	// 对函数模板进行隐式实例化
+	// 同名函数与函数模板同时存在时，优先使用模板生成的同名函数
+	Add<>(1, 2);
+
+
+	Add<int>(a1, d2);
+	system("pause");
+	return 0;
+}
+
+#endif
+//用类模板写一个动态类型顺序表
+
+#include<assert.h>
+
+template<class T>
+class SeqList
+{
+public:
+	SeqList(size_t capacity = 10)
+		:_array(new T[capacity])
+		, _size(0)
+		, _capacity(capacity)
+	{}
+	~SeqList()
+	{
+		delete[] _array;
+		_array = nullptr;
+		_capacity = 0;
+		_size = 0;
+	}
+	void PopBack()
+	{
+		--_size;
+	}
+	size_t size() const
+	{
+		return _size;
+	}
+	size_t capacity() const
+	{
+		return _capacity;
+	}
+	bool Empty() const
+	{
+		return 0 == _size;
+	}
+	T& operator[](size_t index)
+	{
+		assert(index < _size);
+			return _array[index];
+	}
+	const T& operator[](size_t index)const
+	{
+		assert(index < _size);
+			return _array[index];
+	}
+	void PushBack(const T& data);
+
+private:
+	void _CheckCapacity()
+	{
+		if (_size == _capacity)
+		{
+			// 开辟新空间
+			T* array = new T[2 * _capacity];
+
+			// 拷贝元素
+			// memcpy(array, _array, _size*sizeof(T));
+			for (size_t i = 0; i < _size; ++i)
+			{
+				array[i] = _array[i];
+			}
+
+			// 释放旧空间
+			delete[] _array;
+			_array = array;
+			_capacity *= 2;
+		}
+	}
+	
+private:
+	T* _array;
+	size_t _size;
+	size_t _capacity;
+};
+
+template<class T>
+void SeqList<T>::PushBack(const T&data)
+{
+	_CheckCapacity();
+	_array[_size++] = data;
+}
+void TestSeqList()
+{
+	SeqList<int>  s1;
+	s1.PushBack(1);
+	s1.PushBack(2);
+	s1.PushBack(3);
+	s1.PushBack(4);
+	cout << s1.size() << endl;
+	cout << s1.capacity() << endl;
+
+	cout << s1[2] << endl;
+	s1[2] = 10;
+
+	SeqList<double>  s2;
+	s2.PushBack(1.0);
+	s2.PushBack(2.0);
+	s2.PushBack(3.0);
+	s2.PushBack(4.0);
+	s2.PushBack(5.0);
+	cout << s2.size() << endl;
+	cout << s2.capacity() << endl;
+}
+
+int main()
+{
+	TestSeqList();
 	system("pause");
 	return 0;
 }
