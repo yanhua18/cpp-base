@@ -2,18 +2,48 @@
 #include<iostream>
 using namespace std;
 #include<string>
-
-
-
-
-
-
-
+#include<vector>
 
 
 
 
 #if 0
+//杨辉三角，给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。
+class Solution {
+public:
+	vector<vector<int>> generate(int numRows) {
+		vector<vector<int>> vv;
+		vv.resize(numRows);
+		for (int i = 1; i <= vv.size(); i++)
+		{
+			vv[i - 1].resize(i, 0);
+			vv[i - 1][0] = 1;
+			vv[i - 1][i - 1] = 1;
+		}
+		for (int i = 2; i<vv.size(); i++)
+		{
+			for (int j = 1; j<vv[i].size()-1; j++)
+			{
+				vv[i][j] = vv[i - 1][j - 1] + vv[i - 1][j];
+			}
+		}
+		return vv;
+
+	}
+};
+
+//只出现一次的数字
+class Solution {
+public:
+	int singleNumber(vector<int>& nums) {
+		int value = 0;
+		for(size_t i =0 ; i < nums.size(); ++i){
+			value ^= nums[i];
+		}
+		return value;
+	}
+};
+
 //20191005############################################################################################################
 //比较含退格的字符串
 class Solution {
