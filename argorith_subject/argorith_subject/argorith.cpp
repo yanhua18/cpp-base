@@ -6,8 +6,76 @@ using namespace std;
 
 
 
-
 #if 0
+
+//删除排序数组中重复的项
+class Solution {
+public:
+	int removeDuplicates(vector<int>& nums) {
+		if (nums.size() == 0)
+		{
+			return 0;
+		}
+		int i = 0;
+		int j = 1;
+		while (j<nums.size())
+		{
+			if (nums[i] != nums[j])
+			{
+				i++;
+				nums[i] = nums[j];
+			}
+			else
+			{
+				j++;
+			}
+		};
+
+		class Solution {
+		public:
+			int removeDuplicates(vector<int>& nums) {
+				if(nums.size()==0)
+				{
+					return 0;
+				}
+				int i = 0;
+				while (i < nums.size()-1)
+				{
+					if (nums[i] == nums[i + 1])
+					{
+						nums.erase(nums.begin() + i + 1);
+					}
+					if (nums[i] != nums[i + 1])
+					{
+						i++;
+					}
+				}
+				return nums.size();
+			}
+		};
+
+		int main()
+		{
+			int arr[10] = { 1, 1, 3, 4, 5, 6, 6, 7, 7, 9 };
+			vector<int> vv(arr, arr + sizeof(arr) / sizeof(int));
+			int i = 0;
+			while (i < vv.size()-1)
+			{
+				if (vv[i] == vv[i + 1])
+				{
+					vv.erase(vv.begin() + i + 1);
+				}
+				if (vv[i] != vv[i + 1])
+				{
+					i++;
+				}
+			}
+
+			system("pause");
+			return 0;
+
+		}
+
 //杨辉三角，给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。
 class Solution {
 public:
@@ -42,7 +110,8 @@ public:
 		}
 		return value;
 	}
-};
+};
+
 
 //20191005############################################################################################################
 //比较含退格的字符串
