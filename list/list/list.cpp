@@ -3,6 +3,7 @@
 
 #include<iostream>
 using namespace std;
+#include<windows.h>
 
 namespace bite
 {
@@ -29,7 +30,7 @@ namespace bite
 	public:
 		//迭代器的构造
 		list_iterator(Node* pCur)
-			:_pCur(pcur)
+			:_pCur(pCur)
 		{}
 		//按照指针方式进行应用
 		T& operator*()
@@ -46,7 +47,7 @@ namespace bite
 			_pCur = _pCur->_pNext;
 			return *this;
 		}
-		Self operator++)(int)//后置++
+		Self operator++(int)//后置++
 		{
 			Self temp(*this);
 			_pCur = _pCur->_pNext;
@@ -57,7 +58,7 @@ namespace bite
 			_pCur = _pCur->_pPre;
 			return *this;
 		}
-		Self operator--)(int)//后置--
+		Self operator--(int)//后置--
 		{
 			Self temp(*this);
 			_pCur = _pCur->_pPre;
@@ -72,7 +73,9 @@ namespace bite
 		{
 			return _pCur == s._pCur;
 		}
-	private:
+	
+
+	public:
 		Node* _pCur;
 	};
 
@@ -101,48 +104,52 @@ namespace bite
 		}
 
 		//通过迭代器的区间构造
-		list(Iterator first, Iterator last);
-
-		//拷贝构造
-		list(const list<T>& L);
+		template <class Iterator>
+		list(Iterator first, Iterator last)
 		{
 			CreateHead();
-			Node* _pCur = L._pHead->next;
+			while (first != last)
+			{
+				push_back(*first);
+				++first;
+			}
+		}
+
+		//拷贝构造
+		list(const list<T>& L)
+		{
+			CreateHead();
+			Node* _pCur = L._pHead->_pNext;
 			while (_pCur != L._pHead)
 			{
-				push_back(_pCur->data);
+				push_back(_pCur->_data);
 				_pCur = _pCur->_pNext;
 			}
 		}
 
 		//赋值运算符重载 L1=L2
-		list<T>& operator=(const list<T>&　Ｌ)
+		list<T>& operator= (const list<T>& L)
 		{
 			if (this != &L)
 			{
 				clear();
-				Node* _pCur = L._pHead->_pNext;
-				while (_pCur != L._pHead)
+				Node* _pCur = l._pHead->_pNext;
+				while (_pCur != l._pHead)
 				{
-					push_back(_pCur->data);
+					push_back(_pCur->_data);
 					_pCur = _pCur->_pNext;
 				}
 			}
 			return *this;
 		}
+
 		//析构函数
 		~list()
 		{
 			clear();
 			delete _pHead;
 		}
-	private:
-		void CreateHead()
-		{
-			_pHead = new Node;
-			_phead->_pNext = _pHead;
-			_pHead->_pPre = _pHead;
-		}
+
 	//list iterator****************************************************
 		iterator begin()
 		{
@@ -153,7 +160,6 @@ namespace bite
 			return iterator(_pHead);
 		}
 	//list capacity****************************************************
-	public:
 		size_t size()const
 		{
 			size_t count = 0;
@@ -203,36 +209,151 @@ namespace bite
 		{
 			erase(begin());
 		}
+		iterator insert(iterator pos, const T& data)
+		{
+			Node* pNewNode = new Node(data);
+			Node* pCur = pos._pCur;
+			pNewNode->_pPre = pCur->_pPre;
+			pNewNode->_pNext = pCur;
+			pNewNode->_pPre->_pNext = pNewNode;
+			pCur->_pPre = pNewNode;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			return iterator(pNewNode);
+		}
+		iterator erase(iterator pos)
+		{
+			Node* pDelNode = pos._pCur;
+			if (pDelNode == _pHead)
+				return end();
+			Node* pRet = pDelNode->_pNext;
+			pDelNode->_pNext->_pPre = pDelNode->_pPre;
+			pDelNode->_pPre->_pNext = pDelNode->_pNext;
+			return iterator(pRet);
+		}
+		void clear()
+		{
+			Node* pCur = _pHead->_pNext;
+			while (pCur != _pHead)
+			{
+				_pHead->_pNext = pCur->_pNext;
+				delete pCur;
+				pCur = _pHead->_pNext;
+			}
+			_pHead->_pPre = _pHead;
+			_pHead->_pNext = _pHead;
+		}
+		void swap(list<T>& L)
+		{
+			swap(_phead, L._pHead);
+		}
+		void resize(size_t newsize, const T& data = T())
+		{
+			size_t oldsize = size();
+			if (oldsize < newsize)
+			{
+				for (size_t i = oldsize; i < newsize; i++)
+				{
+					push_back(data);
+				}
+			}
+			else
+			{
+				for (size_t i = newsize; i < oldsize; i++)
+				{
+					pop_back();
+				}
+			}
+		}
 	protected:
 		Node* _pHead;
+	private:
+		void CreateHead()
+		{
+			_pHead = new Node;
+			_pHead->_pNext = _pHead;
+			_pHead->_pPre = _pHead;
+		}
 	};
+}
+#include<vector>
+void Testlist1()
+{
+	bite::list<int> L1;
+	bite::list<int> L2(10, 5);
+	vector<int> v{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+	bite::list<int> L3(v.begin(), v.end());
+	bite::list<int> L4(L3);
 
+	auto it = L2.begin();
+	while (it != L2.end())
+	{
+		cout << *it << " ";
+		++it;
+	}
+	cout << endl;
 
+	for (auto e : L3)
+		cout << e << " ";
+	cout << endl;
 
+}
 
+void Testlist2()
+{
+	bite::list<int> L;
+	L.push_back(1);
+	L.push_back(2);
+	L.push_back(3);
+	L.push_back(4);
 
+	cout << L.size() << endl;
+	cout << L.front() << endl;
+	cout << L.back() << endl;
 
+	L.push_front(0);
+	cout << L.size() << endl;
+	cout << L.front() << endl;
+	cout << L.back() << endl;
 
+	L.pop_front();
+	cout << L.size() << endl;
+	cout << L.front() << endl;
+	cout << L.back() << endl;
 
+	L.pop_back();
+	cout << L.size() << endl;
+	cout << L.front() << endl;
+	cout << L.back() << endl;
 
+	L.clear();
+	if (L.empty())
+		cout << "clear over" << endl;
+}
+void Testlist3()
+{
+	bite::list<int> L;
+	L.push_back(1);
+	L.push_back(2);
+	L.push_back(3);
+	L.resize(10, 5);
+	for (auto e : L)
+		cout << e << " ";
+	cout << endl;
 
+	L.resize(2);
+	for (auto e : L)
+	{
+		cout << e << " ";
+	}
+	cout << endl;
+}
 
+int main()
+{
+	//Testlist1();
+	//Testlist2();
+	Testlist3();
+	system("pause");
+
+	return 0;
 }
