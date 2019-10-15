@@ -6,6 +6,57 @@ using namespace std;
 
 
 
+//只出现一次的数字，给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现了三次。找出那个只出现了一次的元素。
+class Solution {
+public:
+	int singleNumber(vector<int>& nums) {
+		int single=0;
+		for(int i=0;i<32;i++)
+		{
+			int count=0;
+			for(int j=0;j<nums.size();j++)
+			{
+				if(nums[j]>>i&1)
+				{
+					count++;
+				}
+			}
+			if(count%3!=0)
+			{
+				single=single|1<<i;
+			}
+		}
+		return single;
+	}
+};
+//傻瓜解法
+class Solution {
+public:
+	int singleNumber(vector<int>& nums) {
+		int i=0;
+		int j=0;
+		for(i=0;i<nums.size();i++)
+		{
+			for(j=0;j<nums.size();j++)
+			{
+				if(i==j)
+				{
+					continue;
+				}
+				if(nums[i]==nums[j])
+				{
+					break;
+				}
+			}
+			if(j==nums.size())
+			{
+				break;
+			}
+		}
+		return nums[i];
+	}
+};
+
 #if 0
 
 //删除排序数组中重复的项
