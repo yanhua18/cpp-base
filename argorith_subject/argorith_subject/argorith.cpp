@@ -5,6 +5,39 @@ using namespace std;
 #include<vector>
 
 
+//20191015*******************************************************************************************************************************************
+//260，只出现一次的数字，给定一个整数数组 nums，其中恰好有两个元素只出现一次，其余所有元素均出现两次。 找出只出现一次的那两个元素。
+class Solution {
+public:
+	vector<int> singleNumber(vector<int>& nums) {
+		int sum = 0;
+		int pos = 0;
+		vector<int> num(2, 0);
+		for (int i = 0; i<nums.size(); i++)
+		{
+			sum ^= nums[i];
+		}
+		for (int i = 0; i<32; i++)
+		{
+			if (sum >> i & 1)
+			{
+				pos = i;
+			}
+		}
+		for (int i = 0; i<nums.size(); i++)
+		{
+			if (nums[i] >> pos & 1)
+			{
+				num[0] ^= nums[i];
+			}
+			else
+			{
+				num[1] ^= nums[i];
+			}
+		}
+		return num;
+	}
+};
 
 //只出现一次的数字，给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现了三次。找出那个只出现了一次的元素。
 class Solution {
