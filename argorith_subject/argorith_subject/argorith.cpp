@@ -5,6 +5,34 @@ using namespace std;
 #include<vector>
 
 
+void Swap(int *a, int *b)
+{
+	int tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+void quickSort(int *arr, int start, int end)
+{
+	int i = start;
+	int j = end;
+	int flag = 1;
+	if (start >= end)
+	{
+		return;
+	}
+	while (i < j)
+	{
+		if (arr[i] > arr[j])
+		{
+			Swap(&arr[i], &arr[j]);
+			flag = !flag;
+		}
+		flag ? i++ : j--;
+	}
+	quickSort(arr, start, i - 1);
+	quickSort(arr, i + 1, end);
+}
+
 //20191015*******************************************************************************************************************************************
 //260，只出现一次的数字，给定一个整数数组 nums，其中恰好有两个元素只出现一次，其余所有元素均出现两次。 找出只出现一次的那两个元素。
 class Solution {
