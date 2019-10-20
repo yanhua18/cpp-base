@@ -4,7 +4,27 @@ using namespace std;
 #include<string>
 #include<vector>
 
-
+//连续子数组的最大和************************************************************************
+class Solution {
+public:
+	int FindGreatestSumOfSubArray(vector<int> array) {
+		int max = array[0];
+		int sum = 0;
+		for (int i = 0; i<array.size(); i++)
+		{
+			sum += array[i];
+			if (sum<array[i])
+			{
+				sum = array[i];
+			}
+			if (sum>max)
+			{
+				max = sum;
+			}
+		}
+		return max;
+	}
+};
 
 //找到数组中出现次数超过一半的数字************************************************************************88
 class Solution {
