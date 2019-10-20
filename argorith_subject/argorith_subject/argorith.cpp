@@ -5,6 +5,31 @@ using namespace std;
 #include<vector>
 
 
+
+//找到数组中出现次数超过一半的数字************************************************************************88
+class Solution {
+public:
+	int MoreThanHalfNum_Solution(vector<int> numbers) {
+		sort(numbers.begin(), numbers.end());
+		int mid = numbers.size() / 2;
+		int count = 0;
+		for (int i = 0; i<numbers.size(); i++)
+		{
+			if (numbers[i] == numbers[mid])
+			{
+				count++;
+			}
+		}
+		if (count>mid)
+		{
+			return numbers[mid];
+		}
+		else{
+			return 0;
+		}
+	}
+};
+//快排*************************************************
 void Swap(int *a, int *b)
 {
 	int tmp = *a;
