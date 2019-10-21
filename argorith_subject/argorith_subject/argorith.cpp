@@ -3,8 +3,64 @@
 using namespace std;
 #include<string>
 #include<vector>
+#include<functional>
 
 
+//20191021###############################################################################################################
+//二叉树的层序遍历*************************************************************************
+class Solution {
+public:
+	vector<vector<int>> levelOrder(TreeNode* root) {
+		queue<TreeNode*> q;
+		vector<vector<int>> ret;
+		if (root == nullptr)
+		{
+			return ret;
+		}
+		q.push(root);
+
+		while (!q.empty())
+		{
+			vector<int> level;
+			int levelsize = q.size();
+			for (int i = 0; i<levelsize; i++)
+			{
+				TreeNode* pcur = q.front();
+				level.push_back(pcur->val);
+				if (pcur->left)
+				{
+					q.push(pcur->left);
+				}
+				if (pcur->right)
+				{
+					q.push(pcur->right);
+				}
+				q.pop();
+			}
+			ret.push_back(level);
+		}
+		return ret;
+	}
+};
+//数组中第k个最大元素**********************************************************
+class Solution {//大堆来解决
+public:
+	int findKthLargest(vector<int>& nums, int k) {
+		priority_queue<int> p(nums.begin(), nums.end());
+		for (int i = 0; i<k - 1; i++)
+		{
+			p.pop();
+		}
+		return p.top();
+	}
+};
+class Solution {//降序排序来解决
+public:
+	int findKthLargest(vector<int>& nums, int k) {
+		sort(nums.begin(), nums.end(), greater<int>());
+		return nums[k - 1];
+	}
+};
 //第一个只出现一次的字符***************************************************
 class Solution {
 public:
