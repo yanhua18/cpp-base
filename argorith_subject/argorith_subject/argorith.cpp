@@ -4,6 +4,52 @@ using namespace std;
 #include<string>
 #include<vector>
 
+
+//第一个只出现一次的字符***************************************************
+class Solution {
+public:
+	int FirstNotRepeatingChar(string str) {
+		int arr[256] = { 0 };
+		for (int i = 0; i<str.size(); i++)
+		{
+			arr[str[i]]++;
+		}
+		for (int i = 0; i<str.size(); i++)
+		{
+			if (arr[str[i]] == 1)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+};
+//整数中1出现的次数********************************************************
+class Solution {
+public:
+	int NumberOf1Between1AndN_Solution(int n)
+	{
+		int temp = 0;
+		int com = 0;
+		int count = 0;
+		for (int i = 1; i <= n; i++)
+		{
+			temp = i;
+			while (temp)
+			{
+				com = temp % 10;
+				temp = temp / 10;
+				if (com == 1)
+				{
+					count++;
+				}
+			}
+		}
+		return count;
+	}
+};
+
+//20191020###################################################################################################################
 //连续子数组的最大和************************************************************************
 class Solution {
 public:
