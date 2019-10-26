@@ -6,8 +6,157 @@ using namespace std;
 #include<functional>
 
 
-//20191021###############################################################################################################
-//二叉树的层序遍历*************************************************************************
+//20191026###################################################################################################################
+#if 0
+//将一个字符串中的每个空格替换成“%20”。例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy
+void replaceSpace(char *str, int length) {
+	int i;
+	int count = 0;
+	for (i = 0; i < length; i++)
+	{
+		if (str[i] == ' ')
+		{
+			count++;
+		}
+	}
+	int num = 2 * count + length;
+	int j = num - 2;
+	str[num-1] = '\0';
+	for (i = length - 2; i >= 0,j>=0; i--)
+	{
+		if (str[i] == ' ')
+		{
+			str[j] = '0';
+			j--;
+			str[j] = '2';
+			j--;
+			str[j] = '%';
+			j--;
+		}
+		else
+		{
+			str[j] = str[i];
+			j--;
+		}
+	}
+}
+int main()
+{
+	char arr[] = "ab cdef g";
+	int num = sizeof(arr) / sizeof(arr[0]);
+	replaceSpace(arr, num);
+	system("pause");
+
+	return 0;
+}
+
+
+//二维数组中的查找，在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。
+	bool Find(int target, vector<vector<int> > array) {
+		int i = 0;
+		int j = array[0].size() - 1;
+		while (i<array.size() && j >= 0)
+		{
+			if (array[i][j]>target)
+			{
+				j--;
+			}
+			else if (array[i][j]<target)
+			{
+				i++;
+			}
+			else
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+};
+
+
+
+//删除字符串后面重复的字母************************************************************
+int  main()
+{
+	string s1;
+	while (cin >> s1)
+	{
+		for (int i = 0; i<s1.size(); i++)
+		{
+			for (int j = i+1; j<s1.size();)
+			{
+				if (s1[i] == s1[j])
+				{
+					s1.erase(j, 1);
+				}
+				else
+				{
+					j++;
+				}
+			}
+		}
+		cout << s1 << endl;
+	}
+
+}
+//
+//int  main()
+//{
+//	string s1;
+//	while (cin >> s1)
+//	{
+//		for (int i = 0; i<s1.size();)
+//		{
+//			if (s1.find(s1[i]) != string::npos)
+//			{
+//				s1.erase(s1.find(s1[i]), 1);                                                                                                                                                                               
+//			}
+//			else
+//			{
+//				i++;
+//			}
+//		}
+//		cout << s1 << endl;
+//	}
+//}
+#endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#if 0
+
+20191021###############################################################################################################
+二叉树的层序遍历*************************************************************************
 class Solution {
 public:
 	vector<vector<int>> levelOrder(TreeNode* root) {
@@ -265,7 +414,7 @@ public:
 	}
 };
 
-#if 0
+
 
 //删除排序数组中重复的项
 class Solution {
@@ -989,6 +1138,4 @@ int main()
 	system("pause");
 	return 0;
 }
-
 #endif
-
