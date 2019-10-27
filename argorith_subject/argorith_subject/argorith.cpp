@@ -6,8 +6,61 @@ using namespace std;
 #include<functional>
 
 
-//20191026###################################################################################################################
+
+
 #if 0
+//20191027######################################################################################################################
+//斐波那契数列求第n个值
+int Fibonacci(int n) {
+	if (n == 0)
+	{
+		return 0;
+	}
+	if (n <= 2)
+	{
+		return 1;
+	}
+	int n1 = 1;
+	int n2 = 1;
+	int n3 = 0;
+	int i = 3;
+	while (i<=n)
+	{
+		n3 = n1 + n2;
+		n1 = n2;
+		n2 = n3;
+		i++;
+	}
+	return n3;
+}
+int main()
+{
+	int temp = Fibonacci(6);
+		cout << temp << endl;
+	system("pause");
+	return 0;
+}
+
+//二进制中1的个数
+class Solution {
+public:
+	int  NumberOf1(int n) {
+		int count = 0;
+		for(int i=0;i<32;i++)
+		{
+			if(n>>i&1)
+			{
+				count++;
+			}
+		}
+		return count;
+	}
+};
+#endif
+#if 0
+
+//20191026###################################################################################################################
+
 //将一个字符串中的每个空格替换成“%20”。例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy
 void replaceSpace(char *str, int length) {
 	int i;
