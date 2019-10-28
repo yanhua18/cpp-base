@@ -6,9 +6,138 @@ using namespace std;
 #include<functional>
 
 
+//20191028#######################################################################################################
+//和为S的两个数字*******************************************************************
+class Solution {
+public:
+	vector<int> FindNumbersWithSum(vector<int> array, int sum) {
+		vector<int> vv;
+		int start = 0;
+		int end = array.size() - 1;
+		while (start < end)
+		{
+			if (array[start] + array[end] > sum)
+			{
+				end--;
+			}
+			else if (array[start] + array[end] < sum)
+			{
+				start++;
+			}
+			else
+			{
+				vv.push_back(array[start]);
+				vv.push_back(array[end]);
+				break;
+			}
+		}
+		return vv;
+	}
+};
+
+//和为S的两个数字傻瓜做法，还错了****
+#if 0
+	int main()
+	{
+		vector<int> array;
+		array.push_back(1);
+		array.push_back(3);
+		array.push_back(5);
+		array.push_back(6);
+		array.push_back(7);
+		array.push_back(8);
+		array.push_back(10);
+		array.push_back(11);
+		int sum = 14;
+
+
+	int mid = array.size() / 2 - 1;
+	int end = mid + 1;
+	int start = mid - 1;
+	vector<int> vv;
+	vector<int> v;
+	while (end < array.size())
+	{
+		if (array[mid] + array[end] < sum)
+		{
+			end++;
+		}
+		else if (array[mid] + array[end] == sum)
+		{
+			vv.push_back(array[mid]);
+			vv.push_back(array[end]);
+			break;
+		}
+		else
+		{
+			break;
+		}
+	}
+	while (start >= 0 && end < array.size())
+	{
+		if (array[start] + array[end] > sum)
+		{
+			start--;
+		}
+		else if (array[start] + array[end] < sum)
+		{
+			end++;
+		}
+		else
+		{
+			vv.push_back(array[start]);
+			vv.push_back(array[end]);
+			start--;
+			end++;
+		}
+	}
+	int min = vv[0];
+	int max = vv[0];
+	int pos1 = 0;
+	int pos2 = 0;
+	int i = 0;
+	for (; i<vv.size(); i++)
+	{
+		if (vv[i]<min)
+		{
+			min = vv[i];
+			pos1 = i;
+		}
+		if (vv[i]>max)
+		{
+			max = vv[i];
+			pos2 = i;
+		}
+	}
+	cout << vv[pos1] << vv[pos2] << endl;
+
+	system("pause");
+	return 0;
+}
+#endif
 
 
 #if 0
+//最小的k个数************************************************************************
+class Solution {
+public:
+	vector<int> GetLeastNumbers_Solution(vector<int> input, int k) {
+		int length = input.size();
+		vector<int> vv;
+		if(length<=0||k<=0||k>length)
+		{
+			return vv;
+		}
+		sort(input.begin(),input.end());
+		int i=0;
+		while(i<k)
+		{
+			vv.push_back(input[i]);
+			i++;
+		}
+		return vv;
+	}
+};
 //20191027######################################################################################################################
 //斐波那契数列求第n个值
 int Fibonacci(int n) {
