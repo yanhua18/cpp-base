@@ -6,7 +6,51 @@ using namespace std;
 #include<functional>
 
 
+
+
+#if 0
 //20191029########################################################################################################################
+//数组中只出现一次的数字，一个整型数组里除了两个数字之外，其他的数字都出现了两次。请写程序找出这两个只出现一次的数字。
+class Solution {
+public:
+	void FindNumsAppearOnce(vector<int> data,int* num1,int *num2) {
+		int sum=0;
+		int pos=0;
+		for(int i=0;i<data.size();i++)
+		{
+			sum^=data[i];
+		}
+		for(int i=0;i<32;i++)
+		{
+			if(sum>>i&1)
+			{
+				pos=i;
+				break;
+			}
+		}
+		vector<int> d1;
+		vector<int> d2;
+		for(int i=0;i<data.size();i++)
+		{
+			if(data[i]>>pos&1)
+			{
+				d1.push_back(data[i]);
+			}
+			else
+			{
+				d2.push_back(data[i]);
+			}
+		}
+		for(int i=0;i<d1.size();i++)
+		{
+			*num1^=d1[i];
+		}
+		for(int i=0;i<d2.size();i++)
+		{
+			*num2^=d2[i];
+		}
+	}
+};
 //翻转单词顺序列，“student. a am I”正确的句子应该是“I am a student.”
 string ReverseSentence(string str) {
 	reverse(str.begin(), str.end());
@@ -44,7 +88,6 @@ int main()
 	return 0;
 }
 
-#if 0
 //20191028#######################################################################################################
 //和为S的两个数字*******************************************************************
 class Solution {
