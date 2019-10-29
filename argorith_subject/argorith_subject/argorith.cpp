@@ -6,6 +6,45 @@ using namespace std;
 #include<functional>
 
 
+//20191029########################################################################################################################
+//翻转单词顺序列，“student. a am I”正确的句子应该是“I am a student.”
+string ReverseSentence(string str) {
+	reverse(str.begin(), str.end());
+	size_t fast = 0; size_t last = fast;
+	int length = str.size()-1;
+	while(last <= str.size())
+	{
+		while (str[last] != ' '&&str[last] != '\0')
+		{
+			last++;
+		}
+		if (str[last] == '\0')
+		{
+			last = last - 1;
+			reverse((str.begin() + fast), (str.end() - length + last));
+			break;
+		}
+		else
+		{
+			reverse((str.begin() + fast), (str.end() - length + last - 1));
+		}
+		while (str[last] == ' ')
+		{
+			last++;
+		}
+		fast = last;
+	}
+	return str;
+}
+int main()
+{
+	string str = "student. a am I";
+	ReverseSentence(str);
+	system("pause");
+	return 0;
+}
+
+#if 0
 //20191028#######################################################################################################
 //和为S的两个数字*******************************************************************
 class Solution {
@@ -36,7 +75,6 @@ public:
 };
 
 //和为S的两个数字傻瓜做法，还错了****
-#if 0
 	int main()
 	{
 		vector<int> array;
