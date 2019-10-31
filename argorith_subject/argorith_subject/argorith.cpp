@@ -5,10 +5,102 @@ using namespace std;
 #include<vector>
 #include<functional>
 
-
-
-
 #if 0
+//20191031###########################################################################################################################
+//调整数组中所有奇数位于偶数的前面初始版本
+class Solution {
+public:
+	void reOrderArray(vector<int> &array) {
+		int start=0;
+		int end=array.size()-1;
+		while(start<end)
+		{
+			if(array[start]%2==0&&array[end]%2!=0)
+			{
+				swap(array[start],array[end]);
+				start++;
+				end--;
+			}
+			if(array[start]%2!=0)
+			{
+				start++;
+			}
+			if(array[end]%2==0)
+			{
+				end--;
+			}
+		}
+	}
+};
+//调整数组中所有奇数位于偶数的前面进阶版本，并保证奇数和奇数，偶数和偶数之间的相对位置不变（基于快排的思想）
+class Solution {
+public:
+	void reOrderArray(vector<int> &array) {
+		int j=0;
+		int tmp=0;
+		for(int i=0;i<array.size();i++)
+		{
+			if(array[i]%2==1)
+			{
+				tmp=array[i];
+				j=i-1;
+				while(j>=0&&array[j]%2==0)
+				{
+					array[j+1]=array[j];
+					j--;
+				}
+				array[j+1]=tmp;
+			}
+		}
+	}
+};
+
+
+//反转一个单链表
+/*
+struct ListNode {
+int val;
+struct ListNode *next;
+ListNode(int x) :
+val(x), next(NULL) {
+}
+};*/
+class Solution {
+public:
+	ListNode* ReverseList(ListNode* pHead) {
+		if(pHead == nullptr)
+			return nullptr;
+		if(pHead->next == nullptr)
+			return pHead;
+		ListNode* pre=pHead;
+		ListNode* cur=pHead->next;
+		ListNode* next=pHead->next;
+		pre->next=NULL;
+		while(next)
+		{
+			next=next->next;
+			cur->next=pre;
+			pre=cur;
+			cur=next;
+		}
+		pHead=pre;
+		return pHead;
+		//方法二：
+		/*
+		ListNode* pre=pHead;
+		ListNode* oldh=pHead;
+		ListNode* next=pHead->next;
+		while(next)
+		{
+		oldh->next=next->next;
+		next->next=pre;
+		pre=next;
+		next=oldh->next;
+		}
+		pHead=pre;
+		return pHead;*/
+	}
+};
 //20191029########################################################################################################################
 //数组中只出现一次的数字，一个整型数组里除了两个数字之外，其他的数字都出现了两次。请写程序找出这两个只出现一次的数字。
 class Solution {
