@@ -5,7 +5,81 @@ using namespace std;
 #include<vector>
 #include<functional>
 
+1, 找到单链表的入环节点2, 找到两个链表的第一个公共节点
 #if 0
+//20191101################################################################################################
+//找到单链表的入环节点***************************************************
+class Solution {
+public:
+	ListNode* EntryNodeOfLoop(ListNode* pHead)
+	{
+		ListNode* p = pHead;
+		ListNode* q = pHead;
+		if(pHead == NULL||pHead->next==NULL||pHead->next->next==NULL)
+			return NULL;
+		while(q->next != NULL && q->next->next != NULL){
+			p = p->next;
+			q = q->next->next;
+			if(p == q){
+				break;
+			}
+		}
+		q = pHead;
+		while(p != q){
+			p = p->next;
+			q = q->next;
+		}
+		return p;
+
+	}
+};
+//找到两个链表的第一个公共节点****************************************************
+/*
+struct ListNode {
+int val;
+struct ListNode *next;
+ListNode(int x) :
+val(x), next(NULL) {
+}
+};*/
+//通过右对齐的方式来查找，从同一起点一起走，直到走到同一地址
+class Solution {
+public:
+	ListNode* FindFirstCommonNode( ListNode* pHead1, ListNode* pHead2) {
+		ListNode* longlist=pHead1;
+		ListNode* shortlist=pHead2;
+		int lenA=0;
+		int lenB=0;
+		for(ListNode* cur=pHead1;cur;cur=cur->next)
+		{
+			lenA++;
+		}
+		for(ListNode* cur=pHead2;cur;cur=cur->next)
+		{
+			lenB++;
+		}
+		if(lenA<lenB)
+		{
+			longlist=pHead2;
+			shortlist=pHead1;
+			swap(lenA,lenB);
+		}
+		int gap=lenA-lenB;
+		for(int i=0;i<gap;i++)
+		{
+			longlist=longlist->next;
+		}
+		for(;longlist&&shortlist;longlist=longlist->next,shortlist=shortlist->next)
+		{
+			if(longlist==shortlist)
+			{
+				return longlist;
+			}
+		}
+		return nullptr;
+	}
+};
+
 //20191031###########################################################################################################################
 //调整数组中所有奇数位于偶数的前面初始版本
 class Solution {
