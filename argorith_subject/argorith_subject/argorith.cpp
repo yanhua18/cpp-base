@@ -5,8 +5,77 @@ using namespace std;
 #include<vector>
 #include<functional>
 
-1, 找到单链表的入环节点2, 找到两个链表的第一个公共节点
+
 #if 0
+//20191102##################################################################################################
+//将字符串转化为数字*******************************************************************
+class Solution {
+public:
+	int StrToInt(string str) {
+		const int length = str.length();
+		int isNegtive = 1, overValue = 0;
+		int digit = 0, value = 0;
+
+		if (length == 0) return 0;
+		else {
+			int idx = 0;
+			if (str[0] == '-') { isNegtive = -1; idx = 1; }
+			else if (str[0] == '+') { idx = 1; }
+
+			for (; idx<length; idx++) {
+				digit = str[idx] - '0';
+				// overValue表示本轮循环是否会越界
+				overValue = isNegtive*value - INT_MAX / 10
+					+ (((isNegtive + 1) / 2 + digit > 8) ? 1 : 0);
+
+				if (digit<0 || digit>9) return 0;
+				else if (overValue > 0) return 0;
+
+				value = value * 10 + isNegtive*digit;
+			}
+			return value;
+		}
+	}
+};
+
+//数组中重复的数字，在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，请找出数组中任意一个重复的数字。 
+class Solution {
+public:
+	// Parameters:
+	//        numbers:     an array of integers
+	//        length:      the length of array numbers
+	//        duplication: (Output) the duplicated number in the array number
+	// Return value:       true if the input is valid, and there are some duplications in the array number
+	//                     otherwise false
+	void swap(int *n,int *m)
+	{
+		int tmp=0;
+		tmp=*n;
+		*n=*m;
+		*m=tmp;
+	}
+	bool duplicate(int numbers[], int length, int* duplication) {
+		for(int i=0;i<length;)
+		{
+			if(numbers[i]==i)
+			{
+				i++;
+			}
+			else
+			{
+				if(numbers[i]==numbers[numbers[i]])
+				{
+					*duplication=numbers[i];
+					return true;
+				}
+				swap(&numbers[i],&numbers[numbers[i]]);
+				i++;
+			}
+		}
+		return false;
+	}
+};
+
 //20191101################################################################################################
 //找到单链表的入环节点***************************************************
 class Solution {
