@@ -7,6 +7,75 @@ using namespace std;
 
 
 #if 0
+//20191105####################################################################################
+//左旋转字符串，字符序列S=”abcXYZdef”,要求输出循环左移3位后的结果，即“XYZdefabc”
+class Solution {
+public:
+	string LeftRotateString(string str, int n) {
+		int size=str.size();
+		reverse(str.begin(),str.end());
+		reverse(str.begin(),str.end()-n);
+		reverse(str.begin()+size-n,str.end());
+		return str;
+	}
+};
+//数值的整数次方，给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方
+double Power(double base, int exponent) {
+	int tp = 0;
+	double tmp = 0;
+	int flag = 1;
+	if (exponent < 0)
+	{
+		tp = -exponent;
+	}
+	else
+	{
+		tp = exponent;
+	}
+	double result=0;
+	if (exponent == 0)
+	{
+		return 1;
+	}
+	if(base==0)
+	{
+		return 0;
+	}
+	if (tp == 1)
+	{
+		return base;
+	}
+	tmp = Power(base, tp / 2);
+	if (tp & 1 == 0)
+	{
+		result=tmp*tmp;
+	}
+	else
+	{
+		result=base*tmp*tmp;
+		flag = -flag;
+	}
+	if (exponent < 0)
+	{
+		double sum = 0;
+		sum = flag*1.0 / result;
+		return sum;
+	}
+	else
+	{
+		return result;
+	}
+}
+int main()
+{
+	int x = 2;
+	int y = -3;
+	double num = Power(x, y);
+	printf("%d\n", num);
+	system("pause");
+	return 0;
+}
+
 //20191102##################################################################################################
 //将字符串转化为数字*******************************************************************
 class Solution {
