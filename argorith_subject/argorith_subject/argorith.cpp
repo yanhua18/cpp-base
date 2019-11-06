@@ -4,9 +4,96 @@ using namespace std;
 #include<string>
 #include<vector>
 #include<functional>
-
+#include<algorithm>
 
 #if 0
+//20191106############################################################################################################
+//组队竞速*******************************************
+int main()
+{
+	int n = 0;
+
+	while (cin >> n)
+	{
+		vector<int> v(3 * n, 0);
+		int sum = 0;
+		for (int i = 0; i<3 * n; i++)
+		{
+			cin >> v[i];
+
+		}
+		sort(v.begin(), v.end());
+		for (int i = v.size() - 2; i > 0; i -= 2)
+		{
+			sum += v[i];
+		}
+		cout << sum << endl;
+	}
+}
+
+//删除str1中str2的所有字母
+int main()
+{
+	string str1;
+	string str2;
+	while (getline(cin, str1))
+	{
+		getline(cin, str2);
+		for (int i = 0; i<str2.size(); i++)
+		{
+			int tmp = str1.find(str2[i]);
+			while (tmp != string::npos)
+			{
+				str1.erase(tmp, 1);
+				tmp = str1.find(str2[i]);
+			}
+		}
+		cout << str1 << endl;
+	}
+}
+//组队竞速***********************************************
+int main()
+{
+	int n=0;
+	
+	while(cin>>n)
+	{
+		vector<int> v(3*n,0);
+		int sum=0;
+		for(int i=0;i<3*n;i++)
+		{
+			cin>>v[i];
+
+		}
+		sort(v.begin(),v.end());
+		for (int i = v.size() - 2; i > 0; i -= 2)
+		{
+			sum+=v[i];
+		}
+		cout<<sum<<endl;
+	}
+}
+
+//删除str1中str2的所有字母
+int main()
+{
+	string str1;
+	string str2;
+	while (getline(cin,str1))
+	{
+		getline(cin, str2);
+		for (int i = 0; i<str2.size(); i++)
+		{
+			int tmp = str1.find(str2[i]);
+			while (tmp != string::npos)
+			{
+				str1.erase(tmp, 1);
+				tmp = str1.find(str2[i]);
+			}
+		}
+		cout << str1 << endl;
+	}
+}
 //用两个栈实现队列*******************************************************************
 class Solution
 {
