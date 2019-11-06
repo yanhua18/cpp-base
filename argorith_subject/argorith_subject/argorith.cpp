@@ -7,6 +7,61 @@ using namespace std;
 
 
 #if 0
+//用两个栈实现队列*******************************************************************
+class Solution
+{
+public:
+	void push(int node) {
+		stack1.push(node);
+	}
+
+	int pop() {
+		if(stack2.empty()){//注意：必须要等stack2为空时，才能继续入栈，不然就会导致栈顶元素出不来
+			while(stack1.empty()!=1)
+			{
+				stack2.push(stack1.top());
+				stack1.pop();
+			}
+		}
+		int t=stack2.top();
+		stack2.pop();
+		return t;
+	}
+
+private:
+	stack<int> stack1;
+	stack<int> stack2;
+};
+/**从尾到头打印链表，用栈来实现
+*  struct ListNode {
+*        int val;
+*        struct ListNode *next;
+*        ListNode(int x) :
+*              val(x), next(NULL) {
+*        }
+*  };
+*/
+#include<stack>
+class Solution {
+public:
+	vector<int> printListFromTailToHead(ListNode* head) {
+		stack<int> s;
+		vector<int> array;
+		ListNode* p=head;
+		while(p!=NULL)
+		{
+			s.push(p->val);
+			p=p->next;
+		}
+		while(s.empty()!=1)
+		{
+			array.push_back(s.top());
+			s.pop();
+		}
+		return array;
+	}
+};
+
 //20191105####################################################################################
 //左旋转字符串，字符序列S=”abcXYZdef”,要求输出循环左移3位后的结果，即“XYZdefabc”
 class Solution {
@@ -17,6 +72,20 @@ public:
 		reverse(str.begin(),str.end()-n);
 		reverse(str.begin()+size-n,str.end());
 		return str;
+	}
+};
+class Solution {
+public:
+	string LeftRotateString(string str, int n) {
+		if(n<0) return NULL;
+		if(n==0) return str;
+		string strTemp="";
+
+		strTemp=str.substr(0,n);
+		str.erase(0,n);
+		str+=strTemp;
+		return str;
+
 	}
 };
 //数值的整数次方，给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方
