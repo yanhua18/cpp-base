@@ -6,7 +6,76 @@ using namespace std;
 #include<functional>
 #include<algorithm>
 
+//20191107###############################################################################################
+//排序子序列*************************************************
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		vector<int> array(n+1, 0);
+		int count = 0;
+		int i = 0;
+		for (i = 0; i<n; i++)
+		{
+			cin >> array[i];
+		}
+		i = 0; 
+		while (i<n)
+		{
+			if (array[i]<array[i + 1])
+			{
+				while (array[i]<array[i + 1] && i<n)
+				{
+					i++;
+				}
+				count++;
+				i++;
+			}
+			else if(array[i]>array[i+1])
+			{
+				while(array[i]>array[i+1]&&i<n)
+				{
+					i++;
+				}
+				count++;
+				i++;
+			}
+			else
+			{
+				i++;
+			}
+		}
+		cout<<count<<endl;
+	}
+}
+
 #if 0
+//翻转字符串***************************************************************
+int main()
+{
+	string str;
+	while(getline(cin,str))
+	{
+		reverse(str.begin(),str.end());
+		int start=0;;
+		int end=0;
+		while(str[start]!='\0')
+		{
+			while (str[start] != ' '&&str[start] != '\0')
+			{
+				start++;
+			}
+			reverse(str.begin()+end,str.begin()+start);
+			while(str[start]==' ')
+			{
+				start++;
+			}
+			end=start;
+		}
+		cout<<str<<endl;
+	}
+}
 //20191106############################################################################################################
 //组队竞速*******************************************
 int main()
