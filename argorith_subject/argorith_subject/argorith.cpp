@@ -6,6 +6,126 @@ using namespace std;
 #include<functional>
 #include<algorithm>
 
+#if 0
+//20191108##########################################################################################
+//字符串中找最长的连续数字字符串**************************************************
+int main()
+{
+	string str;
+	while (cin >> str)
+	{
+		int count = 0;
+		int maxc = -1e5;
+		int posc = 0;
+		int pos = 0;
+		if (str.empty())
+		{
+			cout << "" << endl;
+		}
+		for (int i = 0; i<str.size(); i++)
+		{
+			if (str[i] >= '0'&&str[i] <= '9')
+			{
+				count = 0;
+				pos = i;
+				while (str[i] >= '0'&&str[i] <= '9')
+				{
+					count++;
+					i++;
+				}
+				if (count > maxc)
+				{
+					maxc = count;
+					posc = pos;
+				}
+			}
+		}
+		if (posc != 0)
+		{
+			cout << str.substr(posc, maxc) << endl;
+		}
+		else
+		{
+			cout << "";
+		}
+	}
+}
+int main()
+{
+	string str;
+	while(cin>>str)
+	{
+		int count = 0;
+		int maxc = 0;
+		int pos = 0;
+		int posc = 0;
+		for(int i=0;i<str.size();)
+		{
+			while ((str[i] <= '0' || str[i] >= '9')&&i<str.size())
+			{
+				i++;
+			}
+			count=0;
+			while (str[i] >= '0'&&str[i] <= '9' && i<str.size())
+			{
+				if (i != 0)
+				{
+					if (str[i - 1] <= '0' || str[i - 1] >= '9')
+					{
+						pos = i;
+					}
+				}
+				count++;
+				i++;
+			}
+			if (maxc == 0)
+			{
+				maxc = count;
+				posc = pos;
+			}
+			if (count > maxc)
+			{
+				maxc = count;
+				posc = pos;
+			}
+		}
+		int tmp = posc + maxc;
+		if(posc!=0)
+		{
+			for(posc;posc<tmp;posc++)
+			{
+				cout<<str[posc]<<endl;
+			}
+		}
+		else
+		{
+			cout<<"";
+		}
+	}
+}
+//数组中出现次数超过一半的数字*************************************
+class Solution {
+public:
+	int MoreThanHalfNum_Solution(vector<int> numbers) {
+		sort(numbers.begin(), numbers.end());
+		int mid = numbers.size() / 2;
+		int count = 0;
+		for (int i = 0; i<numbers.size(); i++)
+		{
+			if (numbers[i] == numbers[mid])
+			{
+				count++;
+			}
+		}
+		if (count>mid)
+		{
+			return numbers[mid];
+		}
+		else{
+			return 0;
+		}
+	}
+};
 //20191107###############################################################################################
 //排序子序列*************************************************
 int main()
@@ -50,7 +170,6 @@ int main()
 	}
 }
 
-#if 0
 //翻转字符串***************************************************************
 int main()
 {
