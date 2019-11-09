@@ -5,6 +5,102 @@ using namespace std;
 #include<vector>
 #include<functional>
 #include<algorithm>
+#include<stack>
+
+
+#if 0
+//20191109#################################################################
+//计算糖果问题
+#include<iostream>
+using namespace std;
+#include<vector>
+int main()
+{
+	vector<int> v(4,0);
+	cin>>v[0]>>v[1]>>v[2]>>v[3];
+	int A=(v[0]+v[2])/2;
+	int B=A-v[0];
+	int C=B-v[1];
+	if(A>=0&&B>=0&&C>=0&&(B+C==v[3]))
+	{
+		cout<<A<<" "<<B<<" "<<C;
+	}
+	else
+	{
+		cout<<"No";
+	}
+}
+//进制转换，输入数字进行任意进制转换
+int main()
+{
+	long long M=0;
+	int N=0;
+	while(cin>>M>>N)
+	{
+		stack<int> s;
+		int tmp=M;
+		string str="ABCDEF";
+		if (M == 0)
+		{
+			cout << M;
+		}
+		if (M < 0)
+		{
+			M*=-1;
+			cout << '-';
+		}
+		while(tmp)
+		{
+			if(tmp%N<=9)
+			{
+				s.push(tmp%N);
+			}
+			else
+			{
+				if(tmp%N==10)
+				{
+					s.push(str[0]);
+				}
+				if(tmp%N==11)
+				{
+					s.push(str[1]);
+				}
+				if(tmp%N==12)
+				{
+					s.push(str[2]);
+				}
+				if(tmp%N==13)
+				{
+					s.push(str[3]);
+				}
+				if(tmp%N==14)
+				{
+					s.push(str[4]);
+				}
+				if(tmp%N==15)
+				{
+					s.push(str[5]);
+				}
+			}
+			tmp=tmp/N;
+		}
+		while(s.empty()!=1)
+		{
+			if (s.top() <= 9)
+			{
+				cout << s.top();
+			}
+			else
+			{
+				cout << (char)s.top();
+			}
+			s.pop();
+		}
+		cout << endl;
+	}
+}
+
+#endif
 
 #if 0
 //20191108##########################################################################################
