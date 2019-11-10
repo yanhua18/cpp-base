@@ -8,7 +8,85 @@ using namespace std;
 #include<stack>
 
 
+
+
+
+
+
+
 #if 0
+//20191110#########################################################################################
+//连续最大和*******************************
+#include<iostream>
+using namespace std;
+#include<vector>
+int main()
+{
+	int n = 0;
+	while (cin >> n)
+	{
+		vector<int> v(n, 0);
+		for (int i = 0; i<n; i++)
+		{
+			cin >> v[i];
+		}
+		int sum = 0;
+		int max = v[0];
+		for (int i = 0; i<n; i++)
+		{
+			sum += v[i];
+			if (sum>max)
+			{
+				max = sum;
+			}
+			if (sum<0)
+			{
+				sum = 0;
+			}
+		}
+		cout << max << endl;
+		return 0;
+	}
+}
+//统计回文
+int func(string str)
+{
+	int i = 0;
+	int j = str.size() - 1;
+	while (i <= j)
+	{
+		if (str[i] == str[j])
+		{
+			i++;
+			j--;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+	return 1;
+}
+int main()
+{
+	string str1;
+	string str2;
+	while (cin >> str1)
+	{
+		cin >> str2;
+		int sum = 0;
+		for (int i = 0; i <= str1.size(); i++)
+		{
+			string str3 = str1;
+			str3.insert(i, str2);
+			sum += func(str3);
+		}
+		cout << sum << endl;
+	}
+	return 0;
+}
+
+
 //20191109#################################################################
 //计算糖果问题
 #include<iostream>
@@ -31,6 +109,24 @@ int main()
 	}
 }
 //进制转换，输入数字进行任意进制转换
+int main()
+{
+	string s = "", table = "0123456789ABCDEF";
+	int m, n;
+	cin >> m >> n;
+	while (m)
+	{
+		if (m < 0)
+		{
+			m = -m;
+			cout << "-";
+		}
+		s = table[m%n] + s;
+		m /= n;
+	}
+	cout << s << endl;
+	return 0;
+}
 int main()
 {
 	long long M=0;
