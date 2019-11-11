@@ -8,13 +8,85 @@ using namespace std;
 #include<stack>
 
 
-
-
-
-
-
-
 #if 0
+//20191111####################################################################################
+//将字符串转化为数字************************************************
+int StrToInt(string str) {
+	long long sum = 0;
+	int tmp=0;
+	for(int i=0;i<str.size();i++)
+	{
+		if(str[i]=='+'||str[i]=='-')
+		{
+			i++;
+		}
+		if(str[i]>='0'&&str[i]<='9')
+		{
+			tmp=str[i]-'0';
+			sum=sum*10+tmp;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+	if(str[0]=='-')
+	{
+		return -sum;
+	}
+	else
+	{
+		return sum;
+	}
+}
+int main()
+{
+	string str = "+123456";
+	long long sum = StrToInt(str);
+	cout << sum << endl;
+	system("pause");
+	return 0;
+}
+
+//网易面试题，不要二**************************************************
+#include<iostream>
+using namespace std;
+#include<vector>
+int main()
+{
+	int W=0;//列号
+	int H=0;//行号
+	while(cin>>W>>H)
+	{
+		vector<vector<int>> v;
+		v.resize(H);
+		int res=0;
+		for(int i=0;i<v.size();i++)
+		{
+			v[i].resize(W,1);
+		}
+		for(int i=0;i<H;i++)
+		{
+			for(int j=0;j<W;j++)
+			{
+				if(v[i][j]==1)
+				{
+					res++;
+					if(i+2<H)
+					{
+						v[i+2][j]=0;
+					}
+					if(j+2<W)
+					{
+						v[i][j+2]=0;
+					}
+				}
+			}
+		}
+		cout<<res<<endl;
+	}
+}
+
 //20191110#########################################################################################
 //连续最大和*******************************
 #include<iostream>
