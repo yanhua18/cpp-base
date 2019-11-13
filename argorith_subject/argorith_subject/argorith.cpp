@@ -7,8 +7,99 @@ using namespace std;
 #include<algorithm>
 #include<stack>
 
-
 #if 0
+//20191113##############################################################################
+//最小步变斐波那契数列********************************
+int main()
+{
+	int x;
+	while(cin>>x)
+	{
+		int m=0;
+		int n=1;
+		int w=m+n;
+		while(w<x)
+		{
+			m=n;
+			n=w;
+			w=m+n;
+		}
+		if((x-n)>(w-x))
+		{
+			cout<<w-x<<endl;
+		}
+		else
+		{
+			cout<<x-n<<endl;
+		}
+	}
+	return 0;
+}
+
+//合法括号序列判断
+class Parenthesis {
+public:
+	bool chkParenthesis(string A, int n) {
+		int count = 0;
+		if (n % 2 != 0)
+		{
+			return false;
+		}
+		for (int i = 0; i<A.size(); i++)
+		{
+			if (A[i] != '('&&A[i] != ')')
+			{
+				return false;
+			}
+			if (A[i] == '(')
+			{
+				count++;
+			}
+			if (A[i] == ')')
+			{
+				count--;
+			}
+		}
+		if (count == 0)
+		{
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+};
+int main()
+{
+	string str = "()(()()";
+	int n=chkParenthesis(str, 7);
+	cout << n << endl;
+	system("pause");
+	return 0;
+}
+
+//旋转数组中最小的数字
+class Solution {
+public:
+	int minNumberInRotateArray(vector<int> rotateArray) {
+		if(rotateArray.size()==0)
+		{
+			return 0;
+		}
+		int min=rotateArray[0];
+		for(int i=0;i<rotateArray.size();i++)
+		{
+			if(rotateArray[i]<min)
+			{
+				min=rotateArray[i];
+				break;
+			}
+		}
+		return min;
+	}
+};
+
+
 //20191111####################################################################################
 //将字符串转化为数字************************************************
 int StrToInt(string str) {
