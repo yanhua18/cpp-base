@@ -8,6 +8,84 @@ using namespace std;
 #include<stack>
 
 #if 0
+//20191114###############################################################################
+//两种排序方法******************************************
+int lexi(vector<string> &v)
+{
+	for(int i=0;i<v.size()-1;i++)
+	{
+		if(v[i]>=v[i+1])
+		{
+			return 0;
+		}
+	}
+	return 1;
+}
+int leng(vector<string> &v)
+{
+	for(int i=0;i<v.size()-1;i++)
+	{
+		if(v[i].size()>=v[i+1].size())
+		{
+			return 0;
+		}
+	}
+	return 1;
+}
+int main()
+{
+	int n;
+	while(cin>>n)
+	{
+		vector<string> v(n);
+		for(int i=0;i<n;i++)
+		{
+			cin>>v[i];
+		}
+		if((lexi(v)==1)&&(leng(v)==1))
+		{
+			cout<<"both"<<endl;
+		}
+		else if((lexi(v)==1)&&(leng(v)==0))
+		{
+			cout<<"lexicographically"<<endl;
+		}
+		else if((lexi(v)==0)&&(leng(v)==1))
+		{
+			cout<<"lengths"<<endl;
+		}
+		else
+		{
+			cout<<"none"<<endl;
+		}
+	}
+}
+//求最小公倍数************************
+int main()
+{
+	int a,b;
+	while(cin>>a>>b)
+	{
+		int i=0;
+		if(a>b)
+		{
+			i=a;
+		}
+		else
+		{
+			i=b;
+		}
+		for(;i<=a*b;i++)
+		{
+			if(i%a==0&&i%b==0)
+			{
+				break;
+			}
+		}
+		cout<<i<<endl;
+	}
+}
+
 //20191113##############################################################################
 //最小步变斐波那契数列********************************
 int main()
