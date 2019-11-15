@@ -1,4 +1,3 @@
-
 #include<iostream>
 using namespace std;
 #include<string>
@@ -6,8 +5,45 @@ using namespace std;
 #include<functional>
 #include<algorithm>
 #include<stack>
+#include<Windows.h>
 
 #if 0
+//20191115################################################################################
+//java题目2-3级
+int Func(int m, int n)
+{
+	if (m == 0 || n == 0)
+	{
+		return 1;
+	}
+	return Func(m, n - 1) + Func(m - 1, n);
+}
+int main()
+{
+	int m = 0, n = 0;
+	while (cin >> m >> n)
+	{
+		cout << Func(m, n) << endl;
+	}
+}
+//另类加法
+int main()
+{
+	int A = 3;
+	int B = 7;
+	int sum = A^B;
+	int count = (A&B) << 1;
+	while (count)
+	{
+		int tmp = sum;
+		sum ^= count;
+		count = (count&tmp) << 1;
+	}
+	cout << sum << endl;
+	system("pause");
+	return 0;
+}
+
 //20191114###############################################################################
 //两种排序方法******************************************
 int lexi(vector<string> &v)
