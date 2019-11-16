@@ -6,8 +6,215 @@ using namespace std;
 #include<algorithm>
 #include<stack>
 #include<Windows.h>
-
+#include<iostream>
 #if 0
+//20191116####################################################################
+//密码强度等级
+int judgesize(string str)
+{
+	int len = str.size();
+	if (len <= 4)
+	{
+		return 5;
+	}
+	else if (len >= 5 && len <= 7)
+	{
+		return 10;
+	}
+	else
+	{
+		return 25;
+	}
+}
+int judgealp(string str)
+{
+	int count1 = 0;
+	int count2 = 0;
+	for (int i = 0; i<str.size(); i++)
+	{
+		if (str[i] >= 'a'&&str[i] <= 'z')
+		{
+			count1++;
+		}
+		if (str[i] >= 'A'&&str[i] <= 'Z')
+		{
+			count2++;
+		}
+	}
+	if (count1&&count2)
+	{
+		return 20;
+	}
+	else if (count1 || count2)
+	{
+		return 10;
+	}
+	else
+	{
+		return 0;
+	}
+}
+int judgenumber(string str)
+{
+	int count = 0;
+	for (int i = 0; i<str.size(); i++)
+	{
+		if (str[i] >= '0'&&str[i] <= '9')
+		{
+			count++;
+		}
+		if (count>1)
+		{
+			return 20;
+		}
+	}
+	if (count == 1)
+	{
+		return 10;
+	}
+	else
+	{
+		return 0;
+	}
+}
+int judgesymbol(string str)
+{
+	int count = 0;
+	for (int i = 0; i<str.size(); i++)
+	{
+		if (str[i] >= '!'&&str[i] <= '/')
+		{
+			count++;
+		}
+		if (str[i] >= ':'&&str[i] <= '@')
+		{
+			count++;
+		}
+		if (str[i] >= '['&&str[i] <= '`')
+		{
+			count++;
+		}
+		if (str[i] >= '{'&&str[i] <= '~')
+		{
+			count++;
+		}
+		if (count>1)
+		{
+			return 25;
+		}
+	}
+	if (count == 1)
+	{
+		return 10;
+	}
+	else
+	{
+		return 0;
+	}
+}
+int Judge(string str)
+{
+	int count = 0;
+	count += judgesize(str);
+	count += judgealp(str);
+	count += judgenumber(str);
+	count += judgesymbol(str);
+	if (judgealp(str) && judgenumber(str))
+	{
+		count += 2;
+	}
+	else if (judgealp(str) == 20 && judgenumber(str) && judgesymbol(str))
+	{
+		count += 5;
+	}
+	else if (judgealp(str) == 10 && judgenumber(str) && judgesymbol(str))
+	{
+		count += 3;
+	}
+	else
+	{
+		count += 0;
+	}
+	return count;
+}
+
+int main()
+{
+	string str;
+	while (cin >> str)
+	{
+		int num = Judge(str);
+		if (num >= 90)
+		{
+			cout << "VERY_SECURE" << endl;
+		}
+		else if (num<90 && num >= 80)
+		{
+			cout << "SECURE" << endl;
+		}
+		else if (num<80 && num >= 70)
+		{
+			cout << "VERY_STRONG" << endl;
+		}
+		else if (num<70 && num >= 60)
+		{
+			cout << "STRONG" << endl;
+		}
+		else if (num<60 && num >= 50)
+		{
+			cout << "AVERAGE" << endl;
+		}
+		else if (num<50 && num >= 25)
+		{
+			cout << "WEAK" << endl;
+		}
+		else{
+			cout << "VERY_WEAL" << endl;
+		}
+	}
+}
+//井子棋************************************************
+class Board {
+public:
+	bool checkWon(vector<vector<int> > board) {
+		for(int i=0;i<board.size();i++)
+		{
+			int sum=0;
+			for(int j=0;j<board[i].size();j++)
+			{
+				sum+=board[i][j];
+				if(sum==3)
+				{
+					return true;
+				}
+			}
+		}
+		for(int i=0;i<board.size();i++)
+		{
+			int sum=0;
+			for(int j=0;j<board[i].size();j++)
+			{
+				sum+=board[j][i];
+				if(sum==3)
+				{
+					return true;
+				}
+			}
+		}
+		int sum1=board[0][0]+board[1][1]+board[2][2];
+		if(sum1==3)
+		{
+			return true;
+		}
+		int sum2=board[0][2]+board[1][1]+board[2][0];
+		if(sum2==3)
+		{
+			return true;
+		}
+		return false;
+	}
+};
+
 //20191115################################################################################
 //java题目2-3级
 int Func(int m, int n)
