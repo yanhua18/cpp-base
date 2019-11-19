@@ -2,12 +2,253 @@
 using namespace std;
 #include<string>
 #include<vector>
-#include<functional>
-#include<algorithm>
-#include<stack>
-#include<Windows.h>
-#include<iostream>
+//#include<functional>
+//#include<algorithm>
+//#include<stack>
+//#include<Windows.h>
+
+int main()
+{
+	for (int i = 10000; i >= 0; i--)
+	{
+		for (int j = 2; j < i / 2; j++)
+		{
+			if (i%j == 0)
+			{
+				break;
+			}
+		}
+
+	}
+	system("pause");
+	return 0;
+}
 #if 0
+int main(){
+	int n, m,k;
+	double sum = 0;
+	int arr[10][3], a[10] = {0};
+	cin >> n;
+	for (int i = 0; i < n; i++){
+		cin >> arr[i][0] >> arr[i][1] >> arr[i][2];
+	}
+	cin >> k;
+	double res;
+	for (int i = 0; i < n; ++i){
+		m = i + 1;
+		if (arr[i+1][2] > arr[i][2]){
+			m++;
+		}
+		if (a[i] != 0){
+			continue;
+		}
+		if (arr[i + 1][2] <= arr[i][2]){
+			res = sqrt(pow((arr[i][0] - arr[m][0]), 2) + pow((arr[i][1] - arr[m][1]), 2) + pow((arr[i][2] - arr[m][2]), 2));
+
+			if (res <= k){
+				sum += res;
+				a[i]++;
+			}
+		}
+	}
+	printf("%.2f",sum);
+	system("pause");
+	return 0;
+}
+
+//草长得很快，每个月，草都会向外长出一些，如果一个小块种了草，则它将向自己的上、下、左、右四小块空地扩展，这四小块空地都将变为有草的小块，k 个月后空地上哪些地方有草。
+int  main()
+{
+	int n, d;
+	double res = 0;
+	double length = 0;
+	cin >> n;
+	vector<vector<int>> v;
+	v.resize(n);
+	for (int i = 0; i < v.size(); i++)
+	{
+		v[i].resize(3);
+	}
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			cin >> v[i][j];
+		}
+	}
+	cin >> d;
+}
+
+int main()
+{
+	int m, n;
+	while (cin >> n >> m)
+	{
+		vector<string> v;
+		v.resize(n,"");
+		int k = 0;
+		for (int i = 0; i < n; i++)
+		{
+			cin >> v[i];
+		}
+		cin >> k;
+		for (int u = 0; u < k; u++)
+		{
+			for (int i = 0; i < n; i++)
+			{
+				for (int j = 0; j < m; j++)
+				{
+					if (v[i][j] == 'g')
+					{
+
+						if (i - 1 >= 0 && j >= 0 && j<m && i<n && v[i - 1][j] == '.')
+							v[i - 1][j] = 'x';
+						if (i >= 0 && j - 1 >= 0 && j<m && i<n && v[i][j - 1] == '.')
+							v[i][j - 1] = 'x';
+						if (i >= 0 && j >= 0 && j+1<m && i<n && v[i][j + 1] == '.')
+							v[i][j + 1] = 'x';
+						if (i >= 0 && j >= 0 && j<m && i+1<n && v[i + 1][j] == '.')
+							v[i + 1][j] = 'x';
+					}
+				}
+			}
+			for (int w = 0; w < n; w++)
+			{
+				for (int a = 0; a < m; a++)
+				{
+					if (v[w][a] != '.')
+					{
+						v[w][a] = 'g';
+					}
+				}
+			}
+		}
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < m; j++)
+			{
+				cout << v[i][j];
+			}
+			cout << endl;
+		}
+	}
+}
+//对于一个 n 行 m 列的表格，我们可以使用螺旋的方式给表格依次填上正整数，我们称填好的表格为一个螺旋矩阵。
+#include <cstdio>
+const int maxn = 1010;
+int data[maxn][maxn];
+void writenum(int rl, int rh, int cl, int cr, int num)
+{
+	if (rl > rh || cl > cr)
+	{
+		return;
+	}
+	else{
+		for (int i = cl; i <= cr; i++)
+		{
+			data[rl][i] = num++;
+		}
+		for (int i = rl + 1; i <= rh; i++)
+		{
+			data[i][cr] = num++;
+		}
+		for (int i = cr - 1; i >= cl; i--)
+		{
+			data[rh][i] = num++;
+		}
+		for (int i = rh - 1; i >= rl + 1; i--)
+		{
+			data[i][cl] = num++;
+		}
+		writenum(rl + 1, rh - 1, cl + 1, cr - 1, num);
+	}
+}
+
+int main(int argc, char *argv[]) {
+	int m, n;
+	while (cin >> m >> n)
+	{
+		int x, y;
+		cin >> x >> y;
+		writenum(1, m, 1, n, 1);
+		printf("%d ", data[x][y]);
+		system("pause");
+	}
+}
+
+//给定三个整数 a, b, c，如果一个整数既不是 a 的整数倍也不是 b 的整数倍还不是 c 的整数倍，则这个数称为反倍数。请问在 1 至 n 中有多少个反倍数。
+#include<iostream>
+using namespace std;
+int main()
+{
+	int n = 0;
+	while (cin >> n)
+	{
+		int a, b, c;
+		cin >> a >> b >> c;
+		int count = 0;
+		for (int i = 0; i<n; i++)
+		{
+			if (i%a != 0 && i%b != 0 && i%c != 0)
+			{
+				count++;
+			}
+		}
+		cout << count << endl;
+		system("pause");
+	}
+}
+//小明非常不喜欢数字 2，包括那些数位上包含数字 2 的数。如果一个数的数位不包含数字 2，小明将它称为洁净数。
+请问在整数 1 至 n 中，洁净数有多少个？
+int main()
+{
+	int n=0;
+	while(cin>>n)
+	{
+		int tmp=0;
+		int count=n;
+		for(int i=0;i<n;i++)
+		{
+			tmp=i;
+			int x=0;
+			while(tmp!=0)
+			{
+				x=tmp%10;
+				tmp=tmp/10;
+				if(x==2)
+				{
+					count--;
+					break;
+				}
+			}
+		}
+		cout<<count<<endl;
+	}
+}
+//输入一个单词，请输出这个单词中第一个出现的元音字母。
+int main()
+{
+	string str;
+	while (getline(cin, str))
+	{
+		int i = 0;
+		for (i = 0; i<str.size(); i++)
+		{
+			if (str[i] == 'a' || str[i] == 'e' || str[i] == 'i' || str[i] == 'o' || str[i] == 'u')
+			{
+				cout << str[i] << endl;
+				break;
+			}
+		}
+		if(i==str.size())
+		{
+			cout<<'n'<<endl;
+		}
+	}
+	system("pause");
+	return 0;
+}
+
 //20191116####################################################################
 //密码强度等级
 int judgesize(string str)
