@@ -5,7 +5,52 @@ using namespace std;
 #include<string.h>
 #include<vector>
 #include<algorithm>
+//20191122######################################################################
+//查找输入整数中二进制1的个数
 
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		int count = 0;
+		for (int i = 0; i<32; i++)
+		{
+			if (n >> i & 1)
+			{
+				count++;
+			}
+		}
+		cout << count << endl;
+	}
+}
+//手套
+class Gloves {
+public:
+	int findMinimum(int n, vector<int> left, vector<int> right) {
+		int sum=0;
+		int left_sum=0;
+		int right_sum=0;
+		int left_min=INT_MAX;
+		int right_min=INT_MAX;
+		for(int i=0;i<n;i++)
+		{
+			if(left[i]*right[i]==0)
+			{
+				sum+=left[i];
+				sum+=right[i];
+			}
+			else
+			{
+				left_sum+=left[i];
+				right_sum+=right[i];
+				left_min=min(left[i],left_min);
+				right_min=min(right[i],right_min);
+			}
+		}
+		return sum+min(left_sum-left_min+1,right_sum-right_min+1)+1;
+	}
+};
 
 #if 0
 //20191121#################################################################################
