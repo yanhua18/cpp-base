@@ -5,6 +5,115 @@ using namespace std;
 #include<string.h>
 #include<vector>
 #include<algorithm>
+
+
+#if  0
+//20191123###########################################################################################################
+//扑克牌大小
+int main()
+{
+	string str;
+	while (getline(cin, str))
+	{
+		if (str.find("joker JOKER") != string::npos)//只要有大小王，那就一定是大小王最大
+		{
+			cout<<"joker JOKER"<<endl;
+		}
+		else
+		{
+			string a="345678910JQKA2jokerJOKER";
+			int pos=str.find('-');
+			string str1=str.substr(0,pos);
+			string str2=str.substr(pos+1);
+			int count1=count(str1.begin(),str1.end(),' ');//通过计算出空格的数量来进行判断是否是同类型间的比较
+			int count2=count(str2.begin(),str2.end(),' ');
+			string first1=str1.substr(0,str1.find(' '));
+			string first2=str2.substr(0,str2.find(' '));
+			if(count1==count2)//如果两手牌的长度一样，就说明应该是同类型间的比较
+			{
+				if(a.find(first1)>a.find(first2))//同类型间的比较主要是比较第一个字符，但由于扑克牌有着自己的大小顺序，因此需要进行一个转换
+				{
+					cout<<str1<<endl;
+				}
+				else
+				{
+					cout<<str2<<endl;
+				}
+			}
+			else//长度不一样就说明不是同类型间的比较，如果有炸弹，就说明炸弹是最大的，如果没有炸弹就是非法比较输出error
+			{
+				if(count1==3)
+				{
+					cout<<str1<<endl;
+				}
+				else if(count2==3)
+				{
+					cout<<str2<<endl;
+				}
+				else
+				{
+					cout<<"ERROR"<<endl;
+				}
+			}
+		}
+
+	}
+}
+
+//INOC产品部-完全数计算
+bool Isperfect(int n)
+{
+	if (n == 1)
+	{
+		return false;
+	}
+	vector<int> v;
+	for (int i = 2; i < n; i++)
+	{
+		if (n%i == 0)
+		{
+			v.push_back(i);
+		}
+	}
+	v.push_back(1);
+	int sum = 0;
+	for (int i = 0; i<v.size(); i++)
+	{
+		sum += v[i];
+	}
+	if (sum == n)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+int count(int n)
+{
+	int num = 0;
+	for (int i = 0; i <= n; i++)
+	{
+		if (Isperfect(i))
+		{
+			num++;
+		}
+	}
+	return num;
+}
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		int num = 0;
+		num = count(n);
+		cout << num << endl;
+	}
+}
+
+
 //20191122######################################################################
 //查找输入整数中二进制1的个数
 
@@ -52,7 +161,6 @@ public:
 	}
 };
 
-#if 0
 //20191121#################################################################################
 //幸运的袋子
 int n;
