@@ -7,7 +7,133 @@ using namespace std;
 #include<algorithm>
 
 
-#if  0
+#if 0
+//20191124#######################################################################################################
+//INOC产品部--杨辉三角的变形
+int Find_yanhui(int n)
+{
+	if (n <= 2)
+	{
+		return -1;
+	}
+	vector<vector<int>> v;
+	v.resize(n);
+	for (int i = 1; i <= n; i++)
+	{
+		v[i - 1].resize(2 * n - 1, 0);
+	}
+	v[0][n - 1] = v[n - 1][0] = v[n - 1][2 * n - 2] = 1;
+	for (int i = 1; i < n; i++)
+	{
+		for (int j = 1; j < 2 * n - 2; j++)
+		{
+			v[i][j] = v[i - 1][j - 1] + v[i - 1][j] + v[i - 1][j + 1];
+		}
+	}
+	for (int i = 0; i < 2 * n - 1; i++)
+	{
+		if (v[n - 1][i] % 2 == 0 && v[n-1][i] != 0)
+		{
+			return i+1;
+		}
+	}
+	return -1;
+}
+int main()
+{
+	int n=0;
+	while(cin>>n)
+	{
+		int x=Find_yanhui(n);
+		cout << x << endl;
+	}
+}
+
+//字符串相加、超长整数相加
+string addStrings(string num1, string num2) {
+	int end1 = num1.size() - 1;
+	int end2 = num2.size() - 1;
+	int cur = 0;
+	string s;
+	while (end1 >= 0 || end2 >= 0 || cur != 0)
+	{
+		if (end1 >= 0)
+		{
+			cur += num1[end1--] - '0';
+		}
+		if (end2 >= 0)
+		{
+			cur += num2[end2--] - '0';
+		}
+		s += to_string(cur % 10);
+		cur /= 10;
+	}
+	reverse(s.begin(), s.end());
+	return s;
+}
+
+int main()
+{
+	string str1;
+	string str2;
+	while(cin>>str1)
+	{
+		cin>>str2;
+		string str3;
+		int count1=str1.size();
+		int count2=str2.size();
+		if(count1<count2)
+		{
+			swap(count1,count2);
+			swap(str1, str2);
+		}
+		str3.resize(count1 + 1,0);
+		int num = 0;
+		int i = count1 - 1, j = count2 - 1;
+		for(;i>=0&&j>=0;i--,j--)
+		{
+			if (((str1[i] - '0') + (str2[j] - '0'))+num >= 10)
+			{
+				str3[i + 1] = (str1[i] - '0') + (str2[j] - '0') - 10 + num + '0';
+				num=1;
+			}
+			else
+			{
+				str3[i + 1] = (str1[i] - '0') + (str2[j] - '0') + num + '0';
+				num = 0;
+			}
+		}
+		while (i >= 0)
+		{
+			if ((str1[i] - '0') + num >= 10)
+			{
+				str3[i + 1] = (str1[i] - '0') + num - 10 + '0';
+				num = 1;
+				i--;
+			}
+			else
+			{
+				str3[i + 1] = (str1[i] - '0') + num + '0';
+				num = 0;
+				i--;
+			}
+		}
+		if (num == 1)
+		{
+			str3[0] = '1';
+		}
+		else
+		{
+			str3[0] = '0';
+		}
+		if (str3[0] == '0')
+		{
+			str3.erase(0, 1);
+		}
+		cout << str3 << endl;
+	}
+}
+
 //20191123###########################################################################################################
 //扑克牌大小
 int main()
