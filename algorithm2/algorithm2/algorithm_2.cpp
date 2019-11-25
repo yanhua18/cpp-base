@@ -5,8 +5,72 @@ using namespace std;
 #include<string.h>
 #include<vector>
 #include<algorithm>
-
-
+//20191125####################################################################################
+//统计每个月兔子的总数
+int main()
+{
+	int n = 0;
+	while (cin >> n)
+	{
+		int sum = 0;
+		vector<int> v;
+		v.resize(n + 1, 0);
+		v[1] = 1;
+		v[2] = 1;
+		v[3] = 2;
+		int i = 0;
+		for (i = 4; i <= n; i++)
+		{
+			v[i] = v[i - 1] + v[i - 2];
+		}
+		cout << v[n] << endl;
+	}
+}
+//字符串通配符
+bool Match(string str1,string str2)
+{
+	if (str1 == ""&&str2 == "")
+	{
+		return true;
+	}
+	for(int i=0,j=0;i<str1.size()&&j<str2.size();)
+	{
+		if(str1[i]==str2[j])
+		{
+			i++,j++;
+		}
+		else if(str1[i]=='?')
+		{
+			i++,j++;
+		}
+		else if(str1[i]=='*')
+		{
+			++i, ++j;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	return true;
+}
+int main()
+{
+	string str1;
+	string str2;
+	while(cin>>str1)
+	{
+		cin>>str2;
+		if(Match(str1,str2))
+		{
+			cout<<"true"<<endl;
+		}
+		else
+		{
+			cout<<"false"<<endl;
+		}
+	}
+}
 #if 0
 //20191124#######################################################################################################
 //INOC产品部--杨辉三角的变形
