@@ -5,6 +5,133 @@ using namespace std;
 #include<string.h>
 #include<vector>
 #include<algorithm>
+
+#if 0
+//20191126################################################################################################
+//查找两个字符串a,b中的最长公共字串
+int main()
+{
+	string str1;
+	string str2;
+	while (cin >> str1 >> str2)
+	{
+		if (str1.size() > str2.size())
+		{
+			swap(str1, str2);
+		}
+		int begin = 0;
+		int len = 0;
+		for (int i = 0; i < str1.size(); ++i)
+		{
+			int start = 0;
+			int cur = -1;
+			int max = 0;
+			int length = 0;
+			for (int j = 0, z = i; j < str2.size() && z < str1.size(); ++j)
+			{
+				if (max < length)
+				{
+					max = length;
+					start = cur;
+				}
+				if(str1[z]==str2[j])
+				{
+					if(cur==-1)
+					{
+						cur=j;
+					}
+					++length;
+					++z;
+				}
+				else
+				{
+					length=0;
+					cur=-1;
+					z=i;
+				}
+			}
+			if (max > len)
+			{
+				len = max;
+				begin = start;
+			}
+		}
+		cout << str2.substr(begin, len) << endl;
+	}
+}
+
+string Fun(string str1, string str2)
+{
+	if (str1 < str2)
+	{
+		swap(str1, str2);
+	}
+	for (int i = str2.size(); i > 0; i--)
+	{
+		for (int j = 0; j <= str1.size() - i; j++)
+		{
+			if (str1.find(str2.substr(j, i)) != string::npos)
+			{
+				return str2.substr(j, i);
+			}
+		}
+	}
+	return "";
+}
+
+int main()
+{
+	string str1;
+	string str2;
+	while(cin>>str1)
+	{
+		cin>>str2;
+		string str = Fun(str1, str2);
+		cout << str << endl;
+	}
+}
+
+
+//汽水瓶
+int main()
+{
+	vector<int> v, w;
+	v.resize(10);
+	int count = 0;
+	int i = 0;
+	while (cin >> v[i])
+	{
+		if (v[i] == 0)
+		{
+			break;
+		}
+		count++;
+		i++;
+	}
+	w.resize(count);
+	for(int i=0,j=0;i<count;i++,j++)
+	{
+		int drink=0;
+		int bottle=v[i];
+		int sum=0;
+		while(bottle>=3)
+		{
+			drink=bottle/3;
+			sum+=drink;
+			bottle=bottle%3+drink;
+			if (bottle == 2)
+			{
+				sum += 1;
+			}
+		}
+		w[j]=sum;
+	}
+	for(int j=0;j<count;j++)
+	{
+		cout<<w[j]<<endl;
+	}
+}
+
 //20191125####################################################################################
 //统计每个月兔子的总数
 int main()
@@ -71,7 +198,7 @@ int main()
 		}
 	}
 }
-#if 0
+
 //20191124#######################################################################################################
 //INOC产品部--杨辉三角的变形
 int Find_yanhui(int n)
