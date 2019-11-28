@@ -6,7 +6,99 @@ using namespace std;
 #include<vector>
 #include<algorithm>
 #include<Windows.h>
+//20191128#########################################################################
+//公共字串计算
+int main()
+{
+	string str1;
+	string str2;
+	while (cin >> str1 >> str2)
+	{
+		if (str1.size() > str2.size())
+		{
+			swap(str1, str2);
+		}
+		for (int i = 0; i<str1.size(); i++)
+		{
+			if (str1[i]<'a' || str1[i]>'z')
+			{
+				str1[i] -= 'a';
+			}
+		}
+		for (int i = 0; i<str2.size(); i++)
+		{
+			if (str2[i]<'a' || str2[i]>'z')
+			{
+				str2[i] +=32;
+			}
+		}
+		int begin = 0;
+		int len = 0;
+		for (int i = 0; i < str1.size(); ++i)
+		{
+			int start = 0;
+			int cur = -1;
+			int max = 0;
+			int length = 0;
+			for (int j = 0, z = i; j < str2.size() && z < str1.size(); ++j)
+			{
+				if (max < length)
+				{
+					max = length;
+					start = cur;
+				}
+				if (str1[z] == str2[j])
+				{
+					if (cur == -1)
+					{
+						cur = j;
+					}
+					++length;
+					++z;
+				}
+				else
+				{
+					length = 0;
+					cur = -1;
+					z = i;
+				}
+			}
+			if (max > len)
+			{
+				len = max;
+				begin = start;
+			}
+		}
+		str2 = str2.substr(begin, len+1);
+		cout << str2.size()+1 << endl;
+	}
+}
 
+#if 0
+//字符串反转
+void swap(char& a, char& b)
+{
+	char tmp;
+	tmp = a;
+	a = b;
+	b = tmp;
+}
+int main()
+{
+	string str;
+	while(cin>>str)
+	{
+		int i=0;
+		int j=str.size()-1;
+		while(i<=j)
+		{
+			swap(str[i],str[j]);
+			i++;
+			j--;
+		}
+		cout << str << endl;
+	}
+}
 
 //20191127###############################################################################
 //跳石板
@@ -61,9 +153,8 @@ int main()
 	cout << Jump(n, m) << endl;
 	return 0;
 }
-
 
-#if 0
+
 //20191126################################################################################################
 //查找两个字符串a,b中的最长公共字串
 int main()
