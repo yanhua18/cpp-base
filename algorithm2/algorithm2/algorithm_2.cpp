@@ -1,11 +1,150 @@
-#define _CRT_SECURE_NO_WARNINGS 1
 #include<iostream>
 using namespace std;
 #include<string>
-#include<string.h>
 #include<vector>
 #include<algorithm>
 #include<Windows.h>
+
+#if 0
+//20191130##################################################################################################
+//MP3的光标位置
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		vector<int> v;
+		string str;
+		v.resize(n);
+		cin >> str;
+		for (int i = 0; i < n; i++)
+		{
+			v[i] = i + 1;
+		}
+		int top = 1;
+		int end = top + 3;
+		int pos = 1;
+		if (n <= 4)
+		{
+			for (int i = 0; i < n; i++)
+			{
+				cout << v[i] << " ";
+			}
+			cout << endl;
+			for (int i = 0; i < str.size(); i++)
+			{
+				if (str[i] == 'U'&&pos == 1)
+				{
+					pos = n;
+				}
+				else if (str[i] == 'D'&&pos == n)
+				{
+					pos = 1;
+				}
+				else if (str[i] == 'U')
+				{
+					pos--;
+				}
+				else
+				{
+					pos++;
+				}
+			}
+			cout << v[pos - 1] << endl;
+		}
+		else
+		{
+			for (int i = 0; i < str.size(); i++)
+			{
+				if (str[i] == 'U'&&pos == 1)
+				{
+					pos = n;
+					top = pos - 3;
+					end = top + 3;
+				}
+				else if (str[i] == 'U'&&pos == top)
+				{
+					pos--;
+					top--;
+					end--;
+				}
+				else if (str[i] == 'D'&&pos == n)
+				{
+					pos = 1;
+					top = pos;
+					end = top + 3;
+				}
+				else if (str[i] == 'U')
+				{
+					pos--;
+				}
+				else if (pos==end)
+				{
+					pos++;
+					top++;
+					end++;
+				}
+				else
+				{
+					pos++;
+				}
+			}
+			for (int i = top - 1; i < end; i++)
+			{
+				cout << v[i] << " ";
+			}
+			cout << endl;
+			cout << v[pos - 1] << endl;
+		}
+	}	
+}
+
+//洗牌
+void shuffle(int n,vector<int>& v,int k)
+{
+	while (k--)
+	{
+		vector<int> vv;
+		for (int i = 0; i<n; i++)
+		{
+			vv.push_back(v[i]);
+			vv.push_back(v[i + n]);
+		}
+		v = vv;
+	}
+}
+int main()
+{
+	int T=0;
+	int k=0;
+	int n=0;
+	cin >> T;
+	while(T--)
+	{
+		cin>>n;
+		cin>>k;
+		vector<int> v;
+		v.resize(2*n);
+		for(int i=0;i<2*n;i++)
+		{
+			cin>>v[i];
+		}
+		shuffle(n,v,k);
+		for (int i = 0; i < v.size(); i++)
+		{
+			if (T == 0 && i == v.size() - 1)
+			{
+				cout << v[i];
+			}
+			else
+			{
+				cout << v[i] << " ";
+			}
+		}
+		cout << endl;
+	}
+}
+
 //20191128#########################################################################
 //公共字串计算
 int main()
@@ -73,8 +212,6 @@ int main()
 		cout << str2.size()+1 << endl;
 	}
 }
-
-#if 0
 //字符串反转
 void swap(char& a, char& b)
 {
