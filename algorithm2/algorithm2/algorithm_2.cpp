@@ -6,6 +6,84 @@ using namespace std;
 #include<Windows.h>
 
 #if 0
+//20191130##################################################################################
+//找出字符串中第一个只出现一次的字符
+char fundone(string str)
+{
+	int a[256] = { 0 };
+	for (int i = 0; i<str.size(); i++)
+	{
+		a[str[i]] += 1;
+	}
+	for (int i = 0; i<str.size(); i++)
+	{
+		if (a[str[i]] == 1)
+		{
+			return str[i];
+		}
+	}
+	return -1;
+}
+int main()
+{
+	string str;
+	while (cin >> str)
+	{
+		char c = fundone(str);
+		if (c != -1)
+		{
+			cout << c << endl;
+		}
+		else
+		{
+			cout << "-1" << endl;
+		}
+	}
+}
+//小易的升级之路
+int Findnumber(int a, int b)
+{
+	while(a!=b)
+	{
+		if(a>b)
+		{
+			a=a-b;
+		}
+		else
+		{
+			b=b-a;
+		}
+	}
+	return b;
+}
+int main()
+{
+	int n;
+	int a;
+	while(cin>>n>>a)
+	{
+		vector<int> v;
+		v.resize(n,0);
+		for(int i=0;i<n;i++)
+		{
+			cin>>v[i];
+		}
+		int c=a;
+		for(int i=0;i<n;i++)
+		{
+			if(v[i]<=c)
+			{
+				c+=v[i];
+			}
+			else
+			{
+				c+=Findnumber(c,v[i]);
+			}
+		}
+		cout<<c<<endl;
+	}
+}
+
 //20191130##################################################################################################
 //MP3的光标位置
 int main()
