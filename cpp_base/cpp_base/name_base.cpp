@@ -6,6 +6,7 @@ using namespace std;
 
 //#include<stdio.h>
 
+
 #if 0
 
 /*一个命名空间就定义了一个新的定义域，命名空间中所有的内容都局限于该定义域中*/
@@ -917,7 +918,7 @@ int main()
 	return 0;
 }
 
-#endif
+
 //用类模板写一个动态类型顺序表
 
 #include<assert.h>
@@ -1027,5 +1028,231 @@ int main()
 {
 	TestSeqList();
 	system("pause");
+	return 0;
+}
+
+class B
+{
+public:
+	int _b;
+};
+class C :virtual public B
+{
+public:
+	int _c;
+};
+class D : virtual public B
+{
+public:
+	int _d;
+};
+class A :public C, public D
+{
+public:
+	int _a;
+};
+int main()
+{
+	cout << sizeof(A) << endl;
+	system("pause");
+	return 0;
+}
+
+
+template<class T>
+class smartptr
+{
+public:
+	smartptr(T* ptr = nullptr)
+		:_ptr(ptr)
+	{
+		cout << "smartptr(T* )" << endl;
+	}
+	~smartptr()
+	{
+		cout << "~smartptr(T* )" << endl;
+		if (_ptr)
+		{
+			delete _ptr;
+			_ptr = nullptr;
+		}
+	}
+	T& operator*()
+	{
+		return *_ptr;
+	}
+	T* operator->()
+	{
+		return _ptr;
+	}
+private:
+	T* _ptr;
+};
+void testsmartptr()
+{
+	int a = 10;
+	int *pa = &a;
+	int *pb(pa);
+	smartptr<int> sp1(new int);
+	smartptr<int> sp2(sp1);
+}
+int main()
+{
+	testsmartptr();
+	return 0;
+}
+
+namespace heqing
+{
+	//auto_ptr解决的原理就是资源的转移
+	template<class T>
+	class auto_ptr
+	{
+	public:
+		//RAII
+		auto_ptr(T* ptr = nullptr)
+			:_ptr(ptr)
+		{}
+		~auto_ptr()
+		{
+			if (_ptr)
+			{
+				delete _ptr;
+				_ptr = nullptr;
+			}
+		}
+		//指针特性
+		T& operator*()
+		{
+			return *_ptr;
+		}
+		T* operator->()
+		{
+			return _ptr;
+		}
+		//解决浅拷贝（资源的转移）
+		auto_ptr(auto_ptr<T>& ap)
+			:_ptr(ap._ptr)
+		{
+			ap._ptr = nullptr;
+		}
+		auto_ptr<T>& operator=(auto_ptr<T> ap)
+		{
+			if (this != &ap)
+			{
+				if (_ptr)//如果当前对象管理资源了，先释放原有的资源
+				{
+					delete _ptr;
+				}
+
+				_ptr = ap._ptr;//资源转移
+				ap._ptr = nullptr;//ap与资源断开练习
+			}
+			return *this;
+		}
+	private:
+		T* _ptr;
+
+	};
+}
+void testautoptr()
+{
+	int a = 10;
+	int* pa = &a;
+	int* pb = pa;
+	*pa = 100;
+	*pb = 200;//两个对象能同时操作同一份资源
+	heqing::auto_ptr<int> ap1(new int);
+	heqing::auto_ptr<int> ap2(ap1);
+	//资源转移带来的缺陷。两个对象不能同时操作同一份资源
+	*ap2 = 200;
+	*ap1 = 100;
+	heqing::auto_ptr<int> ap3;
+	ap3 = ap2;
+}
+int main()
+{
+	testautoptr();
+	return 0;
+}
+#endif
+namespace heqing
+{
+	//auto_ptr解决的原理就是资源的转移
+	template<class T>
+	class auto_ptr
+	{
+	public:
+		//RAII
+		auto_ptr(T* ptr = nullptr)
+			:_ptr(ptr)
+			, _owner(false)
+		{
+			if (_ptr)
+			{
+				_owner = true;
+			}
+		}
+		~auto_ptr()
+		{
+			if (_ptr)
+			{
+				delete _ptr;
+				_ptr = nullptr;
+			}
+		}
+		//指针特性
+		T& operator*()
+		{
+			return *_ptr;
+		}
+		T* operator->()
+		{
+			return _ptr;
+		}
+		//解决浅拷贝（资源的转移）
+		auto_ptr(auto_ptr<T>& ap)
+			:_ptr(ap._ptr)
+		{
+			ap._ptr = nullptr;
+		}
+		auto_ptr<T>& operator=(auto_ptr<T> ap)
+		{
+			if (this != &ap)
+			{
+				if (_ptr)//如果当前对象管理资源了，先释放原有的资源
+				{
+					delete _ptr;
+				}
+
+				_ptr = ap._ptr;//资源转移
+				ap._ptr = nullptr;//ap与资源断开练习
+			}
+			return *this;
+		}
+	private:
+		T* _ptr;
+		bool _owner;
+
+	};
+}
+void testautoptr()
+{
+	int a = 10;
+	int* pa = &a;
+	int* pb = pa;
+	*pa = 100;
+	*pb = 200;//两个对象能同时操作同一份资源
+	heqing::auto_ptr<int> ap1(new int);
+	heqing::auto_ptr<int> ap2(ap1);
+	//资源转移带来的缺陷。两个对象不能同时操作同一份资源
+	*ap2 = 200;
+	*ap1 = 100;
+	heqing::auto_ptr<int> ap3;
+	ap3 = ap2;
+}
+int main()
+{
+	testautoptr();
 	return 0;
 }
