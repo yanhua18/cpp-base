@@ -5,6 +5,57 @@ using namespace std;
 #include<algorithm>
 #include<Windows.h>
 
+//20191201#############################################################################################
+//计算字符串的距离*********************************************************
+int calStringDistance(string A, string B)
+{
+	int row = A.size();//字符串A的长度
+	int col = B.size();//字符串B的长度
+	int**  dp = new int*[row + 1];//动态创建一个二维数组
+	for (int i = 0; i < row + 1; i++)
+	{
+		dp[i] = new int(col + 1);
+	}
+	dp[0][0] = 0;//这里的代价是0，也就是空字符到空字符，不需要任何编辑
+	for (int i = 1; i < row + 1; i++)//这里是A的i个字符到B空字符需要删除i个的删除代价
+	{
+		dp[i][0] = i;
+	}
+	for (int j = 1; j < col + 1; j++)//这里是A从空字符到B的j个字符共需要j个插入代价
+	{
+		dp[0][j] = j;
+	}
+	for (int i = 1; i < row + 1; i++)
+	{
+		for (int j = 1; j < col + 1; j++)
+		{
+			if (A[i - 1] == B[j - 1])
+			{
+				dp[i][j] = dp[i - 1][j - 1] + 1;//如果i和j位置的字符相同，说明i和j位置的字符不需要编辑
+				dp[i][j] = dp[i - 1][j - 1];
+			}
+			else
+			{
+				dp[i][j] = dp[i - 1][j - 1] + 1;//这里需要做一个替换代价
+			}
+			dp[i][j] = min(dp[i - 1][j] + 1, dp[i][j]);
+			dp[i][j] = min(dp[i][j], dp[i][j - 1] + 1);
+		}
+	}
+	return dp[row][col];                                                                                                                             
+}
+int main()
+{
+	string str1;
+	while(cin>>str1)
+	{
+		string str2;
+		cin >> str2;
+		int num=calStringDistance(str1,str2);
+		cout<<num<<endl;
+	}
+}
+
 #if 0
 //20191130##################################################################################
 //找出字符串中第一个只出现一次的字符
