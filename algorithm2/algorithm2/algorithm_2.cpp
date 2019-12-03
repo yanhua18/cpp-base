@@ -5,6 +5,70 @@ using namespace std;
 #include<algorithm>
 #include<Windows.h>
 
+
+
+//20191203###################################################################################
+int main()
+{
+	int m;
+	int n;
+	while(cin>>m>>n)
+	{
+		vector<vector<int>> v;
+		v.resize(m);
+		for(int i=0;i<m;i++)
+		{
+			v[i].resize(n,0);
+		}
+		for(int i=0;i<m;i++)
+		{
+			for(int j=0;j<n;j++)
+			{
+				cin>>v[i][j];
+			}
+		}
+
+	}
+}
+
+
+#if 0
+//年终奖
+class Bonus {
+public:
+	int getMost(vector<vector<int> > board) {
+		for(int i=0;i<board.size();i++)
+		{
+			for(int j=0;j<board[0].size();j++)
+			{
+				if(i==0&&j==0)
+				{}
+				else if(j==0)
+				{
+					board[i][j]+=board[i-1][j];
+				}
+				else if(i==0)
+				{
+					board[i][j]+=board[i][j-1];
+				}
+				else
+				{
+					int down=board[i-1][j];
+					int right=board[i][j-1];
+					if(down>right)
+					{
+						board[i][j]+=down;
+					}
+					else
+					{
+						board[i][j]+=right;
+					}
+				}
+			}
+		}
+		return board[board.size()-1][board[0].size()-1];
+	}
+};
 //20191201#############################################################################################
 //计算字符串的距离*********************************************************
 int calStringDistance(string A, string B)
@@ -56,7 +120,6 @@ int main()
 	}
 }
 
-#if 0
 //20191130##################################################################################
 //找出字符串中第一个只出现一次的字符
 char fundone(string str)
