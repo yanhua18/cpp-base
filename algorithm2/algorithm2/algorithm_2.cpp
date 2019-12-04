@@ -5,34 +5,106 @@ using namespace std;
 #include<algorithm>
 #include<Windows.h>
 
-
-
-//20191203###################################################################################
-int main()
-{
-	int m;
-	int n;
-	while(cin>>m>>n)
-	{
-		vector<vector<int>> v;
-		v.resize(m);
-		for(int i=0;i<m;i++)
+#if 0
+//2019-12-04####################################################################################################
+//扑克牌中的顺子************************************************************************************
+class Solution {
+public:
+	bool IsContinuous( vector<int> numbers ) {
+		if(numbers.size()==0)
 		{
-			v[i].resize(n,0);
+			return false;
 		}
-		for(int i=0;i<m;i++)
+		sort(numbers.begin(),numbers.end());
+		int count=0;
+		int num=0;
+		for(int i=0;i<numbers.size();i++)
 		{
-			for(int j=0;j<n;j++)
+			if(numbers[i]==0)
 			{
-				cin>>v[i][j];
+				count++;
 			}
 		}
-
+		if(count==0)
+		{
+			for(int i=1;i<numbers.size();)
+			{
+				if(numbers[i-1]+1==numbers[i])
+				{
+					i++;
+				}
+				else
+				{
+					return false;
+				}
+			}
+		}
+		else
+		{
+			for(int i=count+1;i<numbers.size();i++)
+			{
+				int tmp=numbers[i-1]+1;
+				if (tmp > numbers[i])
+				{
+					return false;
+				}
+				while(tmp!=numbers[i]&&tmp<numbers[i])
+				{
+					tmp++;
+					num++;
+				}
+			}
+		}
+		if(count>=num)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
-}
-
-
-#if 0
+};
+//重建二叉树************************************************************************************************
+/**
+* Definition for binary tree
+* struct TreeNode {
+*     int val;
+*     TreeNode *left;
+*     TreeNode *right;
+*     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+* };
+*/
+class Solution {
+public:
+	TreeNode* rebuild1(vector<int>& pre,vector<int>& vin,int pleft,int pright,int vleft,int vright)
+	{
+		if(pleft>pright||vleft>vright)
+		{
+			return NULL;
+		}
+		TreeNode *root=new TreeNode(pre[pleft]);
+		int k=0;
+		for(int i=vleft;i<=vright;i++)
+		{
+			if(vin[i]==pre[pleft])
+			{
+				k=i;
+				break;
+			}
+		}
+		int llen=k-vleft;
+		int rlen=vright-k;
+		root->left=rebuild1(pre,vin,pleft+1,pleft+llen,vleft,k-1);
+		root->right=rebuild1(pre,vin,pleft+llen+1,pright,k+1,vright);
+		return root;
+	}
+	TreeNode* reConstructBinaryTree(vector<int> pre,vector<int> vin) {
+		int n=pre.size();
+		return rebuild1(pre,vin,0,n-1,0,n-1);
+	}
+};
+//20191203###################################################################################
 //年终奖
 class Bonus {
 public:
