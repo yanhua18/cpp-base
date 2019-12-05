@@ -1,14 +1,15 @@
-﻿生成启动时间为 2019/12/1 14:15:08。
+﻿生成启动时间为 2019/12/5 20:25:59。
      1>项目“E:\程序文件\a_GitHub\C++github\cpp-base\cpp_base\cpp_base\cpp_base.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
          E:\VS2013\VC\bin\CL.exe /c /I"E:\App\Visual Leak Detector\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt name_base.cpp
          name_base.cpp
-       Link:
-         E:\VS2013\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\程序文件\a_GitHub\C++github\cpp-base\cpp_base\Debug\cpp_base.exe" /INCREMENTAL /NOLOGO /LIBPATH:"E:\App\Visual Leak Detector\lib\Win32" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\程序文件\a_GitHub\C++github\cpp-base\cpp_base\Debug\cpp_base.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\程序文件\a_GitHub\C++github\cpp-base\cpp_base\Debug\cpp_base.lib" /MACHINE:X86 Debug\name_base.obj
-         Debug\person.obj
-         cpp_base.vcxproj -> E:\程序文件\a_GitHub\C++github\cpp-base\cpp_base\Debug\cpp_base.exe
-     1>已完成生成项目“E:\程序文件\a_GitHub\C++github\cpp-base\cpp_base\cpp_base\cpp_base.vcxproj”(Build 个目标)的操作。
+     1>e:\程序文件\a_github\c++github\cpp-base\cpp_base\cpp_base\name_base.cpp(1317): error C2248: “Free<int>::operator ()”: 无法访问 private 成员(在“Free<int>”类中声明)
+                 e:\程序文件\a_github\c++github\cpp-base\cpp_base\cpp_base\name_base.cpp(1281) : 参见“Free<int>::operator ()”的声明
+                 e:\程序文件\a_github\c++github\cpp-base\cpp_base\cpp_base\name_base.cpp(1312): 编译类 模板 成员函数“heqing::unique_ptr<int,Free<int>>::~unique_ptr(void)”时
+                 e:\程序文件\a_github\c++github\cpp-base\cpp_base\cpp_base\name_base.cpp(1351): 参见对正在编译的函数 模板 实例化“heqing::unique_ptr<int,Free<int>>::~unique_ptr(void)”的引用
+                 e:\程序文件\a_github\c++github\cpp-base\cpp_base\cpp_base\name_base.cpp(1351): 参见对正在编译的类 模板 实例化“heqing::unique_ptr<int,Free<int>>”的引用
+     1>已完成生成项目“E:\程序文件\a_GitHub\C++github\cpp-base\cpp_base\cpp_base\cpp_base.vcxproj”(Build 个目标)的操作 - 失败。
 
-生成成功。
+生成失败。
 
-已用时间 00:00:02.01
+已用时间 00:00:01.12

@@ -1175,7 +1175,7 @@ int main()
 	testautoptr();
 	return 0;
 }
-#endif
+
 namespace heqing
 {
 	//auto_ptr解决的原理就是资源的转移
@@ -1195,7 +1195,7 @@ namespace heqing
 		}
 		~auto_ptr()
 		{
-			if (_ptr)
+			if (_ptr&&_owner)
 			{
 				delete _ptr;
 				_ptr = nullptr;
@@ -1213,20 +1213,22 @@ namespace heqing
 		//解决浅拷贝（资源的转移）
 		auto_ptr(auto_ptr<T>& ap)
 			:_ptr(ap._ptr)
+			,_owner(ap._owner)
 		{
-			ap._ptr = nullptr;
+			ap._owner = false;
 		}
 		auto_ptr<T>& operator=(auto_ptr<T> ap)
 		{
 			if (this != &ap)
 			{
-				if (_ptr)//如果当前对象管理资源了，先释放原有的资源
+				if (_ptr&&_owner)//如果当前对象管理资源了，先释放原有的资源
 				{
 					delete _ptr;
 				}
 
 				_ptr = ap._ptr;//资源转移
-				ap._ptr = nullptr;//ap与资源断开练习
+				_owner = ap._owner;
+				ap._owner = false;//ap将释放权利转移给了this
 			}
 			return *this;
 		}
@@ -1238,21 +1240,125 @@ namespace heqing
 }
 void testautoptr()
 {
-	int a = 10;
-	int* pa = &a;
-	int* pb = pa;
-	*pa = 100;
-	*pb = 200;//两个对象能同时操作同一份资源
 	heqing::auto_ptr<int> ap1(new int);
 	heqing::auto_ptr<int> ap2(ap1);
-	//资源转移带来的缺陷。两个对象不能同时操作同一份资源
-	*ap2 = 200;
-	*ap1 = 100;
+	
 	heqing::auto_ptr<int> ap3;
 	ap3 = ap2;
 }
+void testautoptr2()
+{
+	heqing::auto_ptr<int> ap1(new int);
+	if (true)
+	{
+		heqing::auto_ptr<int> ap2(ap1);
+		*ap2 = 20;//出了函数作用域，ap2释放资源
+	}
+	*ap1 = 10;//ap1并不知道，所以会导致野指针
+}
 int main()
 {
-	testautoptr();
+	testautoptr2();
 	return 0;
+}
+template<class T>
+class DFDef
+{
+public:
+	void operator()(T*& p)
+	{
+		if (p)
+		{
+			delete p;
+			p = nullptr;
+		}
+	}
+};
+template<class T>
+class Free
+{
+	void operator()(T*& p)
+	{
+		if (p)
+		{
+			free p;
+			p = nullptr;
+		}
+	}
+};
+class FClose
+{
+	void operator()(FILE*& p)
+	{
+		if (p)
+		{
+			fclose(p);
+			p = nullptr;
+		}
+	}
+};
+namespace heqing
+{
+	//解决浅拷贝的方式就是资源独占（只能一个对象使用，不能共享），就是禁止调用拷贝构造和赋值运算符重载
+	template < class T,class DF >
+	class unique_ptr
+	{
+	public:
+		unique_ptr(T* ptr = nullptr)
+			:_ptr(ptr)
+		{}
+		~unique_ptr()
+		{
+			if (_ptr)
+			{
+				//delete _ptr;//缺点：只能处理new出来的资源，不能处理任意类型的资源
+				DF df;
+				df(_ptr);
+				_ptr = nullptr;
+			}
+		}
+		T& operator*()
+		{
+			retirn *_pre;
+		}
+		T* operator->()
+		{
+			return _ptr;
+		}
+		//解决浅拷贝
+		//C++98的解决方法
+	//private://防止用户在外部实现
+	//	unique_ptr(const unique_ptr<T>& up);
+	//	unique_ptr<T>& operator=(const unique_ptr<T> &up);
+		//C++11的解决方法
+		//unique_ptr(const unique_ptr<T>& up) = delete;//删除该默认成员函数
+		//unique_ptr<T>& operator=(const unique_ptr<T> &up) = delete;
+	private:
+		T* _ptr;
+	};
+}
+void testuniqueptr()
+{
+	heqing::unique_ptr<int> up1(new int);
+	//heqing::unique_ptr<int> up2(up1);
+	heqing::unique_ptr<int> up3 (new int);
+	up3 = up1;
+}
+void TestUniqueptr2()
+{
+	//heqing::unique_ptr<int> up1(new int);
+	heqing::unique_ptr<int,Free<int>> up2((int*) malloc(sizeof(int)));
+	//heqing::unique_ptr<FILE, FClose> up3(fopen("1.txt", w));
+}
+int main()
+{
+	TestUniqueptr2();
+	return 0;
+}
+
+#endif
+namespace heqing
+{
+	template<class T>
+
 }
