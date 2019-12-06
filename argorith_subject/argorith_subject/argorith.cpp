@@ -7,23 +7,39 @@ using namespace std;
 //#include<stack>
 //#include<Windows.h>
 
+#if 0
+//求连续最大和
 int main()
 {
-	for (int i = 10000; i >= 0; i--)
+	int n;
+	while (cin >> n)
 	{
-		for (int j = 2; j < i / 2; j++)
+		vector<int> v;
+		v.resize(n, 0);
+		for (int i = 0; i<n; i++)
 		{
-			if (i%j == 0)
+			cin >> v[i];
+		}
+		int sum = 0;
+		int maxsum = v[0];//防止第一个值是负数，因为如果maxsum是0，而最大值是第一个且为负数就无法判断了
+		for (int i = 0; i<n; i++)
+		{
+			sum += v[i];
+			if (sum>maxsum)//如果先判断sum<0，并赋值的话，会影响最大值的判断
 			{
-				break;
+				maxsum = sum;
+			}
+			if (sum<0)
+			{
+				sum = 0;
 			}
 		}
-
+		cout << maxsum << endl;
 	}
-	system("pause");
-	return 0;
 }
-#if 0
+
+
+
 int main(){
 	int n, m,k;
 	double sum = 0;
