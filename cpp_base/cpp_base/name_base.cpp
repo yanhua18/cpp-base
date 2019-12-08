@@ -1356,9 +1356,216 @@ int main()
 	return 0;
 }
 
-#endif
+//模拟实现shared_ptr
 namespace heqing
 {
 	template<class T>
+	class shared_ptr
+	{
+	public:
+		shared_ptr(T* ptr = nullptr)
+			:_ptr(ptr)
+			, _pcount(nullptr)
+		{
+			if (_ptr)
+			{
+				_pcount = new int(1);
+			}
+		}
+		~shared_ptr()
+		{
+			if (_ptr && 0 == --*_pcount)
+			{
+				delete _ptr;
+				delete _pcount;
+			}
+		}
+		T& operator*()
+		{
+			return *_ptr;
+		}
+		T* operator->()
+		{
+			return _ptr;
+		}
+		shared_ptr(const shared_ptr<T>& sp)
+			:_ptr(sp._ptr)
+			, _pcount(sp._pcount)
+		{
+			if (_ptr)
+			{
+				++*_pcount;
+			}
+		}
+		shared_ptr<T>& operator=(const shared_ptr<T>& sp)
+		{
+			if (this != &sp)
+			{
+				//1,与就资源断开联系，保证当前资源只有this一个对象在控制，释放该资源
+				if (_ptr && 0 == --*_pcount)
+				{
+					delete _ptr;
+					delete _pcount;
+				}
+				//2.与sp共享资源和计数
+				_ptr = sp._ptr;
+				_pcount = sp._pcount;
+				if (_ptr)
+				{
+					++*_pcount;
+				}
+			}
+			return *this;
+		}
+		int use_count()
+		{
+			return *_pcount;
+		}
+	private:
+		T* _ptr;
+		int* _pcount;
+	};
+}
+void Testsharedptr()
+{
+	heqing::shared_ptr<int> sp1(new int);
+	cout << sp1.use_count() << endl;
 
+	heqing::shared_ptr<int> sp2(sp1);
+	cout << sp1.use_count() << endl;
+	cout << sp2.use_count() << endl;
+
+	heqing::shared_ptr<int> sp3(new int);
+	cout << sp3.use_count() << endl;
+
+}
+int main()
+{
+	Testsharedptr();
+	system("pause");
+	return 0;
+}
+#endif
+
+
+#include<mutex>
+template<class T>
+class DFDef
+{
+public:
+	void operator()(T*& ptr)
+	{
+		if (ptr)
+		{
+			delete ptr;
+			ptr = nullptr;
+		}
+	}
+};
+
+namespace heqing
+{
+	template<class T,class DF=DFDef<T>>
+	class shared_ptr
+	{
+	public:
+		shared_ptr(T* ptr = nullptr)
+			:_ptr(ptr)
+			, _pcount(nullptr)
+			, _pMutex(nullptr)
+		{
+			if (_ptr)
+			{
+				_pcount = new int(1);
+				_pMutex = new mutex;
+			}
+		}
+		~shared_ptr()
+		{
+			Release();
+		}
+		T& operator*()
+		{
+			return *_ptr;
+		}
+		T* operator->()
+		{
+			return _ptr;
+		}
+		shared_ptr(const shared_ptr<T>& sp)
+			:_ptr(sp._ptr)
+			, _pcount(sp._pcount)
+			, _pMutex(sp._pMutex)
+		{
+			AddRef();
+		}
+		shared_ptr<T>& operator=(const shared_ptr<T>& sp)
+		{
+			if (this != &sp)
+			{
+				Release();
+				_ptr = sp._ptr;
+				_pcount = sp._pcount;
+				if (_ptr)
+				{
+					AddRef();
+				}
+			}
+			return *this;
+		}
+		int use_count()
+		{
+			return *_pcount;
+		}
+	private:
+		void AddRef()
+		{
+			if (_pcount)
+			{
+				_pMutex->lock();
+				++*_pcount;
+				_pMutex->unlock();
+			}
+		}
+		int SubRef()
+		{
+			if (_pcount)
+			{
+				_pMutex->lock();
+				--*_pcount;
+				_pMutex->unlock();
+			}
+			return *_pcount;
+		}
+		void Release()
+		{
+			if (_ptr && 0 == SubRef())
+			{
+				DF()(_ptr);
+				delete _pcount;
+			}
+		}
+		T* _ptr;
+		int* _pcount;
+		mutex* _pMutex;
+	};
+}
+void Testsharedptr()
+{
+	heqing::shared_ptr<int> sp1(new int);
+	cout << sp1.use_count() << endl;
+
+	heqing::shared_ptr<int> sp2(sp1);
+	cout << sp1.use_count() << endl;
+	cout << sp2.use_count() << endl;
+
+	heqing::shared_ptr<int> sp3(new int);
+	cout << sp3.use_count() << endl;
+
+}
+int main()
+{
+	Testsharedptr();
+	system("pause");
+	return 0;
 }
