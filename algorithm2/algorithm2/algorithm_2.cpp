@@ -5,7 +5,75 @@ using namespace std;
 #include<algorithm>
 #include<Windows.h>
 
+
+
+
+
+
+
+
 #if 0
+//链表中的倒数第k个节点
+/*
+struct ListNode {
+int val;
+struct ListNode *next;
+ListNode(int x) :
+val(x), next(NULL) {
+}
+};*/
+class Solution {
+public:
+	ListNode* FindKthToTail(ListNode* pListHead, unsigned int k) {
+		ListNode* cur=pListHead;
+		int count=0;
+		while(cur!=NULL)
+		{
+			cur=cur->next;
+			count++;
+		}
+		if(k>count)
+		{
+			return NULL;
+		}
+		count=count-k;
+		ListNode* tmp=pListHead;
+		for(int i=0;i<count;i++)
+		{
+			tmp=tmp->next;
+		}
+		return tmp;
+	}
+};
+//只遍历一次来找倒数k个节点
+class Solution {
+public:
+	ListNode* FindKthToTail(ListNode* pListHead, unsigned int k) {
+		if(pListHead==NULL||k==0)
+		{
+			return nullptr;
+		}
+		ListNode* pHeadA=pListHead;
+		ListNode* pHeadB=pListHead;
+		for(int i=0;i<k-1;i++)
+		{
+			if(pHeadA->next!=NULL)
+			{
+				pHeadA=pHeadA->next;
+			}
+			else
+			{
+				return nullptr;
+			}
+		}
+		while(pHeadA->next!=NULL)
+		{
+			pHeadA=pHeadA->next;
+			pHeadB=pHeadB->next;
+		}
+		return pHeadB;
+	}
+};
 //2019-12-04####################################################################################################
 //不用加减乘除做加法
 class Solution {//思路就是先将两个数相加但不进位，让后让两个数进行与运算在左移进行进位运算，不断重复相加进位知道求出和
