@@ -5,12 +5,94 @@ using namespace std;
 #include<algorithm>
 #include<Windows.h>
 
+//20191209##################################################################################################
+//表示数值的字符串
+class Solution {
+public:
+	bool isNumeric(char* str)
+	{
+		if (str == NULL)
+		{
+			return false;
+		}
+		if (*str == '+' || *str == '-')
+		{
+			str++;
+		}
+		int digit = 0;//表示小数点出现的状态
+		int e = 0;//表示e/E出现的状态
+		int number = 0;//表示数字出现的状态
+		while (*str != '\0')
+		{
+			if (*str >= '0'&&*str <= '9')
+			{
+				str++;
+				number = 1;
+			}
+			else if (*str == '.')
+			{
+				if (e>0 || digit>0)//小数点不能出现在e的后面，小数点前面不能有小数点
+				{
+					return false;
+				}
+				digit = 1;
+				str++;
+			}
+			else if (*str == 'e' || *str == 'E')
+			{
+				if (e>0 || number == 0)//e的前面不能有e，e的前面不能没有数字
+				{
+					return false;
+				}
+				e = 1;
+				++str;
+				if (*str == '+' || *str == '-')//e的后面可能有+-符号
+				{
+					str++;
+				}
+				if (*str == '\0')//e的后面不能没有数字
+				{
+					return false;
+				}
+			}
+			else
+			{
+				return false;
+			}
+		}
+		return true;
+	}
 
+};
+//字符流中第一个不重复出现的字符
+class Solution
+{
+public:
+	string str;
+	//Insert one char from stringstream
+	void Insert(char ch)
+	{
+		str += ch;
+	}
+	//return the first appearence once char in current stringstream
+	char FirstAppearingOnce()
+	{
+		int array[256] = { 0 };
+		for (int i = 0; i<str.size(); i++)
+		{
+			array[str[i]] += 1;
+		}
+		for (int i = 0; i<str.size(); i++)
+		{
+			if (array[str[i]] == 1)
+			{
+				return str[i];
+			}
+		}
+		return '#';
+	}
 
-
-
-
-
+};
 
 #if 0
 //链表中的倒数第k个节点
