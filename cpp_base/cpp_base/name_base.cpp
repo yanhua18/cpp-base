@@ -1445,8 +1445,6 @@ int main()
 	system("pause");
 	return 0;
 }
-#endif
-
 
 #include<mutex>
 template<class T>
@@ -1567,5 +1565,47 @@ int main()
 {
 	Testsharedptr();
 	system("pause");
+	return 0;
+}
+#endif
+
+#include <memory>
+struct ListNode
+{
+	ListNode(int data = 0)
+		: pre(nullptr)
+		, next(nullptr)
+		, _data(data)
+	{
+		cout << "ListNode(int):" << this << endl;
+	}
+	~ListNode()
+	{
+		cout << "~ListNode():" << this << endl;
+	}
+
+	shared_ptr<ListNode> pre;
+	shared_ptr<ListNode> next;
+	int _data;
+};
+
+void TestListNode()
+{
+	shared_ptr<ListNode> sp1(new ListNode(10));
+	shared_ptr<ListNode> sp2(new ListNode(20));
+
+	cout << sp1.use_count() << endl;
+	cout << sp2.use_count() << endl;
+
+	sp1->next = sp2;
+	sp2->pre = sp1;
+
+	cout << sp1.use_count() << endl;
+	cout << sp2.use_count() << endl;
+}
+
+int main()
+{
+	TestListNode();
 	return 0;
 }
