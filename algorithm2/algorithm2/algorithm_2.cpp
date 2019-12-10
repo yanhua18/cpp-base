@@ -5,6 +5,124 @@ using namespace std;
 #include<algorithm>
 #include<Windows.h>
 
+
+#if 0
+//2019-12-10################################################################################################
+//跳台阶
+class Solution {
+public:
+	int jumpFloor(int number) {
+		if(number==0)
+		{
+			return 0;
+		}
+		if(number==1)
+		{
+			return 1;
+		}
+		if(number==2)
+		{
+			return 2;
+		}
+		return jumpFloor(number-1)+jumpFloor(number-2);
+	}
+};
+//合并两个排序的链表
+//非递归方式
+class Solution {
+public:
+	ListNode* Merge(ListNode* pHead1, ListNode* pHead2)
+	{
+		if(pHead1==nullptr)
+		{
+			return pHead2;
+		}
+		if(pHead2==nullptr)
+		{
+			return pHead1;
+		}
+		if(pHead1==nullptr&&pHead2==nullptr)
+		{
+			return nullptr;
+		}
+		ListNode* pStart=nullptr;
+		if(pHead1->val>pHead2->val)
+		{
+			pStart=pHead2;
+			pHead2=pHead2->next;
+		}
+		else
+		{
+			pStart=pHead1;
+			pHead1=pHead1->next;
+		}
+		ListNode* pHead=pStart;
+		while(pHead1!=nullptr&&pHead2!=nullptr)
+		{
+			if(pHead1->val>pHead2->val)
+			{
+				pHead->next=pHead2;
+				pHead=pHead->next;
+				pHead2=pHead2->next;
+
+			}
+			else
+			{
+				pHead->next=pHead1;
+				pHead=pHead->next;
+				pHead1=pHead1->next;
+			}
+		}
+		if(pHead1==nullptr)
+		{
+			pHead->next=pHead2;
+		}
+		else
+		{
+			pHead->next=pHead1;
+		}
+		return pStart;
+	}
+};
+/*递归方式
+struct ListNode {
+int val;
+struct ListNode *next;
+ListNode(int x) :
+val(x), next(NULL) {
+}
+};*/
+class Solution {
+public:
+	ListNode* Merge(ListNode* pHead1, ListNode* pHead2)
+	{
+		if (pHead1 == nullptr)
+		{
+			return pHead2;
+		}
+		if (pHead2 == nullptr)
+		{
+			return pHead1;
+		}
+		if (pHead1 == nullptr&&pHead2 == nullptr)
+		{
+			return nullptr;
+		}
+		ListNode* pHead;
+		if (pHead1->val>pHead2->val)
+		{
+			pHead = pHead2;
+			pHead->next = Merge(pHead1, pHead2->next);
+		}
+		else
+		{
+			pHead = pHead1;
+			pHead->next = Merge(pHead1->next, pHead2);
+		}
+		return pHead;
+	}
+};
+
 //20191209##################################################################################################
 //表示数值的字符串
 class Solution {
@@ -94,7 +212,6 @@ public:
 
 };
 
-#if 0
 //链表中的倒数第k个节点
 /*
 struct ListNode {
