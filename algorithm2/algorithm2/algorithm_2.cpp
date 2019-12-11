@@ -5,8 +5,71 @@ using namespace std;
 #include<algorithm>
 #include<Windows.h>
 
-
 #if 0
+//2019-12-11###################################################################################################
+//变态跳台阶
+class Solution {
+public:
+	int jumpFloorII(int number) {
+		int sum=1;
+		for(int i=0;i<number-1;i++)
+		{
+			sum*=2;
+		}
+		return sum;
+	}
+};
+//二叉树的下一个节点
+/*
+struct TreeLinkNode {
+int val;
+struct TreeLinkNode *left;
+struct TreeLinkNode *right;
+struct TreeLinkNode *next;
+TreeLinkNode(int x) :val(x), left(NULL), right(NULL), next(NULL) {
+
+}
+};
+*/
+class Solution {
+public:
+	TreeLinkNode* GetNext(TreeLinkNode* pNode)
+	{
+		if(pNode==nullptr)
+		{
+			return nullptr;
+		}
+		TreeLinkNode* res=nullptr;
+		if(pNode->right!=nullptr)
+		{
+			TreeLinkNode* tmpNode=pNode;
+			tmpNode=tmpNode->right;
+			while(tmpNode->left!=nullptr)
+			{
+				tmpNode=tmpNode->left;
+			}
+			res=tmpNode;
+		}
+		else
+		{
+			TreeLinkNode* tmpNode=pNode;
+			if(tmpNode->next!=nullptr&&tmpNode->next->left==tmpNode)
+			{
+				tmpNode=tmpNode->next;
+				res=tmpNode;
+			}
+			else
+			{
+				while(tmpNode->next!=nullptr&&tmpNode->next->left!=tmpNode)
+				{
+					tmpNode=tmpNode->next;
+				}
+				res=tmpNode->next;
+			}
+		}
+		return res;
+	}
+};
 //2019-12-10################################################################################################
 //跳台阶
 class Solution {
