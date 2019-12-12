@@ -6,6 +6,81 @@ using namespace std;
 #include<Windows.h>
 
 #if 0
+//数字在排序数组中出现的次数
+	class Solution {
+	public:
+		int GetNumberOfK(vector<int> data ,int k) {
+			if (data.empty())
+			{
+				return 0;
+			}
+			int size = data.size();
+			int start = 0;
+			int end = size - 1;
+			int xmid = 0;
+			while (start<end)
+			{
+				int mid = (start + end) / 2;
+				if (data[mid]>k)
+				{
+					end = mid-1;
+				}
+				else if (data[mid]<k)
+				{
+					start = mid+1;
+				}
+				else
+				{
+					xmid = mid;
+					break;
+				}
+			}
+			int count = 0;
+			int i = 0;
+			while (data[xmid - i] == k && (xmid - i) >= 0)
+			{
+				count++;
+				i++;
+			}
+			i = 1;
+			while (data[xmid + i] == k && (xmid + i)<size)
+			{
+				count++;
+				i++;
+			}
+			return count;
+		}
+	};
+//矩阵覆盖
+class Solution {
+public:
+	int rectCover(int number) {
+		if (number <= 0)
+		{
+			return 0;
+		}
+		if (number == 1)
+		{
+			return 1;
+		}
+		if (number == 2)
+		{
+			return 2;
+		}
+		int num1 = 1;
+		int num2 = 2;
+		int count = 2;
+		int sum = 0;
+		while (count<number)
+		{
+			sum = num1 + num2;
+			num1 = num2;
+			num2 = sum;
+			count++;
+		}
+		return sum;
+	}
+};
 //2019-12-11###################################################################################################
 //变态跳台阶
 class Solution {
