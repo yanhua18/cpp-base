@@ -4,8 +4,90 @@ using namespace std;
 #include<vector>
 #include<algorithm>
 #include<Windows.h>
-
 #if 0
+//2019-12-14###########################################################################################
+/*二叉树的镜像
+struct TreeNode {
+int val;
+struct TreeNode *left;
+struct TreeNode *right;
+TreeNode(int x) :
+val(x), left(NULL), right(NULL) {
+}
+};*/
+class Solution {
+public:
+	void Mirror(TreeNode *pRoot) {
+		if(pRoot==nullptr)
+		{
+			return;
+		}
+		if(pRoot->left==nullptr&&pRoot->right==nullptr)
+		{
+			return;
+		}
+		TreeNode* ptmp=pRoot->left;
+		pRoot->left=pRoot->right;
+		pRoot->right=ptmp;
+		if(pRoot->left)
+		{
+			Mirror(pRoot->left);
+		}
+		if(pRoot->right)
+		{
+			Mirror(pRoot->right);
+		}
+	}
+};
+/*树的子结构
+struct TreeNode {
+int val;
+struct TreeNode *left;
+struct TreeNode *right;
+TreeNode(int x) :
+val(x), left(NULL), right(NULL) {
+}
+};*/
+class Solution {
+public:
+	bool IfSontree(TreeNode* proot1, TreeNode* proot2)
+	{
+		if (proot2 == nullptr)
+		{
+			return true;
+		}
+		if (proot1 == nullptr)
+		{
+			return false;
+		}
+		if (proot1->val != proot2->val)
+		{
+			return false;
+		}
+		return IfSontree(proot1->left, proot2->left) && IfSontree(proot1->right, proot2->right);
+	}
+	bool HasSubtree(TreeNode* pRoot1, TreeNode* pRoot2)
+	{
+		bool result = false;
+		if (pRoot1 != nullptr&&pRoot2 != nullptr)
+		{
+			if (pRoot1->val == pRoot2->val)
+			{
+				result = IfSontree(pRoot1, pRoot2);
+			}
+			if (!result)
+			{
+				result = HasSubtree(pRoot1->left, pRoot2);
+			}
+			if (!result)
+			{
+				result = HasSubtree(pRoot1->right, pRoot2);
+			}
+		}
+		return result;
+	}
+};
+//2019-12-12#############################################################################################
 //数字在排序数组中出现的次数
 	class Solution {
 	public:
