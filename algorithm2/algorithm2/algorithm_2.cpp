@@ -5,6 +5,77 @@ using namespace std;
 #include<algorithm>
 #include<Windows.h>
 #if 0
+//2019-12-15###########################################################################################################
+/*从上往下打印二叉树
+struct TreeNode {
+int val;
+struct TreeNode *left;
+struct TreeNode *right;
+TreeNode(int x) :
+val(x), left(NULL), right(NULL) {
+}
+};*/
+class Solution {
+public:
+	vector<int> PrintFromTopToBottom(TreeNode* root) {
+		vector<int> v;
+		if(root==nullptr)
+		{
+			return v;
+		}
+		queue<TreeNode*> TreeQueue;
+		TreeQueue.push(root);
+		while(TreeQueue.size())
+		{
+			TreeNode* tmp=TreeQueue.front();
+			TreeQueue.pop();
+			v.push_back(tmp->val);
+			if(tmp->left)
+			{
+				TreeQueue.push(tmp->left);
+			}
+			if(tmp->right)
+			{
+				TreeQueue.push(tmp->right);
+			}
+		}
+		return v;
+	}
+};
+/*对称二叉树
+struct TreeNode {
+int val;
+struct TreeNode *left;
+struct TreeNode *right;
+TreeNode(int x) :
+val(x), left(NULL), right(NULL) {
+}
+};
+*/
+class Solution {
+public:
+	bool IsSymmetrical(TreeNode* pRoot1,TreeNode* pRoot2)
+	{
+		if(pRoot1==nullptr&&pRoot2==nullptr)
+		{
+			return true;
+		}
+		if(pRoot1==nullptr||pRoot2==nullptr)
+		{
+			return false;
+		}
+		if(pRoot1->val!=pRoot2->val)
+		{
+			return false;
+		}
+		return IsSymmetrical(pRoot1->left,pRoot2->right)&&IsSymmetrical(pRoot1->right,pRoot2->left);
+	}
+	bool isSymmetrical(TreeNode* pRoot)
+	{
+		return IsSymmetrical(pRoot,pRoot);
+	}
+
+};
 //2019-12-14###########################################################################################
 /*二叉树的镜像
 struct TreeNode {
