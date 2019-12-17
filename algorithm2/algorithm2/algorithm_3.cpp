@@ -6,8 +6,79 @@ using namespace std;
 #include<Windows.h>
 #include<stack>
 
-
 #if 0
+//2019-12-17##############################################################################
+/*二叉树的深度
+struct TreeNode {
+int val;
+struct TreeNode *left;
+struct TreeNode *right;
+TreeNode(int x) :
+val(x), left(NULL), right(NULL) {
+}
+};*/
+class Solution {
+public:
+	int TreeDepth(TreeNode* pRoot)
+	{
+		if(pRoot==nullptr)
+		{
+			return 0;
+		}
+		int leftL=TreeDepth(pRoot->left);
+		int rightL=TreeDepth(pRoot->right);
+		if(leftL>rightL)
+		{
+			return leftL+1;
+		}
+		else
+		{
+			return rightL+1;
+		}
+	}
+};
+/*二叉树中和为某一值的路径
+struct TreeNode {
+int val;
+struct TreeNode *left;
+struct TreeNode *right;
+TreeNode(int x) :
+val(x), left(NULL), right(NULL) {
+}
+};*/
+class Solution {
+public:
+	void FindPath(TreeNode* root, int expectNumber, vector<vector<int>>& res, vector<int> path, int curNumber)
+	{
+		curNumber += root->val;
+		path.push_back(root->val);
+		if (curNumber == expectNumber&&root->left == nullptr&&root->right == nullptr)
+		{
+			res.push_back(path);
+		}
+		if (root->left)
+		{
+			FindPath(root->left, expectNumber, res, path, curNumber);
+		}
+		if (root->right)
+		{
+			FindPath(root->right, expectNumber, res, path, curNumber);
+		}
+		path.pop_back();
+	}
+	vector<vector<int> > FindPath(TreeNode* root, int expectNumber) {
+		vector<vector<int>> res;
+		if (root == nullptr)
+		{
+			return res;
+		}
+		int curNumber = 0;
+		vector<int> path;
+		FindPath(root, expectNumber, res, path, curNumber);
+		return res;
+	}
+};
+
 //2019-12-16##########################################################################################
 //二叉搜索树的后序遍历
 class Solution {
