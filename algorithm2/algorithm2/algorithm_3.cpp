@@ -5,8 +5,59 @@ using namespace std;
 #include<algorithm>
 #include<Windows.h>
 #include<stack>
-
 #if 0
+//2019-12-18#############################################################################
+/*把二叉树打印成多行
+struct TreeNode {
+int val;
+struct TreeNode *left;
+struct TreeNode *right;
+TreeNode(int x) :
+val(x), left(NULL), right(NULL) {
+}
+};
+*/
+class Solution {
+public:
+	vector<vector<int> > Print(TreeNode* pRoot) {
+		vector<vector<int>> vv;
+		if(pRoot==nullptr)
+		{
+			return vv;
+		}
+		queue<TreeNode*> queArray;
+		vector<int> v;
+		queArray.push(pRoot);
+		int len=0;
+		int toPrint=1;
+		while(!queArray.empty())
+		{
+			TreeNode* pTemp=queArray.front();
+			queArray.pop();
+			v.push_back(pTemp->val);
+			if(pTemp->left)
+			{
+				queArray.push(pTemp->left);
+				++len;
+			}
+			if(pTemp->right)
+			{
+				queArray.push(pTemp->right);
+				++len;
+			}
+			--toPrint;
+			if(toPrint==0)
+			{
+				vv.push_back(v);
+				toPrint=len;
+				len=0;
+				v.clear();
+			}
+		}
+		return vv;
+	}
+
+};
 //2019-12-17##############################################################################
 /*二叉树的深度
 struct TreeNode {
