@@ -6,6 +6,49 @@ using namespace std;
 #include<Windows.h>
 #include<stack>
 #if 0
+//2019-12-22#############################################################################
+/*二叉搜索树与双向链表
+struct TreeNode {
+int val;
+struct TreeNode *left;
+struct TreeNode *right;
+TreeNode(int x) :
+val(x), left(NULL), right(NULL) {
+}
+};*/
+class Solution {
+public:
+	void Change(TreeNode* pRootOfTree,TreeNode* &pNode)
+	{
+		if(pRootOfTree==nullptr)
+		{
+			return ;
+		}
+		Change(pRootOfTree->left,pNode);
+
+		pRootOfTree->left=pNode;
+		if(pNode)
+		{
+			pNode->right=pRootOfTree;
+		}
+		pNode=pRootOfTree;
+
+		Change(pRootOfTree->right,pNode);
+	}
+	TreeNode* Convert(TreeNode* pRootOfTree)
+	{
+		if(pRootOfTree==nullptr)
+		{
+			return nullptr;
+		}
+		TreeNode* pNode=nullptr;
+		Change(pRootOfTree,pNode);
+		TreeNode* res = pRootOfTree;
+		while(res ->left)
+			res = res ->left;
+		return res;
+	}
+};
 //2019-12-18#############################################################################
 /*把二叉树打印成多行
 struct TreeNode {
