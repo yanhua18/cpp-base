@@ -5,6 +5,68 @@ using namespace std;
 #include<algorithm>
 #include<Windows.h>
 #include<stack>
+
+//³óÊı************************************************************************
+int Min(int a, int b, int c)
+{
+	int _min = a;
+	if (a>b)
+	{
+		_min = b;
+	}
+	if (_min>c)
+	{
+		_min=c;
+	}
+	return _min;
+}
+int GetUglyNumber_Solution(int index) {
+	if (index == 0)
+	{
+		return 0;
+	}
+	int *Uglynumber = new int[index];
+	Uglynumber[0] = 1;
+	int nextindex = 1;
+	int *pnumber2 = Uglynumber;
+	int *pnumber3 = Uglynumber;
+	int *pnumber5 = Uglynumber;
+
+	while (nextindex<index)
+	{
+		int temp = Min(*pnumber2 * 2, *pnumber3 * 3, *pnumber5 * 5);
+		Uglynumber[nextindex] = temp;
+		while (*pnumber2 * 2 <= Uglynumber[nextindex])
+		{
+			pnumber2++;
+		}
+		while (*pnumber3 * 3 <= Uglynumber[nextindex])
+		{
+			pnumber3++;
+		}
+		while (*pnumber5 * 5 <= Uglynumber[nextindex])
+		{
+			pnumber5++;
+		}
+		nextindex++;
+	}
+	int number = Uglynumber[nextindex - 1];
+	delete[] Uglynumber;
+	return number;
+}
+
+int main()
+{
+	int x=GetUglyNumber_Solution(5);
+	cout << x << endl;
+	system("pause");
+	return 0;
+}
+
+
+
+
+
 #if 0
 //2019-12-22#############################################################################
 /*¶ş²æËÑË÷Ê÷ÓëË«ÏòÁ´±í
