@@ -6,6 +6,49 @@ using namespace std;
 #include<Windows.h>
 #include<stack>
 
+//2019-12-24###############################################################################
+//和为S的连续正数序列
+class Solution {
+public:
+	vector<vector<int> > FindContinuousSequence(int sum) {
+		vector<vector<int>> v;
+		if (sum == 1)
+		{
+			return v;
+		}
+		int start = 1;
+		int end = 2;
+		int Tosum = start + end;
+		int mid = (sum + 1) / 2;
+		int x = 0;
+		while (start<mid)
+		{
+			if (Tosum == sum)
+			{
+				v.resize(x + 1);
+				for (int i = start; i <= end; i++)
+					v[x].push_back(i);
+				x++;
+			}
+			while (Tosum>sum&&start<mid)
+			{
+				Tosum -= start;
+				start++;
+				if (Tosum == sum)
+				{
+					v.resize(x + 1);
+					for (int i = start; i <= end; i++)
+						v[x].push_back(i);
+					x++;
+				}
+			}
+			end++;
+			Tosum += end;
+		}
+		return v;
+	}
+};
+#if 0
 //丑数************************************************************************
 int Min(int a, int b, int c)
 {
@@ -63,11 +106,6 @@ int main()
 	return 0;
 }
 
-
-
-
-
-#if 0
 //2019-12-22#############################################################################
 /*二叉搜索树与双向链表
 struct TreeNode {
