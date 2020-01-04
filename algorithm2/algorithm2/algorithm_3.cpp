@@ -6,6 +6,25 @@ using namespace std;
 #include<Windows.h>
 #include<stack>
 
+
+
+
+
+
+//2019-1-4###############################################################################
+//校招题----快手--游戏海报
+#include<iostream>
+using namespace std;
+#include<string>
+int main()
+{
+	string str;
+	while (cin >> str)
+	{
+		int len = str.size();
+		cout << 26 * (len + 1) - len << endl;
+	}
+}
 //2019-12-24###############################################################################
 //和为S的连续正数序列
 class Solution {
