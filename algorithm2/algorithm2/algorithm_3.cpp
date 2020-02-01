@@ -8,9 +8,52 @@ using namespace std;
 
 
 
-
-
-
+#if 0
+//2020-2-1################################################################################################
+//2,给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
+class Solution {
+public:
+	void reverse(vector<int>& nums, int a, int b)
+	{
+		while (a<b)
+		{
+			int tmp = nums[a];
+			nums[a] = nums[b];
+			nums[b] = tmp;
+			a++;
+			b--;
+		}
+	}
+	vector<int> rotate(vector<int>& nums, int k) {
+		int num = nums.size() - 1;
+		if (num == 0)
+		{
+			return nums;
+		}
+		if (num + 1 <= k)
+		{
+			k = k - num - 1;
+		}
+		reverse(nums, 0, num);
+		reverse(nums, 0, k - 1);
+		reverse(nums, k, num);
+		return nums;
+	}
+};
+//1,实现函数 ToLowerCase()，该函数接收一个字符串参数 str，并将该字符串中的大写字母转换成小写字母，之后返回新的字符串。
+class Solution {
+public:
+	string toLowerCase(string str) {
+		for (int i = 0; i<str.size(); i++)
+		{
+			if (str[i] >= 'A'&&str[i] <= 'Z')
+			{
+				str[i] += 32;
+			}
+		}
+		return str;
+	}
+};
 //2019-1-4###############################################################################
 //校招题----快手--游戏海报
 #include<iostream>
@@ -67,7 +110,7 @@ public:
 		return v;
 	}
 };
-#if 0
+
 //丑数************************************************************************
 int Min(int a, int b, int c)
 {
