@@ -7,8 +7,81 @@ using namespace std;
 #include<stack>
 
 
-
 #if 0
+//2019-2-7####################################################################################################################
+//2,给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
+int searchInsert(vector<int>& nums, int target) {
+	int i = 0;
+	int j = nums.size() - 1;
+	int mid = 0;
+	while (i<j)
+	{
+		mid = (i + j) / 2;
+		if (nums[mid]>target)
+		{
+
+			j = mid - 1;
+		}
+		else if (nums[mid]<target)
+		{
+			i = mid + 1;
+		}
+		else
+		{
+			return mid;
+		}
+	}
+	if (nums[j] >= target)
+	{
+		return j;
+	}
+	else
+	{
+		return j + 1;
+	}
+
+}
+int main()
+{
+	int num[] = { 1,3};
+	vector<int> nums(num, num + sizeof(num) / sizeof(int));
+	int target = 0;
+	int result = searchInsert(nums, target);
+	
+}
+
+//1,给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。
+class Solution {
+public:
+	int removeElement(vector<int>& nums, int val) {
+		int start = 0;
+		int end = nums.size() - 1;
+		while (start <= end)
+		{
+			while (nums[start] != val&&start <= end)
+			{
+				start++;
+				if (start > end)
+					break;
+			}
+			while (nums[end] == val&&start <= end)
+			{
+				end--;
+				if (end < 0)
+					break;
+			}
+			if (start <= end)
+			{
+				nums[start] = nums[end];
+				start++;
+				end--;
+			}
+		}
+		return start;
+	}
+};
+
+
 //2020-2-1################################################################################################
 //2,给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
 class Solution {
