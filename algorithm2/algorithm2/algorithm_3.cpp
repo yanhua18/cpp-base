@@ -6,8 +6,64 @@ using namespace std;
 #include<Windows.h>
 #include<stack>
 
-
 #if 0
+2019-2-8##########################################################################################################
+//2,判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
+class Solution {
+public:
+	bool isPalindrome(int x) {
+		if (x<0)
+		{
+			return false;
+		}
+		string str;
+		while (x)
+		{
+			int temp = x % 10;
+			temp += 48;
+			str += temp;
+			x /= 10;
+		}
+		string str1 = str;
+		reverse(str.begin(), str.end());
+		if (str1 == str)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+};
+
+//1,给定一个赎金信 (ransom) 字符串和一个杂志(magazine)字符串，判断第一个字符串ransom能不能由第二个字符串magazines里面的字符构成。如果可以构成，返回 true ；否则返回 false。
+class Solution {
+public:
+	bool canConstruct(string ransomNote, string magazine) {
+		char ch[256] = { 0 };
+		for (int i = 0; i<ransomNote.size(); i++)
+		{
+			ch[ransomNote[i]]++;
+		}
+		for (int i = 0; i<magazine.size(); i++)
+		{
+			if (ch[magazine[i]] != 0)
+			{
+				ch[magazine[i]]--;
+			}
+		}
+		for (int i = 0; i<256; i++)
+		{
+			if (ch[i] != 0)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+};
+
 //2019-2-7####################################################################################################################
 //2,给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
 int searchInsert(vector<int>& nums, int target) {
