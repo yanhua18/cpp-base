@@ -7,6 +7,60 @@ using namespace std;
 #include<stack>
 
 #if 0
+//2019-2-9###########################################################################################
+//2, 88,合并两个有序数组
+class Solution {
+public:
+	void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+		int sumlong = m + n - 1;
+		for (m--, n--; m >= 0 && n >= 0;)
+		{
+			if (nums1[m]<nums2[n])
+			{
+				nums1[sumlong] = nums2[n];
+				sumlong--;
+				n--;
+			}
+			else
+			{
+				nums1[sumlong] = nums1[m];
+				sumlong--;
+				m--;
+			}
+		}
+		while (n >= 0)
+		{
+			nums1[sumlong] = nums2[n];
+			sumlong--;
+			n--;
+		}
+	}
+};
+//1, 58最后一个单词的长度
+class Solution {
+public:
+	int lengthOfLastWord(string s) {
+		int end=s.size()-1;
+		if(end<0)
+		{
+			return 0;
+		}
+		while(s[end]==' ')
+		{
+			end--;
+		}
+		int start=end;
+		for(;start>=0;start--)
+		{
+			if(s[start]==' ')
+			{
+				return end-start;
+			}
+		}
+		return end-start;
+	}
+};
+
 2019-2-8##########################################################################################################
 //2,判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
 class Solution {
