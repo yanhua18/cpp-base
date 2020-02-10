@@ -6,6 +6,73 @@ using namespace std;
 #include<Windows.h>
 #include<stack>
 
+//2020-2-10##################################################################################
+//2---925,长按键入
+class Solution {
+public:
+	bool isLongPressedName(string name, string typed) {
+		int longA = name.size();
+		int longB = typed.size();
+		if (longA>longB)
+			return false;
+		int i = 0, j = 0;
+		if (name[0] != typed[0])
+			return false;
+		while (i<longA&&j<longB)
+		{
+			if (name[i] == typed[j])
+			{
+				i++;
+				j++;
+			}
+			else
+			{
+				if (typed[j] == name[i - 1])
+				{
+					j++;
+				}
+				else
+				{
+					return false;
+				}
+			}
+		}
+		if (i < longA)
+		{
+			return false;
+		}
+		while (j<longB)
+		{
+			if (typed[j] == name[i - 1])
+			{
+				j++;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+};
+//1---217,存在重复元素
+class Solution {
+public:
+	bool containsDuplicate(vector<int>& nums) {
+		sort(nums.begin(),nums.end());
+		int i=nums.size()-1;
+		int j=0;
+		while(j<i)
+		{
+			if(nums[j]==nums[j+1])
+			{
+				return true;
+			}
+			j++;
+		}
+		return false;
+	}
+};
 #if 0
 //2019-2-9###########################################################################################
 //2, 88,合并两个有序数组
