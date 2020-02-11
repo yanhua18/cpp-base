@@ -6,6 +6,52 @@ using namespace std;
 #include<Windows.h>
 #include<stack>
 
+#if 0
+//2020-2-11##########################################################################################################
+//2---917,仅仅反转字母
+class Solution {
+public:
+	string reverseOnlyLetters(string S) {
+		int i = 0;
+		int j = S.size() - 1;
+		while (i<j)
+		{
+			if (S[i] >= 'a'&&S[i] <= 'z' || S[i] >= 'A'&&S[i] <= 'Z')
+			{
+				if (S[j] >= 'a'&&S[j] <= 'z' || S[j] >= 'A'&&S[j] <= 'Z')
+				{
+					char temp = S[i];
+					S[i] = S[j];
+					S[j] = temp;
+					i++;
+					j--;
+				}
+				else
+				{
+					j--;
+				}
+			}
+			else
+			{
+				i++;
+			}
+		}
+		return S;
+	}
+};
+//1---977，有序数组的平方
+class Solution {
+public:
+	vector<int> sortedSquares(vector<int>& A) {
+		for(int i=0;i<A.size();i++)
+		{
+			A[i]*=A[i];
+		}
+		sort(A.begin(),A.end());
+		return A;
+	}
+};
+
 //2020-2-10##################################################################################
 //2---925,长按键入
 class Solution {
@@ -73,7 +119,7 @@ public:
 		return false;
 	}
 };
-#if 0
+
 //2019-2-9###########################################################################################
 //2, 88,合并两个有序数组
 class Solution {
