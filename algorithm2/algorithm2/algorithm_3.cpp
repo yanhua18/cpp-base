@@ -7,6 +7,67 @@ using namespace std;
 #include<stack>
 
 #if 0
+//2020-2-12################################################################################
+//2---724，寻找数组的中心索引
+class Solution {
+public:
+	int ToSum(int a, int b, vector<int>& nums)
+	{
+		int sum = 0;
+		for (int i = a; i<b; i++)
+		{
+			sum += nums[i];
+		}
+		return sum;
+	}
+	int pivotIndex(vector<int>& nums) {
+		int sum = nums.size();
+		int i = 0;
+		while (i<sum)
+		{
+			int sum1 = ToSum(0, i, nums);
+			int sum2 = ToSum(i + 1, sum, nums);
+			if (sum1 == sum2)
+			{
+				return i;
+			}
+			else
+			{
+				i++;
+			}
+		}
+		return -1;
+
+	}
+};
+//1---905，按奇偶排序数组
+class Solution {
+public:
+	vector<int> sortArrayByParity(vector<int>& A) {
+		int i = 0;
+		int j = A.size() - 1;
+		while (i<j)
+		{
+			while(A[i]%2==0&&i<j)
+			{
+				i++;
+			}
+			while(A[j]%2!=0&&i<j)
+			{
+				j--;
+			}
+			if(i<j)
+			{
+				int temp=A[i];
+				A[i]=A[j];
+				A[j]=temp;
+				i++;
+				j--;
+			}
+		}
+		return A;
+	}
+};
 //2020-2-11##########################################################################################################
 //2---917,仅仅反转字母
 class Solution {
