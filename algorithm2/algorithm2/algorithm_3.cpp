@@ -8,6 +8,66 @@ using namespace std;
 
 #if 0
 //2020-2-12################################################################################
+//4，求最大子序列
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		vector<int> v(n, 0);
+		for (int i = 0; i<n; i++)
+		{
+			cin >> v[i];
+		}
+		int sum = 0;
+		int max = v[0];
+		for (int i = 0; i<n; i++)
+		{
+			sum += v[i];
+			if (sum>max)
+			{
+				max = sum;
+			}
+			if(sum<0)
+			{
+				sum=0;
+			}
+		}
+		cout<<max<<endl;
+	}
+}
+
+//3，删除str1中包含str2的字母
+int main()
+{
+	string str1;
+	string str2;
+	while (getline(cin,str1))
+	{
+		getline(cin,str2);
+		string str3;
+		for(int i=0;i<str1.size();i++)
+		{
+			for(int j=0;j<str2.size();)
+			{
+				if(str1[i]==str2[j])
+				{
+					break;
+				}
+				else
+				{
+					j++;
+				}
+				if (j == str2.size())
+				{
+					str3 += str1[i];
+				}
+			}
+		}
+		cout<<str3<<endl;
+	}
+}
+
 //2---724，寻找数组的中心索引
 class Solution {
 public:
