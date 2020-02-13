@@ -6,7 +6,78 @@ using namespace std;
 #include<Windows.h>
 #include<stack>
 
+
 #if 0
+//2020-2-13################################################################################
+//2---414，第三大的数
+class Solution {
+public:
+	int thirdMax(vector<int>& nums) {
+		sort(nums.rbegin(), nums.rend());
+		int i = 0;
+		int temp = nums[i];
+		int count = 0;
+		while (i<nums.size() && count<2)
+		{
+			if (temp>nums[i])
+			{
+				temp = nums[i];
+				count++;
+				i++;
+			}
+			else
+			{
+				i++;
+			}
+		}
+		if (count == 2)
+		{
+			return temp;
+		}
+		else
+		{
+			return nums[0];
+		}
+	}
+};
+//1---66,加一
+class Solution {
+public:
+	vector<int> plusOne(vector<int>& digits) {
+		int size=digits.size();
+		int flag=1;
+		if(digits[size-1]<9)
+		{
+			digits[size-1]+=1;
+		}
+		else
+		{
+			int i=0;
+			for(i=size-1;i>=0;i--)
+			{
+				if(digits[i]+flag==10)
+				{
+					digits[i]=(digits[i]+flag)%10;
+					flag=1;
+				}
+				else
+				{
+					if(flag==1)
+					{
+						digits[i]+=1;
+					}
+					flag=0;
+				}
+			}
+			if(i==-1&&flag==1)
+			{
+				digits.insert(digits.begin(),1);
+			}
+		}
+		return digits;
+	}
+};
+
 //2020-2-12################################################################################
 //4，求最大子序列
 int main()
