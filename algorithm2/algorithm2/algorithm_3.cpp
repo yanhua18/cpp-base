@@ -8,6 +8,90 @@ using namespace std;
 
 
 #if 0
+//2019-2-14#####################################################################################
+//2---67,二进制求和
+class Solution {
+public:
+	string addBinary(string a, string b) {
+		int longA = a.size() - 1;
+		int longB = b.size() - 1;
+		string c;
+		int flag = 0;
+		while (longA >= 0 && longB >= 0)
+		{
+			int temp = a[longA] - '0' + b[longB] - '0' + flag;
+			if (temp >= 2)
+			{
+				flag = 1;
+				c += (temp % 2 + '0');
+				longA--;
+				longB--;
+			}
+			else
+			{
+				c += (temp % 2 + '0');
+				flag = 0;
+				longA--;
+				longB--;
+			}
+
+		}
+		while (longA >= 0)
+		{
+			c += (a[longA] - '0' + flag) % 2 + '0';
+			if (a[longA] - '0' + flag >= 2)
+			{
+				flag = 1;
+			}
+			else
+			{
+				flag = 0;
+			}
+			longA--;
+		}
+		while (longB >= 0)
+		{
+			c += (b[longB] - '0' + flag) % 2 + '0';
+			if (b[longB] - '0' + flag >= 2)
+			{
+				flag = 1;
+			}
+			else
+			{
+				flag = 0;
+			}
+			longB--;
+		}
+		if (flag == 1)
+		{
+			c += '1';
+		}
+		reverse(c.begin(), c.end());
+		return c;                
+	}
+};
+
+//1---1,两数之和
+class Solution {
+public:
+	vector<int> twoSum(vector<int>& nums, int target) {
+		vector<int> v;
+		int i = 0, j = nums.size();
+		for (; i<nums.size() - 1; i++)
+		{
+			for (j = nums.size() - 1; j>i; j--)
+			{
+				if (nums[i] + nums[j] == target)
+				{
+					v.push_back(i);
+					v.push_back(j);
+				}
+			}
+		}
+		return v;
+	}
+};
+
 //2020-2-13################################################################################
 //2---414，第三大的数
 class Solution {
