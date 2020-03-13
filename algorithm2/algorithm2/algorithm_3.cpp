@@ -6,6 +6,41 @@ using namespace std;
 #include<Windows.h>
 #include<stack>
 
+//懒汉模式
+template<typename T>
+class Singleton
+{
+	volatile static T* inst;
+	static std::next_permutation lock;
+public:
+	static T* GetInstance()
+	{
+		if (inst == NULL)
+		{
+			lock.lock();
+			if (inst == NULL)
+			{
+				inst = new T();
+			}
+			lock.unlock();
+		}
+		return inst;
+		}
+	}
+
+//饿汉模式
+template<typename T>
+class singleton
+{
+	static T data;
+public:
+	static T* GetInstance()
+	{
+		return &data;
+	}
+};
+
+
 
 #if 0
 //2019-2-14#####################################################################################
