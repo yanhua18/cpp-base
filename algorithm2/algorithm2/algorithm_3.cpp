@@ -6,6 +6,72 @@ using namespace std;
 #include<Windows.h>
 #include<stack>
 
+
+
+//2020-3-14#################################################################################################
+/**二叉树前序遍历
+* Definition for a binary tree node.
+* struct TreeNode {
+*     int val;
+*     TreeNode *left;
+*     TreeNode *right;
+*     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+* };
+*/
+class Solution {
+public:
+	vector<int> preorderTraversal(TreeNode* root) {
+		stack<TreeNode*> s;
+		vector<int> v;
+		TreeNode* cur = root;
+		while (cur || !s.empty())
+		{
+			while (cur)
+			{
+				s.push(cur->right);
+				v.push_back(cur->val);
+				cur = cur->left;
+			}
+			cur = s.top();
+			s.pop();
+		}
+		return v;
+	}
+};
+
+/**二叉树中序遍历
+* Definition for a binary tree node.
+* struct TreeNode {
+*     int val;
+*     TreeNode *left;
+*     TreeNode *right;
+*     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+* };
+*/
+class Solution {
+public:
+	vector<int> inorderTraversal(TreeNode* root) {
+		stack<TreeNode*> s;
+		vector<int> v;
+		TreeNode* cur = root;
+		while (cur || !s.empty())
+		{
+			for (; cur; cur = cur->left)
+			{
+				s.push(cur);
+			}
+			if (!s.empty())
+			{
+				cur = s.top();
+				v.push_back(cur->val);
+				s.pop();
+				cur = cur->right;
+			}
+		}
+		return v;
+	}
+};
+//#########################################################################################################
 //懒汉模式
 template<typename T>
 class Singleton
