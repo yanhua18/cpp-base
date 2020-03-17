@@ -5,9 +5,90 @@ using namespace std;
 #include<algorithm>
 #include<Windows.h>
 #include<stack>
+#include<assert.h>
 
 
+//自我实现memmove函数
+void* my_memmove(void* dst, const void* source, size_t num)
+{
+	char* dst_ = (char*)dst;
+	char* src_ = (char*)source;
+	if (dst_ > src_&&dst < src_ + num)
+	{
+		dst_ += num - 1;
+		src_ += num - 1;
+		while (num--)
+		{
+			*dst_ = *src_;
+			dst_--, src_--;
+		}
+	}
+	else
+	{
 
+		while (num--)
+		{
+			*dst_ = *src_;
+			dst_--, src_--;
+		}
+	}
+
+	return dst;
+
+}
+
+//自我实现my_memcpy
+void* my_memcpy(void* dst, void* src, int num)
+{
+	assert(dst);
+	assert(src);
+	void* ret = dst;
+	while (num--)
+	{
+		*(char*)dst = *(char*)src;
+		dst = (char*)dst + 1;
+		src = (char*)src + 1;
+	}
+	return ret;
+}
+
+//自我实现my_strcpy
+void* my_strcpy(char* dst, char* src)
+{
+	assert(dst);
+	assert(src);
+	char* ret = dst;
+	while (*dst++ = *src++);
+	return ret;
+}
+//自我实现my_strcmp
+int my_strcmp(const char* src, const char* dst)
+{
+	assert(src);
+	assert(dst);
+	int ret = 0;
+	while (!(ret = *(unsigned char*)src - *(unsigned char*)dst) && dst)
+	{
+		++src, ++dst;
+	}
+	if (ret < 0)
+		ret = -1;
+	else if (ret > 0)
+		ret = 1;
+
+	return ret;
+}
+
+int main()
+{
+	char arr1[16] = "abcdzfg";
+	char arr2[16];
+	my_memcpy(arr2, arr1,strlen(arr1)+1);
+	system("pause");
+	return 0;
+}
+
+#if 0
 //2020-3-14#################################################################################################
 /**二叉树前序遍历
 * Definition for a binary tree node.
@@ -107,8 +188,6 @@ public:
 };
 
 
-
-#if 0
 //2019-2-14#####################################################################################
 //2---67,二进制求和
 class Solution {
