@@ -7,7 +7,19 @@ using namespace std;
 #include<stack>
 #include<assert.h>
 
+#define MAX(a,b) ((a)>(b))?(a):(b)
+int main()
+{
+	char str1[100] = "abc";
+	char str2[sizeof(str1)];
+	str2[0] = 'a';
+	system("pause");
+	return 0;
+}
 
+
+
+#if 0
 //自我实现memmove函数
 void* my_memmove(void* dst, const void* source, size_t num)
 {
@@ -87,8 +99,6 @@ int main()
 	system("pause");
 	return 0;
 }
-
-#if 0
 //2020-3-14#################################################################################################
 /**二叉树前序遍历
 * Definition for a binary tree node.
