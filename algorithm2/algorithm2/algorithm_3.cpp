@@ -6,6 +6,169 @@ using namespace std;
 #include<Windows.h>
 #include<stack>
 #include<assert.h>
+#include<time.h>
+
+#if 0
+
+
+//2020-3-26######################################################################################
+//二分查找
+class BinarySearch {
+public:
+	int getPos(vector<int> A, int n, int val) {
+		int i = 0;
+		int j = n - 1;
+		while (i <= j)
+		{
+			int mid=(i+j)/2;
+			if(A[mid]==val)
+			{aaa
+			while(A[mid]==val)
+				mid--;
+			return mid+1;
+			}
+			else if(i<j&&A[mid]>val)
+			{
+				j=mid-1;
+			}
+			else
+			{
+				i=mid+1;
+			}
+		}
+		return -1;
+	}
+};
+
+int main() {
+	srand(time(0));
+	vector<int> intList(4, 0);
+	intList.reserve(4);
+    vector<int>::iterator ivBegin = intList.begin();
+	vector<int>::iterator ivEnd = intList.end();
+	for (vector<int>::iterator iter = ivBegin;
+		iter != ivEnd; iter++) {
+		*iter = 100 + (rand() % 10);
+	}
+	for (vector<int>::iterator iter = ivBegin;
+		iter != ivEnd; iter++) {
+		if (*iter == 102) {
+			intList.insert(iter, 121);//进行插入操作后，迭代器失效
+		}
+		else if (*iter == 100) {
+			intList.erase(iter);
+		}
+	}
+	for (int i = 0; i < intList.size(); i++) {
+		cout << "value\t" << i << "\t= " << intList[i] << endl;
+	}
+	return 0;
+}
+
+struct Point3D {
+	int x;
+	int y;
+	int z;
+};
+int main(int argc, char* argv[]) {
+	Point3D* pPoint = NULL;
+	int offset = (int)(&(pPoint)->z);
+	printf("%d", offset);
+	return 0;
+}
+
+int SizeOf(char pString[]) {
+	return sizeof(pString);
+}
+int main(int argc, char** argv) {
+	char* pString1 = "BONC_TEST";
+	int size1 = sizeof(pString1);
+	int size2 = sizeof(*pString1);
+	char pString2[100] = "BONC_TEST";
+	int size3 = sizeof(pString2);
+	int size4 = SizeOf(pString2);
+	printf("%d, %d, %d, %d", size1, size2, size3, size4);
+	return 0;
+}
+
+class A {
+private:
+	int n1;
+	int n2;
+public:
+	A(): n2(0), n1(n2 + 2) {}
+	void Print() {
+		std::cout << "n1: " << n1 << ", n2: " << n2 << std::endl;
+	}
+};
+int main(int argc, char** argv) {
+	A	a;
+	a.Print(); //因为构造函数是按成员变量声明的顺序来进行初始化的，所以n1为随机值，n2为0
+	return 0;
+}
+
+
+class A {
+private:
+	int m_value;
+public:
+	A(int value) {
+		m_value = value;
+	}
+	void Print1() {
+		printf("hello world, print1");
+	}
+	virtual void Print2() {
+		printf("hello world, print2");
+	}
+	void Print3() {
+		printf("%d", m_value);
+	}
+};
+int main(int argc, char** argv) {
+	A* pA = NULL;
+	pA->Print1();
+	pA->Print2();//通过虚函数表指针来查找相应的虚函数，没有对象就没有虚函数表
+	pA->Print3();
+	return 0;
+}
+
+
+class A {
+public:
+	A() {
+		std::cout << "A is created." << std::endl;
+		Print();
+	}
+	~A() {
+		std::cout << "A is deleted." << std::endl;
+	}
+	virtual void Print() {
+
+		std::cout << "A::Print called." << std::endl;
+	}
+};
+
+class B : public A {
+public:
+	B() {
+		std::cout << "B is created." << std::endl;
+		Print();
+	}
+	~B() {
+		std::cout << "B is deleted." << std::endl;
+	}
+	virtual void Print() {
+		std::cout << "B::Print called." << std::endl;
+	}
+};
+
+int main(int argc, char** argv) {
+	A* pA = new B();
+	delete pA;//在deletepA时，需要调用析构函数，由于析构函数没有被设置为虚函数，所以基类指针只能调用基类的析构，从而造成内存泄漏问题
+	return 0;
+}
+
 
 #define MAX(a,b) ((a)>(b))?(a):(b)
 int main()
@@ -18,8 +181,6 @@ int main()
 }
 
 
-
-#if 0
 //自我实现memmove函数
 void* my_memmove(void* dst, const void* source, size_t num)
 {
