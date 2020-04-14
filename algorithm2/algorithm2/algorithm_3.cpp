@@ -9,6 +9,150 @@ using namespace std;
 #include<time.h>
 
 #if 0
+//20200314##############################################################################################
+//牛客网---星际密码
+int  Func(int x)
+{
+	vector<int> v;
+	v.resize(x+3);
+	v[0]=1;
+	v[1]=1;
+	v[2]=2;
+	for(int i=3;i<=x;i++)
+	{
+		v[i]=v[i-1]+v[i-2];
+		if(v[i]>=10000)
+			v[i]%=10000;
+	}
+	return v[x];
+}
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		vector<int> v;
+		v.resize(n,0);
+		string s;
+		for (int i = 0; i<n; i++)
+		{
+			cin >> v[i];
+		}
+		for(int i=0;i<n;i++)
+		{
+			string temp = to_string(Func(v[i]));
+			int size = temp.size();
+			while (size < 4)
+			{
+				s += '0';
+				size++;
+			}
+			s += temp;
+		}
+		cout<<s<<endl;
+	}
+}
+
+//失败版本
+#include<iostream>
+using namespace std;
+#include<string>
+#include<vector>
+int Get_Mode(int x)
+{
+	int a = 1;
+	int b = 2;
+	int c;
+	if (x == 1)
+	{
+		return a;
+	}
+	else if (x == 2)
+	{
+		return b;
+	}
+	else
+	{
+		while (x >= 3)
+		{
+			c = a + b;
+			a = b;
+			b = c;
+			x--;
+		}
+		return c;
+	}
+}
+int main()
+{
+	int n = 0;
+	while (cin >> n)
+	{
+		vector<int> v;
+		v.resize(n,0);
+		string s;
+		for (int i = 0; i<n; i++)
+		{
+			cin >> v[i];
+		}
+		for (int i = 0; i<n; i++)
+		{
+
+			int num = Get_Mode(v[i]);
+			string temp = to_string(num);
+			int size = temp.size();
+			if (size > 4)
+			{
+				temp.erase(0, size-4);
+				s += temp;
+			}
+			else if (size < 4)
+			{
+				while (size < 4)
+				{
+					s += '0';
+					size++;
+				}
+				s += temp;
+			}
+			else
+			{
+				s += temp;
+			}
+		}
+		cout << s << endl;
+	}
+}
+
+//牛客网--数根
+int FindNumber(long long x)
+{
+
+	while (x / 10 != 0)
+	{
+		long long sum=0;
+		while(x)
+		{
+			sum+=x%10;
+			x=x/10;
+		}
+		x=sum;
+	}
+	return x;
+}
+int main()
+{
+	string s;
+	while(cin>>s)
+	{
+		int x=0;
+		for(auto e:s)
+		{
+			x+=(e-'0');
+		}
+		cout<<FindNumber(x)<<endl;
+	}
+}
 
 
 //2020-3-26######################################################################################
