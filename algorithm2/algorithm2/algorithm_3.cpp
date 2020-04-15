@@ -8,8 +8,59 @@ using namespace std;
 #include<assert.h>
 #include<time.h>
 
-#if 0
 
+//20200415#######################################################################
+//不用加减乘除做加法
+class Solution {
+public:
+	int Add(int num1, int num2)
+	{
+		int carry, sum;
+		do{
+			sum = (num1^num2);
+			carry = (num1&num2) << 1;
+			num1 = sum;
+			num2 = carry;
+		} while (num2 != 0);
+		return sum;
+	}
+};
+//三角形----牛客
+int Getsub(int x, int y)
+{
+	if (x - y<0)
+	{
+		return y - x;
+	}
+	else
+	{
+		return x - y;
+	}
+}
+int main()
+{
+	double a, b, c;
+	while (cin >> a >> b >> c)
+	{
+		if (a <= 0 || b <= 0 || c <= 0)
+		{
+			cout << "No" << endl;
+		}
+		else
+		{
+			if (a + b>c&&b + c>a&&a + c>b&&Getsub(a, b)<c&&Getsub(b, c)<a&&Getsub(a, c)<b)
+			{
+				cout<<"Yes"<<endl;
+			}
+			else
+			{
+				cout<<"No"<<endl;
+			}
+		}
+	}
+}
+
+#if 0
 //20200415#########################################################################################
 //变态跳台阶
 class Solution {
@@ -39,7 +90,7 @@ int main()
 		}
 	}
 }
-#if 0
+
 //20200314##############################################################################################
 //牛客网---星际密码
 int  Func(int x)
