@@ -9,6 +9,37 @@ using namespace std;
 #include<time.h>
 
 #if 0
+
+//20200415#########################################################################################
+//变态跳台阶
+class Solution {
+public:
+	int jumpFloorII(int number) {
+		int sum = 1;
+		for (int i = 0; i<number - 1; i++)
+		{
+			sum *= 2;
+		}
+		return sum;
+	}
+};
+//牛客---快到碗里来
+int main()
+{
+	double n, r;
+	while (cin >> n >> r)
+	{
+		if (2 * 3.14*r<n)
+		{
+			cout << "No" << endl;
+		}
+		else
+		{
+			cout << "Yes" << endl;
+		}
+	}
+}
+#if 0
 //20200314##############################################################################################
 //牛客网---星际密码
 int  Func(int x)
