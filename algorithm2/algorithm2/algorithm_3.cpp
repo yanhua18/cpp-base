@@ -9,6 +9,50 @@ using namespace std;
 #include<time.h>
 
 
+//20200418################################################################################################
+//2,猴子分桃
+#include<iostream>
+using namespace std;
+#include<cmath>
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		if (n != 0)
+		{
+			long long all = (long long)pow(5, n) - 4;
+			long long pe = (long long)pow(4, n) - 4 + n;
+			cout << all << " " << pe << endl;
+		}
+	}
+}
+//1,奇数位上都是奇数或者偶数位上都是偶数
+class Solution {
+public:
+	/**
+	*  奇数位上都是奇数或者偶数位上都是偶数
+	*  输入：数组arr，长度大于2
+	*  len：arr的长度
+	*  将arr调整成奇数位上都是奇数或者偶数位上都是偶数
+	*/
+	void oddInOddEvenInEven(vector<int>& arr, int len) {
+		int i = 0, j = 1;
+		while (i<len&&j<len)
+		{
+			if (arr[len - 1] % 2 != 0)
+			{
+				swap(arr[j], arr[len - 1]);
+				j += 2;
+			}
+			else
+			{
+				swap(arr[i], arr[len - 1]);
+				i += 2;
+			}
+		}
+	}
+};
 //20200415#######################################################################
 //不用加减乘除做加法
 class Solution {
