@@ -9,6 +9,83 @@ using namespace std;
 #include<time.h>
 
 
+//20200420#################################################################################################
+//1,最难的问题--牛客
+int main()
+{
+	string str;
+	while(getline(cin,str))
+	{
+		for(int i=0;i<str.size();i++)
+		{
+			if(str[i]>='F'&&str[i]<='Z')
+			{
+				str[i]-=5;
+			}
+			else if(str[i]>='A'&&str[i]<='E')
+			{
+				str[i]+=('V'-'A');
+			}
+		}
+		cout<<str<<endl;
+	}
+}
+
+//2,因子个数
+#include<iostream>
+using namespace std;
+#include<math.h>
+
+int main()
+{
+	int n;
+	while(cin>>n)
+	{
+		int k=0;
+		for(int i=2;i<=(int)sqrt(n);i++)
+		{
+			if(n%i==0)
+			{
+				while(n%i==0)
+				{
+					n/=i;
+				}
+				k++;
+			}
+		}
+		if(n!=1)
+		{
+			k++;
+		}
+		cout<<k<<endl;
+	}
+}
+#if 0
+//有假币
+int main()
+{
+	int n;
+	while (cin >> n&&n != 0)
+	{
+		int times = 0;
+		while (n>1)
+		{
+			if (n % 3 == 0)
+			{
+				n /= 3;
+			}
+			else
+			{
+				n = n / 3 + 1;
+			}
+			times += 1;
+		}
+		if (n == 1)
+		{
+			cout << times << endl;
+		}
+	}
+}
 //20200418################################################################################################
 //2,猴子分桃
 #include<iostream>
@@ -104,7 +181,6 @@ int main()
 	}
 }
 
-#if 0
 //20200415#########################################################################################
 //变态跳台阶
 class Solution {
