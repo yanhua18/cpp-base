@@ -8,6 +8,98 @@ using namespace std;
 #include<assert.h>
 #include<time.h>
 
+#if 0
+//1,美国节日
+int day_of_week(int year, int month, int day)
+{
+	if (month == 1 || month == 2)
+	{
+		month += 12;
+		year -= 1;
+	}
+	int century = year / 100;
+	year %= 100;
+	int week = year + (year / 4) + (century / 4) - 2 * century + 26 * (month + 1) / 10 + day - 1;
+	week = (week % 7 + 7) % 7;
+	if (week == 0)
+	{
+		week = 7;
+	}
+	return week;
+}
+int day_of_demand(int year, int month, int count, int d_of_week)
+{
+	int week = day_of_week(year, month, 1);
+	int day = 1 + (count - 1) * 7 + (7 + d_of_week - week) % 7;
+	return day;
+}
+void new_year_day(int year)
+{
+	printf("%d-01-%02d\n", year, day_of_demand(year, 1, 3, 1));
+}
+void martin_luther_king_day(int year)
+{
+	printf("%d-01-%02d\n", year, day_of_demand(year, 1, 3, 1));
+}
+void president_day(int year)
+{
+	printf("%d-02-%02d\n", year, day_of_demand(year, 2, 3, 1));
+}
+void memorial_day(int year)
+{
+	int week = day_of_week(year, 6, 1);
+	int day = 31 - ((week == 1) ? 6 : (week - 2));
+	printf("%d-05-%02d\n", year, day);
+}
+void independence_day(int year)
+{
+	printf("%d-07-01\n", year);
+}
+void labor_day(int year)
+{
+	printf("%d-09-%02d\n", year, day_of_demand(year, 9, 1, 1));
+}
+void thanks_giving_day(int year)
+{
+	printf("%d-11-%02d\n", year, day_of_demand(year, 11, 4, 4));
+}
+
+//2,分解因子
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		int temp = n;
+		vector<int> v;
+		for (int i = 2; i <= sqrt(n); i++)
+		{
+			if (n%i == 0)
+			{
+				while (n%i == 0)
+				{
+					n /= i;
+					v.push_back(i);
+				}
+			}
+		}
+		if (n != 1)
+		{
+			v.push_back(n);
+		}
+		cout << temp;
+		cout << " " << "=" << " ";
+		for (int i = 0; i < v.size(); i++)
+		{
+			cout << v[i];
+			if (i != v.size() - 1)
+			{
+				cout << " * ";
+			}
+		}
+		cout << endl;
+	}
+}
 
 //20200420#################################################################################################
 //1,最难的问题--牛客
@@ -30,12 +122,7 @@ int main()
 		cout<<str<<endl;
 	}
 }
-
 //2,因子个数
-#include<iostream>
-using namespace std;
-#include<math.h>
-
 int main()
 {
 	int n;
@@ -60,7 +147,6 @@ int main()
 		cout<<k<<endl;
 	}
 }
-#if 0
 //有假币
 int main()
 {
