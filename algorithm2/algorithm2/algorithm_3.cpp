@@ -9,6 +9,137 @@ using namespace std;
 #include<time.h>
 
 #if 0
+
+//20200422################################################################################################
+//1£¬ì³²¨ÄÇÆõ·ïÎ²
+int main()
+{
+	int a[100001] = { 0 };
+	a[0] = 1;
+	a[1] = 1;
+	for (int i = 2; i <= 100000; i++)
+	{
+		a[i] = a[i - 1] + a[i - 2];
+		a[i] %= 1000000;
+
+	}
+	int n;
+	while (cin >> n)
+	{
+		printf((n < 29 ? "%d\n" : "%06d\n"), a[n]);
+	}
+}
+
+//2£¬ÌÔ±¦Íøµê
+int count_day[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+int count_money[13] = { 0, 2, 1, 1, 2, 1, 2, 1, 2, 2, 2, 1, 2 };
+bool IsLeapYear(int year)
+{
+	if(year%4==0&&year%100!=0||year%400==0)
+	{
+		return true;
+	}
+	return false;
+}
+void func2(int year1,int month1,int day1,int year2,int month2,int day2,int& sum)
+{
+	if(IsLeapYear(year1))
+	{
+		count_day[2]+=1;
+	}
+	sum+=(count_day[month1]-day1+1)*count_money[month1];
+	for(int i=month1+1;i<month2;i++)
+	{
+		sum+=count_day[i]*count_money[i];
+	}
+	sum+=day2*count_money[month2];
+}
+
+int main()
+{
+	int year1,month1,day1,year2,month2,day2;
+	while(cin>>year1>>month1>>day1>>year2>>month2>>day2)
+	{
+		int sum=0;
+		int one_year_money = 0;
+		for(int i=1;i<13;i++)
+		{
+			one_year_money += count_day[i] * count_money[i];
+		}
+		if(year2-year1==0&&month2-month1==0)
+		{
+			sum=(day2-day1+1)*count_money[month1];
+		}
+		else if(year2-year1==0&&month2-month1>0)
+		{
+			func2(year1,month1,day1,year2,month2,day2,sum);
+		}
+		else
+		{
+			func2(year1,month1,day1,year1,12,31,sum);
+			for(int i=year1+1;i<year2;i++)
+			{
+				if (IsLeapYear(i))
+				{
+					sum += one_year_money;
+					sum += 1;
+				}
+				else
+				{
+					sum += one_year_money;
+				}
+				count_day[2] = 28;
+			}
+			func2(year2,1,1,year2,month2,day2,sum);
+		}
+		cout << sum << endl;
+		count_day[2] = 28;
+	}
+}
+
+//3,ËØÊý--Å£¿ÍÍø
+bool IsPrime(int n)
+{
+	for(int i=2;i<=sqrt(n);i++)
+	{
+		if(n%i==0)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+int main()
+{
+	int n;
+	while(cin>>n)
+	{
+		vector<int> v;
+		for(int i=2;i<n;i++)
+		{
+			if(IsPrime(i))
+			{
+				if(i%10==1)
+				{
+					v.push_back(i);
+				}
+			}
+		}
+		for(int i=0;i<v.size();i++)
+		{
+			if(i!=v.size()-1)
+			{
+				cout<<i<<" ";
+			}
+			else
+			{
+				cout<<i<<endl;
+			}
+		}
+	}
+}
+//20200421################################################################################################################
 //1,ÃÀ¹ú½ÚÈÕ
 int day_of_week(int year, int month, int day)
 {
