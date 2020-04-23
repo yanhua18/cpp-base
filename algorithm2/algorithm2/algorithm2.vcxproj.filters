@@ -21,5 +21,8 @@
     <ClCompile Include="algorithm_3.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="algorithm_4.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

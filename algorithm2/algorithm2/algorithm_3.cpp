@@ -9,6 +9,70 @@ using namespace std;
 #include<time.h>
 
 #if 0
+//20200423############################################################################################
+//1，剪花布条
+int main()
+{
+	string str1;
+	string str2;
+	while(cin>>str1)
+	{
+		cin>>str2;
+		int k=0;
+		if(str1.size()<str2.size())
+		{
+			cout<<"0"<<endl;
+		}
+		else
+		{
+			for(int i=0;i<str1.size();)
+			{
+				int j=0;
+				int z=i;
+				while(z<str1.size()&&j<str2.size()&&str1[z]==str2[j])
+				{
+					z++,j++;
+				}
+				if(j==str2.size())
+				{
+					k++;
+					i=z;
+				}
+				else
+				{
+					i++;
+				}
+			}
+		}
+		cout<<k<<endl;
+	}
+}
+
+//2,客似云来
+#include<iostream>
+using namespace std;
+
+int main()
+{
+	int from,to;
+	while(cin>>from>>to)
+	{
+		long long a[81];
+		a[0]=0;
+		a[1]=1;
+		a[2]=1;
+		for(int i=3;i<81;i++)
+		{
+			a[i]=a[i-1]+a[i-2];
+		}
+		long long sum=0;
+		for(int i=from;i<=to;i++)
+		{
+			sum+=a[i];
+		}
+		cout<<sum<<endl;
+	}
+}
 
 //20200422################################################################################################
 //1，斐波那契凤尾
