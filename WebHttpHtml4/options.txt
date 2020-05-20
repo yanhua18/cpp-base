@@ -1,0 +1,9 @@
+-+
+-DCCI
+-D_IDA_XL
+-DWINNT
+-IE:\loadrunner程序\WebHttpHtml4
+-IE:\LoadRunner\include
+-ee:\loadrunner程序\webhttphtml4\\logfile.log
+e:\loadrunner程序\webhttphtml4\\combined_WebHttpHtml4.c
+e:\loadrunner程序\webhttphtml4\\pre_cci.c

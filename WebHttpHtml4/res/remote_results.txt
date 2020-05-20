@@ -1,0 +1,2 @@
+[Hosts]
+localhost=E:\loadrunner³ÌÐò\WebHttpHtml4\res\localhost_1.eve
