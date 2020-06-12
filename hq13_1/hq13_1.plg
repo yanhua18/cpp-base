@@ -1,0 +1,43 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: hq13_1 - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x804 /fo"Debug/hq13_1.res" /d "_DEBUG" /d "_AFXDLL" "E:\程序文件\a_GitHub\hq13_1\hq13_1.rc"" 
+Creating temporary file "C:\Users\NEWS3Y~1\AppData\Local\Temp\RSP55A.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/hq13_1.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ   /c 
+"E:\程序文件\a_GitHub\hq13_1\hq13_1.cpp"
+]
+Creating command line "cl.exe @C:\Users\NEWS3Y~1\AppData\Local\Temp\RSP55A.tmp" 
+Creating temporary file "C:\Users\NEWS3Y~1\AppData\Local\Temp\RSP55B.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/hq13_1.pdb" /debug /machine:I386 /out:"Debug/hq13_1.exe" /pdbtype:sept 
+".\Debug\hq13_1.obj"
+".\Debug\StdAfx.obj"
+".\Debug\MainFrm.obj"
+".\Debug\hq13_1Doc.obj"
+".\Debug\hq13_1View.obj"
+".\Debug\hq13_1Set.obj"
+".\Debug\hq13_1.res"
+".\Debug\LoginDlg.obj"
+".\Debug\UserRS.obj"
+]
+Creating command line "link.exe @C:\Users\NEWS3Y~1\AppData\Local\Temp\RSP55B.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+Skipping... (no relevant changes detected)
+hq13_1.cpp
+Linking...
+
+
+
+<h3>Results</h3>
+hq13_1.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
