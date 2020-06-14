@@ -1,0 +1,33 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: hq_6_12 - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\NEWS3Y~1\AppData\Local\Temp\RSPFAE6.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/hq_6_12.pdb" /debug /machine:I386 /out:"Debug/hq_6_12.exe" /pdbtype:sept 
+".\Debug\hq_6_12.obj"
+".\Debug\StdAfx.obj"
+".\Debug\MainFrm.obj"
+".\Debug\hq_6_12Doc.obj"
+".\Debug\hq_6_12View.obj"
+".\Debug\hq_6_12Set.obj"
+".\Debug\hq_6_12.res"
+".\Debug\HQDlg.obj"
+".\Debug\LoginDlg1.obj"
+".\Debug\UserRS.obj"
+]
+Creating command line "link.exe @C:\Users\NEWS3Y~1\AppData\Local\Temp\RSPFAE6.tmp"
+<h3>Output Window</h3>
+Linking...
+
+
+
+<h3>Results</h3>
+hq_6_12.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
