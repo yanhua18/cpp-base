@@ -1567,7 +1567,7 @@ int main()
 	system("pause");
 	return 0;
 }
-#endif
+
 
 #include <memory>
 struct ListNode
@@ -1609,3 +1609,4 @@ int main()
 	TestListNode();
 	return 0;
 }
+#endif

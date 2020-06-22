@@ -66,6 +66,7 @@
   <ItemGroup>
     <ClCompile Include="name_base.cpp" />
     <ClCompile Include="person.cpp" />
+    <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="person.h" />
