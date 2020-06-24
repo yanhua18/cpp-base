@@ -69,34 +69,72 @@ public:
 		return sum;
 	}
 };
-#endif
 
-
-
-//1,给定整数序列求连续子串最大和
-//动态规划求解
-#include<iostream>
-using namespace std;
-#include<vector>
-int main()
+//5，求1+2+3+....+n
+class A
 {
-	vector<int>v;
-	int n;
-	while (cin >> n)
+public:
+	A(){ N++, sum += N; };
+	static void Reset()
 	{
-		v.push_back(n);
+		N = 0; sum = 0;
 	}
-	int sum = v[0];
-	int max = v[0];
-	n = v.size();
-	for (int i = 1; i<n; i++)
+	static int Reback()
 	{
-		sum = (sum>0) ? sum + v[i] : v[i];
-		if (sum>max)
-		{
-			max = sum;
-		}
+		return sum;
 	}
-	cout << max << endl;
-}
+private:
+	static int N;
+	static int sum;
+};
+int A::N = 0;
+int A::sum = 0;
+class Solution {
+public:
+	int Sum_Solution(int n) {
+		A::Reset();
+		A* a = new A[n];
+		delete[]a;
+		a = nullptr;
+		return A::Reback();
+	}
+};
 
+//6,构建乘积数组
+class Solution {
+public:
+	vector<int> multiply(const vector<int>& A) {
+		int n = A.size();
+		vector<int> C(n, 1);
+		vector<int> D(n, 1);
+		for (int i = 1; i<n; i++)
+		{
+			C[i] = C[i - 1] * A[i - 1];
+		}
+		for (int i = n - 2; i >= 0; --i)
+		{
+			D[i] = D[i + 1] * A[i + 1];
+		}
+		vector<int> B(n, 1);
+		for (int i = 0; i<n; i++)
+		{
+			B[i] = C[i] * D[i];
+		}
+		return B;
+	}
+};
+//7,连续子序列的最大和
+class Solution {
+public:
+	int FindGreatestSumOfSubArray(vector<int> array) {
+		int sum = array[0];
+		int max = array[0];
+		for (int i = 1; i<array.size(); i++)
+		{
+			sum = (sum>0) ? sum + array[i] : array[i];
+			max = (sum>max) ? sum : max;
+		}
+		return max;
+	}
+};
+#endif
