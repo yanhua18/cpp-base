@@ -137,4 +137,131 @@ public:
 		return max;
 	}
 };
+//8,用两个栈实现队列
+class Solution
+{
+public:
+	void push(int node) {
+		stack1.push(node);
+	}
+
+	int pop() {
+		while (stack2.empty())
+		{
+			while (!stack1.empty())
+			{
+				stack2.push(stack1.top());
+				stack1.pop();
+			}
+		}
+		int temp = stack2.top();
+		stack2.pop();
+		return temp;
+	}
+
+private:
+	stack<int> stack1;
+	stack<int> stack2;
+};
+//9,跳台阶
+class Solution {
+public:
+	int jumpFloor(int number) {
+		if (number == 0)
+			return 0;
+		if (number == 1)
+			return 1;
+		if (number == 2)
+			return 2;
+
+		return jumpFloor(number - 1) + jumpFloor(number - 2);
+	}
+};
+//10,矩阵覆盖
+class Solution {
+public:
+	int rectCover(int number) {
+		if (number == 0)
+			return 0;
+		if (number == 1)
+			return 1;
+		if (number == 2)
+			return 2;
+
+		return rectCover(number - 1) + rectCover(number - 2);
+	}
+};
+//11,平衡二叉树
+class Solution {
+public:
+	bool IsBalanced_Solution(TreeNode* pRoot) {
+		if (pRoot == nullptr)
+		{
+			return true;
+		}
+		int left = TreeDepth(pRoot->left);
+		int right = TreeDepth(pRoot->right);
+		if (left - right>1 || left - right<-1)
+		{
+			return false;
+		}
+		else
+		{
+			return IsBalanced_Solution(pRoot->left) && IsBalanced_Solution(pRoot->right);
+		}
+	}
+	int TreeDepth(TreeNode* pRoot)
+	{
+		if (pRoot == nullptr)
+		{
+			return 0;
+		}
+		int left = TreeDepth(pRoot->left);
+		int right = TreeDepth(pRoot->right);
+		return (left>right) ? left + 1 : right + 1;
+	}
+};
+//12,求二进制中1的个数
+class Solution {
+public:
+	int  NumberOf1(int n) {
+		int count = 0;
+		for (int i = 0; i<32; i++)
+		{
+			if (n >> i & 1 == 1)
+			{
+				count++;
+			}
+		}
+		return count;
+	}
+};
+//13,整数中1出现的次数
+class Solution {
+public:
+	int numof1(int n)
+	{
+		int temp;
+		int count = 0;
+		do
+		{
+			temp = n % 10;
+			if (temp == 1)
+			{
+				count++;
+			}
+			n /= 10;
+		} while (n);
+		return count;
+	}
+	int NumberOf1Between1AndN_Solution(int n)
+	{
+		int count = 0;
+		for (int i = 1; i <= n; i++)
+		{
+			count += numof1(i);
+		}
+		return count;
+	}
+};
 #endif
