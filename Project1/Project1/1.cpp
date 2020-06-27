@@ -1,3 +1,6 @@
+#include<iostream>
+using namespace std;
+#include<vector>
 #if 0
 //1,二叉树的深度
 class Solution {
@@ -264,4 +267,126 @@ public:
 		return count;
 	}
 };
+//14,两链表第一个公共节点
+class Solution {
+public:
+	ListNode* FindFirstCommonNode(ListNode* pHead1, ListNode* pHead2) {
+		ListNode* cur1 = pHead1;
+		ListNode* cur2 = pHead2;
+		int len1 = GetLength(cur1);
+		int len2 = GetLength(cur2);
+		if (len1 >= len2)
+		{
+			int len = len1 - len2;
+			while (len>0)
+			{
+				cur1 = cur1->next;
+				len--;
+			}
+		}
+		else if (len1<len2)
+		{
+			int len = len2 - len1;
+			while (len>0)
+			{
+				cur2 = cur2->next;
+				len--;
+			}
+		}
+		while (cur1 != nullptr&&cur2 != nullptr&&cur1 != cur2)
+		{
+			cur1 = cur1->next;
+			cur2 = cur2->next;
+		}
+		return cur1;
+	}
+	int GetLength(ListNode* pHead1)
+	{
+		int length = 0;
+		ListNode* pHead = pHead1;
+		while (pHead != nullptr)
+		{
+			length++;
+			pHead = pHead->next;
+		}
+		return length;
+	}
+};
+//15,旋转数组的最小数字
+class Solution {
+public:
+	int minNumberInRotateArray(vector<int> rotateArray) {
+		sort(rotateArray.begin(), rotateArray.end());
+		return rotateArray[0];
+	}
+};
+//16,剪绳子
+class Solution {
+public:
+	int cutRope(int number) {
+		if (number == 2)
+			return 1;
+		if (number == 3)
+			return 2;
+		vector<int> v(number + 1, 0);
+		v[1] = 1;
+		v[2] = 2;
+		v[3] = 3;
+		int max = -1;
+		for (int i = 4; i <= number; i++)
+		{
+			for (int j = 0; j <= i / 2; j++)
+			{
+				int val = v[i - j] * v[j];
+				max = (val>max) ? val : max;
+			}
+			v[i] = max;
+		}
+		return v[number];
+	}
+};
+//17,链表中环的入口节点
+class Solution {
+public:
+	ListNode* EntryNodeOfLoop(ListNode* pHead)
+	{
+		if (!pHead)
+			return nullptr;
+		ListNode* pFast = pHead;
+		ListNode* pLast = pHead;
+		while (pFast->next->next && pFast->next && pLast->next)
+		{
+			pFast = pFast->next->next;
+			pLast = pLast->next;
+			if (pFast == pLast)
+			{
+				pFast = pHead;
+				while (pFast != pLast)
+				{
+					pFast = pFast->next;
+					pLast = pLast->next;
+				}
+				return pLast;
+			}
+		}
+		return nullptr;
+	}
+};
+//18,数值的整数次方
+public:
+	double Power(double base, int exponent) {
+		double x;
+		if (exponent >= 0)
+		{
+			x = pow(base, exponent);
+		}
+		else
+		{
+			x = pow(base, -exponent);
+			x = 1 / x;
+		}
+		return x;
+	}
+};
+
 #endif
