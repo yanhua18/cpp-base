@@ -1,6 +1,7 @@
 #include<iostream>
 using namespace std;
 #include<vector>
+#include<string>
 #if 0
 //1,二叉树的深度
 class Solution {
@@ -388,5 +389,84 @@ public:
 		return x;
 	}
 };
+//19,包含min函数的栈
+class Solution {
+public:
+	void push(int value) {
+		st.push(value);
+		if (stmin.empty() || stmin.top()>value)
+		{
+			stmin.push(value);
+		}
+		else
+		{
+			stmin.push(stmin.top());
+		}
+	}
+	void pop() {
+		st.pop();
+		stmin.pop();
+	}
+	int top() {
+		return st.top();
+	}
+	int min() {
+		return stmin.top();
+	}
+private:
+	stack<int> st;
+	stack<int> stmin;
+};
+//20，左旋转字符串
+class Solution {
+public:
+	string LeftRotateString(string str, int n) {
+		reverse(str.begin(), str.end());
+		reverse(str.begin(), str.end() - n);
+		reverse(str.begin() + str.size() - n, str.end());
+		return str;
+	}
+};
+//21,斐波那契数列
+class Solution {
+public:
+	int Fibonacci(int n) {
+		if (n == 0)
+			return 0;
+		if (n == 1)
+			return 1;
+		if (n == 2)
+			return 1;
 
+		return Fibonacci(n - 1) + Fibonacci(n - 2);
+	}
+};
+//22,字符流中第一个不重复的字符
+class Solution
+{
+public:
+
+	vector<char> v;
+	void Insert(char ch)
+	{
+		v.push_back(ch);
+	}
+	char FirstAppearingOnce()
+	{
+		char arr[256] = { 0 };
+		for (int i = 0; i<v.size(); ++i)
+		{
+			arr[v[i]]++;
+		}
+		for (int i = 0; i<v.size(); ++i)
+		{
+			if (arr[v[i]] == 1)
+			{
+				return v[i];
+			}
+		}
+		char ch = '#';
+		return ch;
+	}
+};
 #endif
