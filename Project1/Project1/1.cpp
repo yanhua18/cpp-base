@@ -469,4 +469,100 @@ public:
 		return ch;
 	}
 };
+//23,把二叉树打印成多行
+class Solution {
+public:
+	vector<vector<int> > Print(TreeNode* pRoot) {
+		vector<vector<int>> vv;
+		if (pRoot == NULL)
+			return vv;
+		queue<TreeNode*> que;
+		que.push(pRoot);
+		while (!que.empty())
+		{
+			vector<int> v;
+			int num = que.size();
+			while (num--)
+			{
+				TreeNode* cur = que.front();
+				if (cur->left)
+					que.push(cur->left);
+				if (cur->right)
+					que.push(cur->right);
+				v.push_back(cur->val);
+				que.pop();
+			}
+			vv.push_back(v);
+		}
+		return vv;
+	}
+};
+//24,对称二叉树
+class Solution {
+public:
+	bool isSymmetrical(TreeNode* pRoot1, TreeNode* pRoot2)
+	{
+		if (pRoot1 == nullptr&&pRoot2 == nullptr)
+		{
+			return true;
+		}
+		if (pRoot1 == nullptr || pRoot2 == nullptr)
+		{
+			return false;
+		}
+		if (pRoot1->val != pRoot2->val)
+		{
+			return false;
+		}
+
+		return isSymmetrical(pRoot1->left, pRoot2->right) && isSymmetrical(pRoot1->right, pRoot2->left);
+	}
+	bool isSymmetrical(TreeNode* pRoot)
+	{
+		return isSymmetrical(pRoot, pRoot);
+	}
+
+};
+//25,数字在排序数组中出现的次数
+class Solution {
+public:
+	int GetNumberOfK(vector<int> data, int k) {
+		int size = data.size();
+		int start = 0;
+		int end = size - 1;
+		int res;
+		while (start <= end)
+		{
+			int mid = (start + end) / 2;
+			if (data[mid]<k)
+			{
+				start = mid + 1;
+			}
+			else if (data[mid]>k)
+			{
+				end = mid - 1;
+			}
+			else
+			{
+				res = mid;
+				break;
+			}
+		}
+		int count = 0;
+		int i = 0;
+		while ((res - i) >= 0 && data[res - i] == k)
+		{
+			count++;
+			i++;
+		}
+		i = 1;
+		while ((res + i)<size && data[res + i] == k)
+		{
+			count++;
+			i++;
+		}
+		return count;
+	}
+};
 #endif
+99
