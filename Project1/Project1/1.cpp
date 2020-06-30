@@ -564,5 +564,101 @@ public:
 		return count;
 	}
 };
+//26,圆圈中最后剩下的数
+class Solution {
+public:
+	int LastRemaining_Solution(int n, int m)
+	{
+		if (n<1 || m<1)
+			return -1;
+		vector<int> v(n, 0);
+		for (int i = 0; i < n; i++)
+			v[i] = i;
+		int index = -1;
+		while (v.size()>1)
+		{
+			int count = 0;
+			while (count<m)
+			{
+				count++;
+				index++;
+				if (index == v.size())
+				{
+					index = 0;
+				}
+			}
+			v.erase(v.begin() + index);
+			index--;
+		}
+		return v[0];
+	}
+};
+//27,数组中只出现一次的数字
+class Solution {
+public:
+	void FindNumsAppearOnce(vector<int> data, int* num1, int *num2) {
+		int size = data.size();
+		int sum = 0;
+		for (int i = 0; i<size; ++i)
+		{
+			sum ^= data[i];
+		}
+		int index = 0;
+		for (int i = 0; i<32; i++)
+		{
+			if (sum >> i & 1 == 1)
+			{
+				index = i;
+				break;
+			}
+		}
+		vector<int> num11;
+		vector<int> num22;
+		for (int i = 0; i<size; i++)
+		{
+			if (data[i] >> index & 1 == 1)
+			{
+				num11.push_back(data[i]);
+			}
+			else
+			{
+				num22.push_back(data[i]);
+			}
+		}
+		int sum1 = 0, sum2 = 0;
+		for (int i = 0; i<num11.size(); ++i)
+		{
+			sum1 ^= num11[i];
+		}
+		for (int i = 0; i<num22.size(); ++i)
+		{
+			sum2 ^= num22[i];
+		}
+		*num1 = sum1;
+		*num2 = sum2;
+	}
+};
+//28，反转链表
+class Solution {
+public:
+	ListNode* ReverseList(ListNode* pHead) {
+		if (pHead == NULL)
+			return NULL;
+		if (pHead->next == NULL)
+			return pHead;
+		ListNode* pre = pHead;
+		ListNode* cur = pHead->next;
+		ListNode* next = pHead->next;
+		pre->next = nullptr;
+		while (next)
+		{
+			next = next->next;
+			cur->next = pre;
+			pre = cur;
+			cur = next;
+		}
+		pHead = pre;
+		return pHead;
+	}
+};
 #endif
-99
