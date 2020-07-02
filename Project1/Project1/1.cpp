@@ -661,4 +661,88 @@ public:
 		return pHead;
 	}
 };
+//29,数组中重复的数字
+bool duplicate(int numbers[], int length, int* duplication) {
+	for (int i = 0; i<length; i++)
+	{
+		while (numbers[i] != i)
+		{
+			if (numbers[i] == numbers[numbers[i]])
+			{
+				*duplication = numbers[i];
+				return true;
+			}
+			swap(numbers[i], numbers[numbers[i]]);
+		}
+	}
+	return false;
+}
+};
+//30,第一个只出现一次的字符
+class Solution {
+public:
+	int FirstNotRepeatingChar(string str) {
+		int arr[256] = { 0 };
+		for (int i = 0; i<str.size(); i++)
+		{
+			arr[str[i]]++;
+		}
+		for (int i = 0; i<str.size(); i++)
+		{
+			if (arr[str[i]] == 1)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+};
+//31,数组中出现次数超过一半的数字
+class Solution {
+public:
+	int MoreThanHalfNum_Solution(vector<int> numbers) {
+		sort(numbers.begin(), numbers.end());
+		int mid = (numbers.size()) / 2;
+		int num_mid = numbers[mid];
+		int count = 0;
+		for (int i = 0; i<numbers.size(); i++)
+		{
+			if (numbers[i] == num_mid)
+				count++;
+		}
+		if (count>mid)
+			return num_mid;
+		else
+			return 0;
+	}
+};
+//32,二叉树的下一个节点
+class Solution {
+public:
+	TreeLinkNode* GetNext(TreeLinkNode* pNode)
+	{
+		if (pNode == nullptr)
+			return nullptr;
+		TreeLinkNode* pNext = nullptr;
+		if (pNode->right != nullptr)
+		{
+			TreeLinkNode* cur = pNode->right;
+			while (cur->left != nullptr)
+				cur = cur->left;
+			pNext = cur;
+		}
+		else if (pNode->next != nullptr)
+		{
+			TreeLinkNode* cur = pNode;
+			TreeLinkNode* pParent = pNode->next;
+			while (pParent != nullptr&&pParent->right == cur)
+			{
+				cur = pParent;
+				pParent = pParent->next;
+			}
+			pNext = pParent;
+		}
+		return pNext;
+	}
+};
 #endif
