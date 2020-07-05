@@ -661,62 +661,7 @@ public:
 		return pHead;
 	}
 };
-//29,数组中重复的数字
-bool duplicate(int numbers[], int length, int* duplication) {
-	for (int i = 0; i<length; i++)
-	{
-		while (numbers[i] != i)
-		{
-			if (numbers[i] == numbers[numbers[i]])
-			{
-				*duplication = numbers[i];
-				return true;
-			}
-			swap(numbers[i], numbers[numbers[i]]);
-		}
-	}
-	return false;
-}
-};
-//30,第一个只出现一次的字符
-class Solution {
-public:
-	int FirstNotRepeatingChar(string str) {
-		int arr[256] = { 0 };
-		for (int i = 0; i<str.size(); i++)
-		{
-			arr[str[i]]++;
-		}
-		for (int i = 0; i<str.size(); i++)
-		{
-			if (arr[str[i]] == 1)
-			{
-				return i;
-			}
-		}
-		return -1;
-	}
-};
-//31,数组中出现次数超过一半的数字
-class Solution {
-public:
-	int MoreThanHalfNum_Solution(vector<int> numbers) {
-		sort(numbers.begin(), numbers.end());
-		int mid = (numbers.size()) / 2;
-		int num_mid = numbers[mid];
-		int count = 0;
-		for (int i = 0; i<numbers.size(); i++)
-		{
-			if (numbers[i] == num_mid)
-				count++;
-		}
-		if (count>mid)
-			return num_mid;
-		else
-			return 0;
-	}
-};
-//32,二叉树的下一个节点
+//29,二叉树的下一个节点
 class Solution {
 public:
 	TreeLinkNode* GetNext(TreeLinkNode* pNode)
@@ -743,6 +688,90 @@ public:
 			pNext = pParent;
 		}
 		return pNext;
+	}
+};
+//30，栈的压入，弹出序列
+class Solution {
+public:
+	bool IsPopOrder(vector<int> pushV,vector<int> popV) {
+		int lengthpush=pushV.size();
+		int lengthpop=popV.size();
+		if(lengthpush!=lengthpop)
+			return false;
+		int pushIndex=0,popIndex=0;
+		stack<int> st;
+		while(pushIndex<lengthpush)
+		{
+			while(pushIndex<lengthpush&&(st.empty()||st.top()!=popV[popIndex]))
+			{
+				st.push(pushV[pushIndex]);
+				pushIndex++;
+			}
+			if(st.top()!=popV[popIndex])
+			{
+				return false;
+			}
+			popIndex++;
+			st.pop();
+			if(st.empty()&&popIndex==lengthpop)
+				return true;
+		}
+	}
+};
+
+//32,数组中重复的数字
+bool duplicate(int numbers[], int length, int* duplication) {
+	for (int i = 0; i<length; i++)
+	{
+		while (numbers[i] != i)
+		{
+			if (numbers[i] == numbers[numbers[i]])
+			{
+				*duplication = numbers[i];
+				return true;
+			}
+			swap(numbers[i], numbers[numbers[i]]);
+		}
+	}
+	return false;
+}
+};
+//34,第一个只出现一次的字符
+class Solution {
+public:
+	int FirstNotRepeatingChar(string str) {
+		int arr[256] = { 0 };
+		for (int i = 0; i<str.size(); i++)
+		{
+			arr[str[i]]++;
+		}
+		for (int i = 0; i<str.size(); i++)
+		{
+			if (arr[str[i]] == 1)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+};
+//35,数组中出现次数超过一半的数字
+class Solution {
+public:
+	int MoreThanHalfNum_Solution(vector<int> numbers) {
+		sort(numbers.begin(), numbers.end());
+		int mid = (numbers.size()) / 2;
+		int num_mid = numbers[mid];
+		int count = 0;
+		for (int i = 0; i<numbers.size(); i++)
+		{
+			if (numbers[i] == num_mid)
+				count++;
+		}
+		if (count>mid)
+			return num_mid;
+		else
+			return 0;
 	}
 };
 #endif
