@@ -718,7 +718,33 @@ public:
 		}
 	}
 };
-
+//31,和为S的两个数字
+class Solution {
+public:
+	vector<int> FindNumbersWithSum(vector<int> array,int sum) {
+		vector<int> v;
+		int start=0;
+		int end=array.size()-1;
+		while(start<end)
+		{
+			if(array[start]+array[end]<sum)
+			{
+				start++;
+			}
+			else if(array[start]+array[end]>sum)
+			{
+				end--;
+			}
+			else
+			{
+				v.push_back(array[start]);
+				v.push_back(array[end]);
+				break;
+			}
+		}
+		return v;
+	}
+};
 //32,数组中重复的数字
 bool duplicate(int numbers[], int length, int* duplication) {
 	for (int i = 0; i<length; i++)
