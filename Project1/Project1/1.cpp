@@ -762,6 +762,40 @@ bool duplicate(int numbers[], int length, int* duplication) {
 	return false;
 }
 };
+//33，二叉搜索树和双向链表
+class Solution {
+public:
+	void Change(TreeNode* pRootOfTree,TreeNode* &pNode)
+	{
+		if(pRootOfTree==nullptr)
+		{
+			return ;
+		}
+		Change(pRootOfTree->left,pNode);//遍历左子树
+
+		pRootOfTree->left=pNode;
+		if(pNode)
+		{
+			pNode->right=pRootOfTree;
+		}
+		pNode=pRootOfTree;
+
+		Change(pRootOfTree->right,pNode);//遍历右子树
+	}
+	TreeNode* Convert(TreeNode* pRootOfTree)
+	{
+		if(pRootOfTree==nullptr)
+		{
+			return nullptr;
+		}
+		TreeNode* pNode=nullptr;
+		Change(pRootOfTree,pNode);
+		TreeNode* res = pRootOfTree;
+		while(res ->left)
+			res = res ->left;
+		return res;
+	}
+};
 //34,第一个只出现一次的字符
 class Solution {
 public:
@@ -798,6 +832,25 @@ public:
 			return num_mid;
 		else
 			return 0;
+	}
+};
+//36,把数组排成最小数
+class Solution {
+public:
+	string PrintMinNumber(vector<int> numbers) {
+		if (numbers.empty())
+			return "";
+		sort(numbers.begin(), numbers.end(), cmp);
+		string sum;
+		for (int i = 0; i<numbers.size(); i++)
+			sum += to_string(numbers[i]);
+		return sum;
+	}
+	static bool cmp(int a, int b)
+	{
+		string aa = to_string(a) + to_string(b);
+		string bb = to_string(b) + to_string(a);
+		return aa<bb;
 	}
 };
 #endif
