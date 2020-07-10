@@ -853,4 +853,39 @@ public:
 		return aa<bb;
 	}
 };
+//37，和为S的连续正数序列
+class Solution {
+public:
+	vector<vector<int> > FindContinuousSequence(int sum) {
+		vector<vector<int>> s;
+		if (sum < 3)
+			return s;
+		int big = 2;
+		int small = 1;
+		int mid = (1 + sum) / 2;
+		int curSum = small + big;
+
+		while (small < mid){
+			if (curSum == sum){
+				vector<int> tmp;
+				for (int i = small; i <= big; i++)
+					tmp.push_back(i);
+				s.push_back(tmp);
+			}
+			while (curSum > sum && small < mid){
+				curSum -= small;
+				small++;
+				if (curSum == sum){
+					vector<int> tmp;
+					for (int i = small; i <= big; i++)
+						tmp.push_back(i);
+					s.push_back(tmp);
+				}
+			}
+			big++;
+			curSum += big;
+		}
+		return s;
+	}
+};
 #endif
