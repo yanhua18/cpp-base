@@ -888,4 +888,62 @@ public:
 		return s;
 	}
 };
+//38，表示数值的字符串
+class Solution {
+public:
+	bool isNumeric(char* str)
+	{
+		if (str == NULL)
+		{
+			return false;
+		}
+		if (*str == '+' || *str == '-')
+		{
+			str++;
+		}
+		int digit = 0;//表示小数点出现的状态
+		int e = 0;//表示e/E出现的状态
+		int number = 0;//表示数字出现的状态
+		while (*str != '\0')
+		{
+			if (*str >= '0'&&*str <= '9')
+			{
+				str++;
+				number = 1;
+			}
+			else if (*str == '.')
+			{
+				if (e>0 || digit>0)
+				{
+					return false;
+				}
+				digit = 1;
+				str++;
+			}
+			else if (*str == 'e' || *str == 'E')
+			{
+				if (e>0 || number == 0)
+				{
+					return false;
+				}
+				e = 1;
+				++str;
+				if (*str == '+' || *str == '-')
+				{
+					str++;
+				}
+				if (*str == '\0')
+				{
+					return false;
+				}
+			}
+			else
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+};
 #endif
