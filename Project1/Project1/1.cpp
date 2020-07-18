@@ -968,4 +968,54 @@ public:
 		return newpHead;
 	}
 };
+//40,从上往下打印二叉树
+class Solution {
+public:
+	vector<int> PrintFromTopToBottom(TreeNode* root) {
+		vector<int> v;
+		if (root == nullptr)
+		{
+			return v;
+		}
+		queue<TreeNode*> TreeQueue;
+		TreeQueue.push(root);
+		while (TreeQueue.size())
+		{
+			TreeNode* tmp = TreeQueue.front();
+			TreeQueue.pop();
+			v.push_back(tmp->val);
+			if (tmp->left)
+			{
+				TreeQueue.push(tmp->left);
+			}
+			if (tmp->right)
+			{
+				TreeQueue.push(tmp->right);
+			}
+		}
+		return v;
+	}
+};
+//41,调整数组顺序使奇数位于偶数前面
+class Solution {
+public:
+	void reOrderArray(vector<int> &array) {
+		int j = 0;
+		int tmp = 0;
+		for (int i = 0; i<array.size(); i++)
+		{
+			if (array[i] % 2 == 1)
+			{
+				tmp = array[i];
+				j = i - 1;
+				while (j >= 0 && array[j] % 2 == 0)
+				{
+					array[j + 1] = array[j];
+					j--;
+				}
+				array[j + 1] = tmp;
+			}
+		}
+	}
+};
 #endif
