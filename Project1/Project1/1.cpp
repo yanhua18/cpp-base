@@ -321,6 +321,45 @@ public:
 		return rotateArray[0];
 	}
 };
+
+class Solution {
+public:
+	int minNumberInRotateArray(vector<int> rotateArray) {
+		if(rotateArray.empty())
+			return 0;
+		int left=0;
+		int right=rotateArray.size()-1;
+		int mid=0;
+		while(left<right)
+		{
+			if(right-left==1)
+			{
+				mid=right;
+				break;
+			}
+			if(rotateArray[left]==rotateArray[right]&&rotateArray[left]==rotateArray[mid])
+			{
+				int tmp=rotateArray[left];
+				for(int i=left+1;i<right;i++)
+				{
+					if(rotateArray[i]<tmp)
+						tmp=rotateArray[i];
+				}
+				return tmp;
+			}
+			int mid=(left+right)>>1;
+			if(rotateArray[mid]>=rotateArray[left])
+			{
+				left=mid;
+			}
+			else
+			{
+				right=mid;
+			}
+		}
+		return rotateArray[mid];
+	}
+};
 //16,剪绳子
 class Solution {
 public:
@@ -1016,6 +1055,77 @@ public:
 				array[j + 1] = tmp;
 			}
 		}
+	}
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//二维数组中的查找
+class Solution {
+public:
+	bool Find(int target, vector<vector<int> > array) {
+		int i = 0;
+		int j = array[0].size() - 1;
+		while (i<array.size() && j >= 0)
+		{
+			if (target>array[i][j])
+			{
+				i++;
+			}
+			else if (target<array[i][j])
+			{
+				j--;
+			}
+			else
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 };
 #endif
