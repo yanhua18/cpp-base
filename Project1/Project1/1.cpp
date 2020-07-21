@@ -858,6 +858,29 @@ public:
 class Solution {
 public:
 	int MoreThanHalfNum_Solution(vector<int> numbers) {
+		int half=numbers.size()/2;
+		unordered_map<int,int> map;
+		for(int i=0;i<numbers.size();i++)
+		{
+			auto it=map.find(numbers[i]);
+			if(it==map.end())
+			{
+				map.insert(make_pair(numbers[i],1));
+			}
+			else
+			{
+				map[numbers[i]]++;
+			}
+			if(map[numbers[i]]>half)
+				return numbers[i];
+		}
+		return 0;
+	}
+};
+
+class Solution {
+public:
+	int MoreThanHalfNum_Solution(vector<int> numbers) {
 		sort(numbers.begin(), numbers.end());
 		int mid = (numbers.size()) / 2;
 		int num_mid = numbers[mid];
@@ -871,6 +894,34 @@ public:
 			return num_mid;
 		else
 			return 0;
+	}
+};
+class Solution {
+public:
+	int MoreThanHalfNum_Solution(vector<int> numbers) {
+		if(numbers.size()==0)
+			return 0;
+		int target=numbers[0];
+		int time=1;
+		for(int i=1;i<numbers.size();i++)
+		{
+			if(time==0)
+			{
+				target=numbers[i];
+				time=1;
+			}
+			if(numbers[i]==target)
+				time++;
+			else
+				time--;
+		}
+		int count=0;
+		for(int i=0;i<numbers.size();i++)
+		{
+			if(numbers[i]==target)
+				count++;
+		}
+		return count>numbers.size()/2 ? target : 0;
 	}
 };
 //36,把数组排成最小数
@@ -1093,17 +1144,107 @@ public:
 
 
 
+//从尾到头打印链表
+class Solution {
+public:
+	vector<int> printListFromTailToHead(ListNode* head) {
+		vector<int> v;
+		stack<int> st;
+		if(head==nullptr)
+			return v;
+		while(head!=nullptr)
+		{
+			st.push(head->val);
+			head=head->next;
+		}
+		while(!st.empty())
+		{
+			v.push_back(st.top());
+			st.pop();
+		}
+		return v;
+	}
+};
 
-
-
-
-
-
-
-
-
-
-
+class Solution {
+public:
+	void printListFromTailToHeadCore(ListNode* head,vector<int> &v)
+	{
+		if(head==nullptr)
+			return;
+		printListFromTailToHeadCore(head->next,v);
+		v.push_back(head->val);
+	}
+	vector<int> printListFromTailToHead(ListNode* head) {
+		vector<int> v;
+		printListFromTailToHeadCore(head,v);
+		return v;
+	}
+};
+//替换空格
+class Solution {
+public:
+	void replaceSpace(char *str,int length) {
+		int count=0;
+		for(int i=0;i<length;i++)
+		{
+			if(str[i]==' ')
+				count++;
+		}
+		int new_length=length+count*2;
+		char* old_s=str+length;
+		char* new_s=str+new_length;
+		while(old_s>=str&&new_s>=str)
+		{
+			if(*old_s==' ')
+			{
+				*new_s--='0';
+				*new_s--='2';
+				*new_s--='%';
+				old_s--;
+			}
+			else
+			{
+				*new_s=*old_s;
+				new_s--,old_s--;
+			}
+		}
+	}
+};
+class Solution {
+public:
+	void replaceSpace(char *str, int length) {
+		int i;
+		int count = 0;
+		for (i = 0; i < length; i++)
+		{
+			if (str[i] == ' ')
+			{
+				count++;
+			}
+		}
+		int num = 2 * count + length;
+		int j = num - 2;
+		str[num-1] = '\0';
+		for (i = length - 2; i >= 0,j>=0; i--)
+		{
+			if (str[i] == ' ')
+			{
+				str[j] = '0';
+				j--;
+				str[j] = '2';
+				j--;
+				str[j] = '%';
+				j--;
+			}
+			else
+			{
+				str[j] = str[i];
+				j--;
+		}
+	}
+}
+};
 //二维数组中的查找
 class Solution {
 public:
@@ -1126,6 +1267,33 @@ public:
 			}
 		}
 		return false;
+	}
+};
+//重建二叉树
+class Solution {
+public:
+	TreeNode* reConstructBinaryTreeCode(vector<int> pre, int pre_start, int pre_end, vector<int> vin, int vin_start, int vin_end)
+	{
+		if (pre_start>pre_end || vin_start>vin_end)
+		{
+			return nullptr;
+		}
+		TreeNode* root = new TreeNode(pre[pre_start]);
+		for (int i = vin_start; i <= vin_end; i++)
+		{
+			if (pre[pre_start] == vin[i])
+			{
+				root->left = reConstructBinaryTreeCode(pre, pre_start + 1, pre_start + i - vin_start, vin, vin_start, i - 1);
+				root->right = reConstructBinaryTreeCode(pre, pre_start + i - vin_start + 1, pre_end, vin, i + 1, vin_end);
+				break;
+			}
+		}
+		return root;
+	}
+	TreeNode* reConstructBinaryTree(vector<int> pre, vector<int> vin) {
+		if (pre.size() == 0 || vin.size() == 0 || pre.size() != vin.size())
+			return nullptr;
+		return reConstructBinaryTreeCode(pre, 0, pre.size() - 1, vin, 0, vin.size() - 1);
 	}
 };
 #endif
