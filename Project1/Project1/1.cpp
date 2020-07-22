@@ -1296,4 +1296,23 @@ public:
 		return reConstructBinaryTreeCode(pre, 0, pre.size() - 1, vin, 0, vin.size() - 1);
 	}
 };
+//链表中的倒数第k个节点
+class Solution {
+public:
+	ListNode* FindKthToTail(ListNode* pListHead, unsigned int k) {
+		ListNode* front = pListHead;
+		ListNode* rear = pListHead;
+		while (k>0 && front != nullptr)
+		{
+			front = front->next;
+			k--;
+		}
+		while (front)
+		{
+			front = front->next;
+			rear = rear->next;
+		}
+		return k>0 ? nullptr : rear;
+	}
+};
 #endif
