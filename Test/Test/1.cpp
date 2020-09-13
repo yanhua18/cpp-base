@@ -3,19 +3,39 @@ using namespace std;
 #include<string>
 #include<stdio.h>
 #include<Windows.h>
+#include<algorithm>
+#include<vector>
 
-
-struct st{
-	int i[3];
-	int a;
-	char b;
-};
+#if 0
+void Reverse(int m, int n, string& str)
+{
+	int i = m, j = n;
+	for (; m < n; m++, n--)
+	{
+		swap(str[m], str[n]);
+	}
+}
 int main()
 {
-	struct st a;
-	for (int i = 0; i < 5; i++)
+	int n;
+	while (cin >> n)
 	{
-		a.i[i] = i;
+		string str;
+		getchar();
+		getline(cin,str);
+		for (int i = 0; i<str.size(); i += n)
+		{
+			if (n-1+i >=str.size())
+			{
+				Reverse(i, str.size() - 1, str);
+			}
+			else
+			{
+				Reverse(i, n - 1 + i, str);
+			}
+			
+		}
+		cout << str << endl;
 	}
-	printf("%d", a.a);
 }
+#endif
