@@ -1,16 +1,16 @@
-﻿生成启动时间为 2020/9/13 20:40:37。
-     1>项目“E:\程序文件\a_GitHub\C++github\cpp-base\Test\Test\Test.vcxproj”在节点 2 上(Rebuild 个目标)。
+﻿生成启动时间为 2020/9/20 21:16:07。
+     1>项目“E:\程序文件\a_GitHub\C++github\cpp-base\Test\Test\Test.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
-         E:\VS2013\VC\bin\CL.exe /c /I"E:\App\Visual Leak Detector\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt 1.cpp Test.cpp
+         E:\VS2013\VC\bin\CL.exe /c /I"E:\App\Visual Leak Detector\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Test.cpp
          Test.cpp
-         1.cpp
-         正在生成代码...
+     1>e:\程序文件\a_github\c++github\cpp-base\test\test\test.cpp(25): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\程序文件\a_github\c++github\cpp-base\test\test\test.cpp(30): warning C4018: “<”: 有符号/无符号不匹配
        Link:
          E:\VS2013\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\程序文件\a_GitHub\C++github\cpp-base\Test\Debug\Test.exe" /INCREMENTAL /NOLOGO /LIBPATH:"E:\App\Visual Leak Detector\lib\Win32" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\程序文件\a_GitHub\C++github\cpp-base\Test\Debug\Test.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\程序文件\a_GitHub\C++github\cpp-base\Test\Debug\Test.lib" /MACHINE:X86 Debug\1.obj
          Debug\Test.obj
          Test.vcxproj -> E:\程序文件\a_GitHub\C++github\cpp-base\Test\Debug\Test.exe
-     1>已完成生成项目“E:\程序文件\a_GitHub\C++github\cpp-base\Test\Test\Test.vcxproj”(Rebuild 个目标)的操作。
+     1>已完成生成项目“E:\程序文件\a_GitHub\C++github\cpp-base\Test\Test\Test.vcxproj”(Build 个目标)的操作。
 
 生成成功。
 
-已用时间 00:00:02.63
+已用时间 00:00:01.49
