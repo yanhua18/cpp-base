@@ -1,54 +1,64 @@
 #include<iostream>
 using namespace std;
-#include<string>
 #include<vector>
+#include<algorithm>
 int main()
 {
-	int n;
-	while (cin >> n)
+	while (1)
 	{
-		vector<string> v;
-		string str;
-		for (int i = 0; i<n; ++i)
+		vector<int> v;
+		int temp = 0;
+		while (1)
 		{
-			cin >> str;
-			v.push_back(str);
+			cin >> temp;
+			v.push_back(temp);
+			if (getchar() == '\n')
+				break;
 		}
-		for (int i = 0; i<n; ++i)
+		
+		sort(v.begin(), v.end());
+		int size = v.size();
+		for (int i = 0; i<size - 2; ++i)
 		{
-			if (v[i].size()<3)
-				cout << "NO" << endl;
-			else
+			if (v[i]>0)
+				break;
+			if (i>0 && v[i] == v[i - 1])
+				continue;
+			int start = i + 1;
+			int end = size - 1;
+			while (start<end)
 			{
-				string str1 = v[i].substr(0, 3);
-				int flag = 1;
-				for (int j = 3; j<v[i].size();)
+				if (v[start] + v[end] == -v[i])
 				{
-					int num = 3;
-					int a = 0;
-					int count = 0;
-					while (num && j<v[i].size())
+					if (start == i + 1 || end == size - 1)
 					{
-						if (v[i][j] == str1[a])
-							count++, a++;
-						num--,j++;
+						cout << v[i] <<" "<< v[start] <<" "<< v[end] << endl;
+						start++, end--;
 					}
-					if (count < 2)
+					else if (v[start] == v[start - 1])
 					{
-						flag = 0;
-						break;
+						start++;
 					}
-
+					else if (v[end] == v[end + 1])
+					{
+						end--;
+					}
+					else
+					{
+						cout << v[i] << " " << v[start] << " " << v[end] << endl;
+						start++, end--;
+					}
 				}
-				if (flag)
-					cout << "Yes" << endl;
+				else if (v[start] + v[end]<-v[i])
+				{
+					start++;
+				}
 				else
-					cout << "No" << endl;
+					end--;
 			}
 		}
 	}
 }
-
 
 
 
